@@ -13,8 +13,8 @@ import java.awt.image.BufferedImage;
  */
 public class Assets {
     public static BufferedImage background; // to store background image
-    
     public static BufferedImage blueSquare;
+    public static BufferedImage brownSquare;
 
 
     /**
@@ -22,8 +22,8 @@ public class Assets {
      */
     public static void init() {
         blueSquare = ImageLoader.loadImage("/images/BlueSquare.png");
+        brownSquare = ImageLoader.loadImage("/images/BrownRectangle.png");
         background = ImageLoader.loadImage("/images/GrayRectangle.png");
-
     }
     
 }

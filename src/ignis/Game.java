@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -27,6 +28,7 @@ public class Game implements Runnable {
     private boolean running;        // to set the game
     private Player player;          // to use a playe
     private KeyManager keyManager;  // to manage the keyboard
+    private ArrayList<Door> doors;
 
 
     /**
@@ -40,10 +42,9 @@ public class Game implements Runnable {
         this.title = title;
         this.width = width;
         this.height = height;
-
         running = false;
         keyManager = new KeyManager();
-
+        doors = new ArrayList<Door>();
     }
 
     /**
@@ -69,7 +70,23 @@ public class Game implements Runnable {
     private void init() {
         display = new Display(title, getWidth(), getHeight());
         Assets.init();
-        player = new Player(0, getHeight() - 100, 1, 100, 100, this);
+        //Initialize player
+        player = new Player(getWidth() / 2, getHeight() - 100, 1, 100, 100, this);
+        
+        //Initialize doors
+        
+        int doorWidth = 75;
+        int doorHeight = 150;
+        int delta = 200;
+        int verticalMargin = 100;
+        int horizontalMargin = 250;
+        for(int i = 0; i < 3; i++){
+            doors.add(new Door(10,i * delta + verticalMargin, doorWidth, doorHeight, this));
+            doors.add(new Door(i * delta + horizontalMargin, 20, doorHeight, doorWidth, this));
+            doors.add(new Door(getWidth() - 100,i * delta + verticalMargin, doorWidth, doorHeight, this));
+            System.out.println("3 doors added");
+        }
+        
         display.getJframe().addKeyListener(keyManager);
     }
 
@@ -112,6 +129,14 @@ public class Game implements Runnable {
         keyManager.tick();
         // avancing player with colision
         player.tick();
+        doorsTick();
+    }
+    
+    public void doorsTick(){
+        for(int i = 0; i < doors.size(); i++){
+            Door d = doors.get(i);
+            d.tick();
+        }
     }
     
     private void restartGame(){
@@ -131,14 +156,23 @@ public class Game implements Runnable {
             display.getCanvas().createBufferStrategy(3);
         } else {
             g = bs.getDrawGraphics();
-            g.drawImage(Assets.background, 0, 0, width, height, null);
-            g.setFont(new Font("Arial", Font.PLAIN, 30));
-            g.setColor(Color.BLACK);
+            renderWorldMenu();
             player.render(g);
-
+            doorsRender();
             bs.show();
             g.dispose();
         }
+    }
+    
+    public void doorsRender(){
+        for(int i = 0; i < doors.size(); i++){
+            Door d = doors.get(i);
+            d.render(g);
+        }
+    }
+    
+    private void renderWorldMenu(){
+        g.drawImage(Assets.background, 0, 0, width, height, null);
     }
 
     /**
