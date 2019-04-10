@@ -16,6 +16,9 @@ public class Ignis {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        System.out.println("Start");
+        Game g = new Game("Atomos", 1200,800);
+        g.start();
     }
     
 }

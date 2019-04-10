@@ -13,21 +13,17 @@ import java.awt.image.BufferedImage;
  */
 public class Assets {
     public static BufferedImage background; // to store background image
-    public static BufferedImage player;     // to store the player image
-    public static BufferedImage bad;
-    public static SoundClip bottleSound;           //to store the sound
-    public static SoundClip loseSound;
     
+    public static BufferedImage blueSquare;
+
 
     /**
      * initializing the images of the game
      */
     public static void init() {
-        background = ImageLoader.loadImage("/images/background.png");
-        player = ImageLoader.loadImage("/images/bin.png");
-        bad = ImageLoader.loadImage("/images/bottle.png");
-        bottleSound = new SoundClip("/sounds/plastic.wav");
-        loseSound = new SoundClip("/sounds/lose.wav");
+        blueSquare = ImageLoader.loadImage("/images/BlueSquare.png");
+        background = ImageLoader.loadImage("/images/GrayRectangle.png");
+
     }
     
 }

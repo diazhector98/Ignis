@@ -114,6 +114,7 @@ public class Player extends Item {
     public void tick() {
         // moving player depending on flags
         if (game.getKeyManager().up) {
+            System.out.println("Going up");
             setY(getY() - getSpeed());
         }
         if (game.getKeyManager().down) {
@@ -162,6 +163,6 @@ public class Player extends Item {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.player, getX(), getY(), getWidth(), getHeight(), null);
+        g.drawImage(Assets.blueSquare, getX(), getY(), getWidth(), getHeight(), null);
     }
 }

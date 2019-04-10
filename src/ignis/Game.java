@@ -63,10 +63,6 @@ public class Game implements Runnable {
     public int getHeight() {
         return height;
     }
-
-    
-    
-
     /**
      * initializing the display window of the game
      */
@@ -74,6 +70,7 @@ public class Game implements Runnable {
         display = new Display(title, getWidth(), getHeight());
         Assets.init();
         player = new Player(0, getHeight() - 100, 1, 100, 100, this);
+        display.getJframe().addKeyListener(keyManager);
     }
 
     @Override
@@ -115,7 +112,6 @@ public class Game implements Runnable {
         keyManager.tick();
         // avancing player with colision
         player.tick();
-     
     }
     
     private void restartGame(){
