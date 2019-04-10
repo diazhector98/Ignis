@@ -29,6 +29,7 @@ public class Game implements Runnable {
     private Player player;          // to use a playe
     private KeyManager keyManager;  // to manage the keyboard
     private ArrayList<Door> doors;
+    private World world;
 
 
     /**
@@ -84,7 +85,6 @@ public class Game implements Runnable {
             doors.add(new Door(10,i * delta + verticalMargin, doorWidth, doorHeight, this));
             doors.add(new Door(i * delta + horizontalMargin, 20, doorHeight, doorWidth, this));
             doors.add(new Door(getWidth() - 100,i * delta + verticalMargin, doorWidth, doorHeight, this));
-            System.out.println("3 doors added");
         }
         
         display.getJframe().addKeyListener(keyManager);
@@ -136,7 +136,16 @@ public class Game implements Runnable {
         for(int i = 0; i < doors.size(); i++){
             Door d = doors.get(i);
             d.tick();
+            if(player.intersectsDoor(d)){
+                goToWorld(d);
+            }
         }
+    }
+    
+    
+    public void goToWorld(Door d){
+        System.out.println("Go to world!!");
+        world = new World(this, player);
     }
     
     private void restartGame(){
@@ -156,12 +165,19 @@ public class Game implements Runnable {
             display.getCanvas().createBufferStrategy(3);
         } else {
             g = bs.getDrawGraphics();
-            renderWorldMenu();
+            if(world == null){
+                renderWorldMenu();
+            } else {
+                renderWorld(world);
+            }
             player.render(g);
-            doorsRender();
             bs.show();
             g.dispose();
         }
+    }
+    
+    public void renderWorld(World w){
+        w.render(g);
     }
     
     public void doorsRender(){
@@ -173,6 +189,7 @@ public class Game implements Runnable {
     
     private void renderWorldMenu(){
         g.drawImage(Assets.background, 0, 0, width, height, null);
+        doorsRender();
     }
 
     /**

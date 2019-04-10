@@ -109,6 +109,12 @@ public class Player extends Item {
     }
     
 
+    public boolean intersectsDoor(Object obj) {
+
+        Rectangle perimetro = getPerimetro();
+        return obj instanceof Door && getPerimetro().intersects(((Door) obj).getPerimetro());
+                
+    }
 
     @Override
     public void tick() {

@@ -6,6 +6,7 @@
 package ignis;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  *
@@ -31,6 +32,10 @@ public class Door extends Item {
     
     public int getHeight(){
         return height;
+    }
+    
+    public Rectangle getPerimetro() {
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 
     @Override
