@@ -22,14 +22,24 @@ public abstract class PhysicsObject extends Item {
         ground = g;
     }
 
-    /**
-     *
-     * @param posX
-     * @param posY
-     */
-    
 
-    public void accelerate(double accelerationX, double accelerationY){
+    public double getSpeedX(){
+        return speedX;
+    }
+
+    public void setSpeedX(double speedX) {
+        this.speedX = speedX;
+    }
+
+    public double getSpeedY() {
+        return speedY;
+    }
+
+    public void setSpeedY(double speedY) {
+        this.speedY = speedY;
+    }
+
+    public void accelerate(double accelerationX, double accelerationY) {
         speedX += accelerationX;
         speedY += accelerationY;
     }

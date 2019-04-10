@@ -14,6 +14,8 @@ public class Player extends PhysicsObject {
     private int height;
     private int speed;
     private Game game;
+    private boolean jumping;
+    private int jumpingForce;
 
     public Player(int x, int y, int direction, int width, int height, Game game) {
         super(x, y, game.getHeight());
@@ -22,6 +24,8 @@ public class Player extends PhysicsObject {
         this.height = height;
         this.game = game;
         this.speed = 10;
+        this.jumping = false;
+        this.jumpingForce = 15;
     }
 
    /**
@@ -107,13 +111,33 @@ public class Player extends PhysicsObject {
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
+
+    public boolean isJumping() {
+        return jumping;
+    }
+
+    public void setJumping(boolean jumping) {
+        this.jumping = jumping;
+    }
+    
     
 
     public boolean intersectsDoor(Object obj) {
 
         Rectangle perimetro = getPerimetro();
-        return obj instanceof Door && getPerimetro().intersects(((Door) obj).getPerimetro());
-                
+        return obj instanceof Door && getPerimetro().intersects(((Door) obj).getPerimetro());     
+    }
+    
+    public boolean intersectsPlatform(Object obj) {
+
+        Rectangle perimetro = getPerimetro();
+        return obj instanceof Platform && getPerimetro().intersects(((Platform) obj).getPerimetro());     
+    }
+    
+    
+    public void handlePlatformIntersection() {
+        setJumping(false);
+        setSpeedY(0);
     }
 
     @Override
@@ -160,7 +184,11 @@ public class Player extends PhysicsObject {
     }
     
     public void jump(){
-        accelerate(0, -3);
+        if(!isJumping()){
+            setJumping(true);
+            setY(getY() - 5);
+            accelerate(0, -1 * jumpingForce);
+        }
     }
 
     @Override

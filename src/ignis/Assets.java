@@ -16,6 +16,7 @@ public class Assets {
     public static BufferedImage blueSquare;
     public static BufferedImage brownSquare;
     public static BufferedImage greenSquare;
+    public static BufferedImage darkGraySquare;
 
 
     /**
@@ -25,7 +26,9 @@ public class Assets {
         blueSquare = ImageLoader.loadImage("/images/BlueSquare.png");
         brownSquare = ImageLoader.loadImage("/images/BrownRectangle.png");
         greenSquare = ImageLoader.loadImage("/images/GreenRectangle.png");
+        darkGraySquare = ImageLoader.loadImage("/images/DarkGrayRectangle.png");
         background = ImageLoader.loadImage("/images/GrayRectangle.png");
+        
         
     }
     

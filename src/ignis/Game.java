@@ -30,6 +30,7 @@ public class Game implements Runnable {
     private KeyManager keyManager;  // to manage the keyboard
     private ArrayList<Door> doors;
     private World world;
+    private Platform platform;
 
 
     /**
@@ -73,6 +74,10 @@ public class Game implements Runnable {
         Assets.init();
         //Initialize player
         player = new Player(getWidth() / 2, getHeight() - 700, 1, 100, 100, this);
+        
+        //Initialize test platform
+        
+        platform = new Platform(400,500, 400, 50);
         
         //Initialize doors
         
@@ -129,6 +134,9 @@ public class Game implements Runnable {
         keyManager.tick();
         // avancing player with colision
         player.tick();
+        if(player.intersectsPlatform(platform)){
+            player.handlePlatformIntersection();
+        }
         doorsTick();
     }
     
@@ -170,6 +178,7 @@ public class Game implements Runnable {
                 renderWorld(world);
             }
             player.render(g);
+            platform.render(g);
             bs.show();
             g.dispose();
         }
