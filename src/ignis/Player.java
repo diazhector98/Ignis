@@ -147,7 +147,6 @@ public class Player extends PhysicsObject {
         update();
         
         if (game.getKeyManager().up) {
-            System.out.println("Jump!");
             jump();
         }
         if (game.getKeyManager().down) {

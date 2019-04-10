@@ -31,6 +31,8 @@ public class Game implements Runnable {
     private ArrayList<Door> doors;
     private World world;
     private Platform platform;
+    private Platform platform2;
+    private Atom atom;
 
 
     /**
@@ -77,7 +79,13 @@ public class Game implements Runnable {
         
         //Initialize test platform
         
+        
+        
         platform = new Platform(400,500, 400, 50);
+        platform2 = new Platform(700,300, 400, 50);
+        
+        atom = new Atom(750, 225, this, platform2);
+
         
         //Initialize doors
         
@@ -134,9 +142,16 @@ public class Game implements Runnable {
         keyManager.tick();
         // avancing player with colision
         player.tick();
+        atom.tick();
         if(player.intersectsPlatform(platform)){
             player.handlePlatformIntersection();
         }
+        
+        if(player.intersectsPlatform(platform2)){
+            player.handlePlatformIntersection();
+        }
+        
+        
         doorsTick();
     }
     
@@ -179,6 +194,8 @@ public class Game implements Runnable {
             }
             player.render(g);
             platform.render(g);
+            platform2.render(g);
+            atom.render(g);
             bs.show();
             g.dispose();
         }
