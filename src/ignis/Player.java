@@ -7,7 +7,7 @@ import java.awt.Rectangle;
  *
  * @author antoniomejorado
  */
-public class Player extends Item {
+public class Player extends PhysicsObject {
 
     private int direction;
     private int width;
@@ -16,7 +16,7 @@ public class Player extends Item {
     private Game game;
 
     public Player(int x, int y, int direction, int width, int height, Game game) {
-        super(x, y);
+        super(x, y, game.getHeight());
         this.direction = direction;
         this.width = width;
         this.height = height;
@@ -119,39 +119,22 @@ public class Player extends Item {
     @Override
     public void tick() {
         // moving player depending on flags
+        
+        update();
+        
         if (game.getKeyManager().up) {
-            setY(getY() - getSpeed());
+            System.out.println("Jump!");
+            jump();
         }
         if (game.getKeyManager().down) {
             setY(getY() + getSpeed());
         }
         if (game.getKeyManager().left) {
-            setX(getX() - getSpeed());
+            moveLeft();
         }
         if (game.getKeyManager().right) {
-            setX(getX() + getSpeed());
+            moveRight();
         }
-        
-        if(game.getKeyManager().E){
-            setX(getX() + getSpeed());
-            setY(getY() - getSpeed());
-        }
-
-        if (game.getKeyManager().D) {
-            setX(getX() + getSpeed());
-            setY(getY() + getSpeed());
-        }
-
-        if (game.getKeyManager().Q) {
-            setX(getX() - getSpeed());
-            setY(getY() - getSpeed());
-        }
-
-        if (game.getKeyManager().A) {
-            setX(getX() - getSpeed());
-            setY(getY() + getSpeed());
-        }
-
         
         // reset x position and y position if colision
         if (getX() + 60 >= game.getWidth()) {
@@ -159,11 +142,25 @@ public class Player extends Item {
         } else if (getX() <= -30) {
             setX(-30);
         }
+        /*
         if (getY() + 80 >= game.getHeight()) {
-            setY(game.getHeight() - 80);
+            setY(game.getHeight() - 100);
         } else if (getY() <= -20) {
             setY(-20);
         }
+*/
+    }
+    
+    public void moveRight(){
+        move(speed, 0);
+    }
+    
+    public void moveLeft(){
+        move(-1 * speed, 0);
+    }
+    
+    public void jump(){
+        accelerate(0, -3);
     }
 
     @Override

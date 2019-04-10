@@ -72,7 +72,7 @@ public class Game implements Runnable {
         display = new Display(title, getWidth(), getHeight());
         Assets.init();
         //Initialize player
-        player = new Player(getWidth() / 2, getHeight() - 100, 1, 100, 100, this);
+        player = new Player(getWidth() / 2, getHeight() - 700, 1, 100, 100, this);
         
         //Initialize doors
         
@@ -144,7 +144,6 @@ public class Game implements Runnable {
     
     
     public void goToWorld(Door d){
-        System.out.println("Go to world!!");
         world = new World(this, player);
     }
     
