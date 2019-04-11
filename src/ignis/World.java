@@ -6,6 +6,7 @@
 package ignis;
 
 import java.awt.Graphics;
+import java.awt.image.DataBufferByte;
 
 /**
  *
@@ -19,6 +20,7 @@ public class World {
     World(Game g, Player p){
         this.game = g;
         this.player = p;
+        
     }
     
     
@@ -28,5 +30,6 @@ public class World {
     
     public void render(Graphics g){
         g.drawImage(Assets.greenSquare, 0, 0, game.getWidth(), game.getHeight(), null);
+        g.translate(-player.getX()/2, -player.getY()/2);
     }
 }

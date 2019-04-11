@@ -33,7 +33,8 @@ public class Game implements Runnable {
     private Platform platform;
     private Platform platform2;
     private Atom atom;
-
+    private LinkedList<Platform> map;
+    private LinkedList<Atom> atoms;
 
     /**
      * to create title, width and height and set the game is still not running
@@ -49,6 +50,7 @@ public class Game implements Runnable {
         running = false;
         keyManager = new KeyManager();
         doors = new ArrayList<Door>();
+        map = new LinkedList<Platform>();
     }
 
     /**
@@ -68,6 +70,7 @@ public class Game implements Runnable {
     public int getHeight() {
         return height;
     }
+
     /**
      * initializing the display window of the game
      */
@@ -76,30 +79,37 @@ public class Game implements Runnable {
         Assets.init();
         //Initialize player
         player = new Player(getWidth() / 2, getHeight() - 700, 1, 100, 100, this);
-        
+
         //Initialize test platform
-        
-        
-        
-        platform = new Platform(400,500, 400, 50);
-        platform2 = new Platform(700,300, 400, 50);
-        
+        platform = new Platform(400, 500, 400, 50);
+        platform2 = new Platform(700, 300, 400, 50);
+
+        for (int xx = 0; xx < 84; xx++) {
+            for (int yy = 0; yy < 17; yy++) {
+                int pixel = Assets.level1.getRGB(xx, yy);
+                int red = (pixel >> 16) & 0xff;
+                int green = (pixel >> 8) & 0xff;
+                int blue = (pixel) & 0xff;
+                if (red == 255 && green == 255 && blue == 255) {
+                    map.add(new Platform(xx * 32, yy * 32, 32, 32));
+                };
+            }
+        }
+
         atom = new Atom(750, 225, this, platform2);
 
-        
         //Initialize doors
-        
         int doorWidth = 75;
         int doorHeight = 150;
         int delta = 200;
         int verticalMargin = 100;
         int horizontalMargin = 250;
-        for(int i = 0; i < 3; i++){
-            doors.add(new Door(10,i * delta + verticalMargin, doorWidth, doorHeight, this));
+        for (int i = 0; i < 3; i++) {
+            doors.add(new Door(10, i * delta + verticalMargin, doorWidth, doorHeight, this));
             doors.add(new Door(i * delta + horizontalMargin, 20, doorHeight, doorWidth, this));
-            doors.add(new Door(getWidth() - 100,i * delta + verticalMargin, doorWidth, doorHeight, this));
+            doors.add(new Door(getWidth() - 100, i * delta + verticalMargin, doorWidth, doorHeight, this));
         }
-        
+
         display.getJframe().addKeyListener(keyManager);
     }
 
@@ -143,35 +153,42 @@ public class Game implements Runnable {
         // avancing player with colision
         player.tick();
         atom.tick();
-        if(player.intersectsPlatform(platform)){
+        /*
+        if (player.intersectsPlatform(platform)) {
             player.handlePlatformIntersection();
         }
-        
-        if(player.intersectsPlatform(platform2)){
+
+        if (player.intersectsPlatform(platform2)) {
             player.handlePlatformIntersection();
         }
+        */
         
-        
+
+        for (int i = 0; i < map.size(); i++) {
+            if (player.intersectsPlatform(map.get(i))) {
+                player.handlePlatformIntersection();
+            }
+        }
+
         doorsTick();
     }
-    
-    public void doorsTick(){
-        for(int i = 0; i < doors.size(); i++){
+
+    public void doorsTick() {
+        for (int i = 0; i < doors.size(); i++) {
             Door d = doors.get(i);
             d.tick();
-            if(player.intersectsDoor(d)){
+            if (player.intersectsDoor(d)) {
                 goToWorld(d);
             }
         }
     }
-    
-    
-    public void goToWorld(Door d){
+
+    public void goToWorld(Door d) {
         world = new World(this, player);
     }
-    
-    private void restartGame(){
-       
+
+    private void restartGame() {
+
     }
 
     private void render() {
@@ -187,32 +204,33 @@ public class Game implements Runnable {
             display.getCanvas().createBufferStrategy(3);
         } else {
             g = bs.getDrawGraphics();
-            if(world == null){
+            if (world == null) {
                 renderWorldMenu();
             } else {
                 renderWorld(world);
             }
             player.render(g);
-            platform.render(g);
-            platform2.render(g);
             atom.render(g);
+            for (int i = 0; i < map.size(); i++) {
+                map.get(i).render(g);
+            }
             bs.show();
             g.dispose();
         }
     }
-    
-    public void renderWorld(World w){
+
+    public void renderWorld(World w) {
         w.render(g);
     }
-    
-    public void doorsRender(){
-        for(int i = 0; i < doors.size(); i++){
+
+    public void doorsRender() {
+        for (int i = 0; i < doors.size(); i++) {
             Door d = doors.get(i);
             d.render(g);
         }
     }
-    
-    private void renderWorldMenu(){
+
+    private void renderWorldMenu() {
         g.drawImage(Assets.background, 0, 0, width, height, null);
         doorsRender();
     }
