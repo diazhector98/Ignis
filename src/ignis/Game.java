@@ -165,11 +165,21 @@ public class Game implements Runnable {
         
 
         for (int i = 0; i < map.size(); i++) {
-            if (player.instersectsPlatformFromAbove(map.get(i))) {
-                player.handleTopPlatformIntersection();
-            }
+            player.handlePlatformIntersection(map.get(i));
         }
-
+        
+        
+        if(player.intersectsAnyPlatformFromTheLeft(map)){
+            player.setOnPlatformLeft(true);
+        } else {
+            player.setOnPlatformLeft(false);
+        }
+        if(player.intersectsAnyPlatformFromTheRight(map)){
+            player.setOnPlatformRight(true);
+        } else {
+            player.setOnPlatformRight(false);
+        }
+        
         doorsTick();
     }
 

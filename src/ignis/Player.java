@@ -2,6 +2,7 @@ package ignis;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.LinkedList;
 
 /**
  *
@@ -17,6 +18,8 @@ public class Player extends PhysicsObject {
     private boolean jumping;
     private int jumpingForce;
     private boolean onFloor;
+    private boolean onPlatformRight;
+    private boolean onPlatformLeft;
 
     public Player(int x, int y, int direction, int width, int height, Game game) {
         super(x, y, game.getHeight());
@@ -136,10 +139,49 @@ public class Player extends PhysicsObject {
         return obj instanceof Platform && getPerimetro().intersects(((Platform) obj).getPerimetro());     
     }
     
-    public boolean instersectsPlatformFromAbove(Object obj){
+    public void handlePlatformIntersection(Object obj) {
+        if (intersectsPlatformFromAbove(obj)) {
+            setJumping(false);
+            setSpeedY(0);
+            setOnFloor(true);
+        }
+    }
+    
+    public boolean intersectsAnyPlatformFromTheLeft(LinkedList<Platform> map){
+        for(Platform p : map){
+            if(intersectsPlatformFromLeft(p)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean intersectsAnyPlatformFromTheRight(LinkedList<Platform> map){
+        for(Platform p : map){
+            if(intersectsPlatformFromRight(p)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean intersectsPlatformFromAbove(Object obj){
         return obj instanceof Platform
                 && getPerimetro().intersects(((Platform) obj).getPerimetro())
                 && getY() < ((Platform) obj).getY();   
+    }
+    
+    
+    public boolean intersectsPlatformFromRight(Object obj){
+        return obj instanceof Platform
+            && getPerimetro().intersects(((Platform) obj).getPerimetro())
+            && (getX() + 1 > ((Platform) obj).getX()) && !intersectsPlatformFromAbove(obj); 
+    }
+    
+    public boolean intersectsPlatformFromLeft(Object obj){
+        return obj instanceof Platform
+            && getPerimetro().intersects(((Platform) obj).getPerimetro())
+            && (getX() + 1 < ((Platform) obj).getX()) && !intersectsPlatformFromAbove(obj); 
     }
     
     
@@ -157,6 +199,30 @@ public class Player extends PhysicsObject {
         this.onFloor = onFloor;
     }
     
+    public void handleRightPlatformIntersection() {
+        setOnPlatformRight(true);
+    }
+    
+    public void handleLeftPlatformIntersection() {
+        setOnPlatformLeft(true);
+    }
+
+    public boolean isOnPlatformRight() {
+        return onPlatformRight;
+    }
+
+    public void setOnPlatformRight(boolean onPlatformRight) {
+        this.onPlatformRight = onPlatformRight;
+    }
+
+    public boolean isOnPlatformLeft() {
+        return onPlatformLeft;
+    }
+
+    public void setOnPlatformLeft(boolean onPlatformLeft) {
+        this.onPlatformLeft = onPlatformLeft;
+    }
+
 
     @Override
     public void tick() {
@@ -170,12 +236,15 @@ public class Player extends PhysicsObject {
         if (game.getKeyManager().down && !isOnFloor()) {
             setY(getY() + getSpeed());
         }
-        if (game.getKeyManager().left) {
+        if (game.getKeyManager().left && !isOnPlatformRight()) {
             moveLeft();
         }
-        if (game.getKeyManager().right) {
+        if (game.getKeyManager().right && !isOnPlatformLeft()) {
             moveRight();
         }
+        
+        
+        
         
         // reset x position and y position if colision
         /*
