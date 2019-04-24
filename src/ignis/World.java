@@ -30,6 +30,6 @@ public class World {
     
     public void render(Graphics g){
         g.drawImage(Assets.greenSquare, 0, 0, game.getWidth(), game.getHeight(), null);
-        g.translate(-player.getX()/2, -player.getY()/2);
+        g.translate(-(player.getX()-1200/2), -(player.getY()-800/2));
     }
 }
