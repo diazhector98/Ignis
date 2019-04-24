@@ -16,6 +16,7 @@ public class Player extends PhysicsObject {
     private Game game;
     private boolean jumping;
     private int jumpingForce;
+    private boolean onFloor;
 
     public Player(int x, int y, int direction, int width, int height, Game game) {
         super(x, y, game.getHeight());
@@ -26,6 +27,7 @@ public class Player extends PhysicsObject {
         this.speed = 10;
         this.jumping = false;
         this.jumpingForce = 15;
+        this.onFloor = true;
     }
 
    /**
@@ -134,11 +136,27 @@ public class Player extends PhysicsObject {
         return obj instanceof Platform && getPerimetro().intersects(((Platform) obj).getPerimetro());     
     }
     
+    public boolean instersectsPlatformFromAbove(Object obj){
+        return obj instanceof Platform
+                && getPerimetro().intersects(((Platform) obj).getPerimetro())
+                && getY() < ((Platform) obj).getY();   
+    }
     
-    public void handlePlatformIntersection() {
+    
+    public void handleTopPlatformIntersection() {
         setJumping(false);
         setSpeedY(0);
+        setOnFloor(true);
     }
+
+    public boolean isOnFloor() {
+        return onFloor;
+    }
+
+    public void setOnFloor(boolean onFloor) {
+        this.onFloor = onFloor;
+    }
+    
 
     @Override
     public void tick() {
@@ -149,7 +167,7 @@ public class Player extends PhysicsObject {
         if (game.getKeyManager().up) {
             jump();
         }
-        if (game.getKeyManager().down) {
+        if (game.getKeyManager().down && !isOnFloor()) {
             setY(getY() + getSpeed());
         }
         if (game.getKeyManager().left) {

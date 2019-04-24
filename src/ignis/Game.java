@@ -165,8 +165,8 @@ public class Game implements Runnable {
         
 
         for (int i = 0; i < map.size(); i++) {
-            if (player.intersectsPlatform(map.get(i))) {
-                player.handlePlatformIntersection();
+            if (player.instersectsPlatformFromAbove(map.get(i))) {
+                player.handleTopPlatformIntersection();
             }
         }
 

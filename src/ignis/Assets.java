@@ -17,6 +17,7 @@ public class Assets {
     public static BufferedImage brownSquare;
     public static BufferedImage greenSquare;
     public static BufferedImage darkGraySquare;
+    public static BufferedImage redSquare;
     public static BufferedImage purpleCircle;
     public static BufferedImage level1;
 
@@ -28,6 +29,7 @@ public class Assets {
         blueSquare = ImageLoader.loadImage("/images/BlueSquare.png");
         brownSquare = ImageLoader.loadImage("/images/BrownRectangle.png");
         greenSquare = ImageLoader.loadImage("/images/GreenRectangle.png");
+        redSquare = ImageLoader.loadImage("/images/RedRectangle.png");
         darkGraySquare = ImageLoader.loadImage("/images/DarkGrayRectangle.png");
         purpleCircle = ImageLoader.loadImage("/images/PurpleCircle.png");
         level1 = ImageLoader.loadImage("/images/level1.png");

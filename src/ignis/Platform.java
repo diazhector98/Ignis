@@ -16,11 +16,14 @@ public class Platform extends Item{
     
     private int width;
     private int height;
+    
+    private int color;
 
     public Platform(int x, int y, int width, int height) {
         super(x, y);
         this.width = width;
         this.height = height;
+        this.color = Math.random() > 0.5 ? 1 : 0;
     }
 
     public int getWidth() {
@@ -50,7 +53,11 @@ public class Platform extends Item{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.darkGraySquare, getX(), getY(), getWidth(), getHeight(), null);
+        if(this.color == 1){
+            g.drawImage(Assets.darkGraySquare, getX(), getY(), getWidth(), getHeight(), null);            
+        } else {
+            g.drawImage(Assets.redSquare, getX(), getY(), getWidth(), getHeight(), null);            
+        }
     }
     
 }
