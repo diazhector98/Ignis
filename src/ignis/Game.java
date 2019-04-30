@@ -81,9 +81,6 @@ public class Game implements Runnable {
         //Initialize player
         player = new Player(getWidth() / 2, getHeight() - 900, 1, 50, 50, this);
 
-        //Initialize test platform
-        platform = new Platform(400, 500, 400, 50);
-        platform2 = new Platform(700, 300, 400, 50);
 
         /*
         for (int xx = 0; xx < 84; xx++) {
@@ -100,8 +97,8 @@ public class Game implements Runnable {
         
         */
         
-        for(int x = 0; x < 12; x++){
-            for(int y = 0; y < 8; y++){
+        for(int y = 0; y < 8; y++){
+            for(int x = 0; x < 12; x++){
                 int pixel = Assets.altLevel1.getRGB(x, y);
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
@@ -112,7 +109,7 @@ public class Game implements Runnable {
             }
         }
 
-        atom = new Atom(750, 225, this, platform2);
+        atom = new Atom(this, map.get(2));
         
         atoms.add(atom);
         

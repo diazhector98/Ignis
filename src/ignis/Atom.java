@@ -21,8 +21,8 @@ public class Atom extends PhysicsObject{
     private boolean airborne;
     private int jumpingForce;
     
-    public Atom(int x, int y, Game g, Platform p) {
-        super(x, y, g.getHeight());
+    public Atom(Game g, Platform p) {
+        super(p.getX(), p.getY() - 60, g.getHeight());
         this.width = 50;
         this.height = 50;
         this.platform = p;
