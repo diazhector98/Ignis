@@ -19,7 +19,9 @@ public class Assets {
     public static BufferedImage darkGraySquare;
     public static BufferedImage redSquare;
     public static BufferedImage purpleCircle;
-    public static BufferedImage level1;
+    public static BufferedImage level1;    
+    public static BufferedImage altLevel1;
+
 
 
     /**
@@ -34,6 +36,8 @@ public class Assets {
         purpleCircle = ImageLoader.loadImage("/images/PurpleCircle.png");
         level1 = ImageLoader.loadImage("/images/level1.png");
         background = ImageLoader.loadImage("/images/GrayRectangle.png");
+        altLevel1 = ImageLoader.loadImage("/images/altLevel1.png");
+
         
         
         

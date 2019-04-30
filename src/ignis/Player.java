@@ -133,6 +133,10 @@ public class Player extends PhysicsObject {
         return obj instanceof Door && getPerimetro().intersects(((Door) obj).getPerimetro());     
     }
     
+    public boolean intersectsAtom(Object obj){
+        return obj instanceof Atom && getPerimetro().intersects(((Atom) obj).getPerimetro());
+    }
+    
     public boolean intersectsPlatform(Object obj) {
 
         Rectangle perimetro = getPerimetro();
@@ -143,6 +147,7 @@ public class Player extends PhysicsObject {
         if (intersectsPlatformFromAbove(obj)) {
             setJumping(false);
             setSpeedY(0);
+            setY(((Platform) obj).getY() - getHeight());
             setOnFloor(true);
         }
     }
@@ -168,7 +173,7 @@ public class Player extends PhysicsObject {
     public boolean intersectsPlatformFromAbove(Object obj){
         return obj instanceof Platform
                 && getPerimetro().intersects(((Platform) obj).getPerimetro())
-                && getY() < ((Platform) obj).getY();   
+                && getY() + 6 * getHeight() / 10 <= ((Platform) obj).getY();   
     }
     
     
@@ -186,6 +191,7 @@ public class Player extends PhysicsObject {
     
     
     public void handleTopPlatformIntersection() {
+        System.out.println("Handle top intersection");
         setJumping(false);
         setSpeedY(0);
         setOnFloor(true);

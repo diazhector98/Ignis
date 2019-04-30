@@ -51,6 +51,7 @@ public class Game implements Runnable {
         keyManager = new KeyManager();
         doors = new ArrayList<Door>();
         map = new LinkedList<Platform>();
+        atoms = new LinkedList<>();
     }
 
     /**
@@ -78,12 +79,13 @@ public class Game implements Runnable {
         display = new Display(title, getWidth(), getHeight());
         Assets.init();
         //Initialize player
-        player = new Player(getWidth() / 2, getHeight() - 700, 1, 100, 100, this);
+        player = new Player(getWidth() / 2, getHeight() - 900, 1, 50, 50, this);
 
         //Initialize test platform
         platform = new Platform(400, 500, 400, 50);
         platform2 = new Platform(700, 300, 400, 50);
 
+        /*
         for (int xx = 0; xx < 84; xx++) {
             for (int yy = 0; yy < 17; yy++) {
                 int pixel = Assets.level1.getRGB(xx, yy);
@@ -91,12 +93,29 @@ public class Game implements Runnable {
                 int green = (pixel >> 8) & 0xff;
                 int blue = (pixel) & 0xff;
                 if (red == 255 && green == 255 && blue == 255) {
-                    map.add(new Platform(xx * 32, yy * 32, 32, 32));
+                    map.add(new Platform(xx * 70, yy * 70, 70, 70));
+                };
+            }
+        }
+        
+        */
+        
+        for(int x = 0; x < 12; x++){
+            for(int y = 0; y < 8; y++){
+                int pixel = Assets.altLevel1.getRGB(x, y);
+                int red = (pixel >> 16) & 0xff;
+                int green = (pixel >> 8) & 0xff;
+                int blue = (pixel) & 0xff;
+                if (red == 255 && green == 255 && blue == 255) {
+                    map.add(new Platform(x * 100, y * 100, 100, 100));
                 };
             }
         }
 
         atom = new Atom(750, 225, this, platform2);
+        
+        atoms.add(atom);
+        
 
         //Initialize doors
         int doorWidth = 75;
@@ -152,7 +171,13 @@ public class Game implements Runnable {
         keyManager.tick();
         // avancing player with colision
         player.tick();
-        atom.tick();
+        
+        for(Atom a : atoms){
+            if(player.intersectsAtom(a)){
+                atoms.remove(a);
+            }
+            a.tick();
+        }
         /*
         if (player.intersectsPlatform(platform)) {
             player.handlePlatformIntersection();
@@ -162,6 +187,8 @@ public class Game implements Runnable {
             player.handlePlatformIntersection();
         }
         */
+        
+        
         
 
         for (int i = 0; i < map.size(); i++) {
@@ -220,7 +247,9 @@ public class Game implements Runnable {
                 renderWorld(world);
             }
             player.render(g);
-            atom.render(g);
+            for(Atom a : atoms){
+                a.render(g);
+            }
             for (int i = 0; i < map.size(); i++) {
                 map.get(i).render(g);
             }
