@@ -72,6 +72,16 @@ public class Game implements Runnable {
         return height;
     }
 
+    public World getWorld() {
+        return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
+    
+    
+
     /**
      * initializing the display window of the game
      */
@@ -79,7 +89,7 @@ public class Game implements Runnable {
         display = new Display(title, getWidth(), getHeight());
         Assets.init();
         //Initialize player
-        player = new Player(getWidth() / 2, getHeight() - 900, 1, 50, 50, this);
+        player = new Player(getWidth() / 2, getHeight() - 500, 1, 50, 50, this);
 
 
         /*

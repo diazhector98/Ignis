@@ -234,19 +234,35 @@ public class Player extends PhysicsObject {
     public void tick() {
         // moving player depending on flags
         
-        update();
         
-        if (game.getKeyManager().up) {
-            jump();
-        }
-        if (game.getKeyManager().down && !isOnFloor()) {
-            setY(getY() + getSpeed());
-        }
-        if (game.getKeyManager().left && !isOnPlatformRight()) {
-            moveLeft();
-        }
-        if (game.getKeyManager().right && !isOnPlatformLeft()) {
-            moveRight();
+        if (this.game.getWorld() != null) {
+            update();
+            if (game.getKeyManager().up) {
+                jump();
+            }
+            if (game.getKeyManager().down && !isOnFloor()) {
+                setY(getY() + getSpeed());
+            }
+            if (game.getKeyManager().left && !isOnPlatformRight()) {
+                moveLeft();
+            }
+            if (game.getKeyManager().right && !isOnPlatformLeft()) {
+                moveRight();
+            }
+        } else {
+            if (game.getKeyManager().up) {
+                setY(getY() - getSpeed());
+            }
+            if (game.getKeyManager().down) {
+                setY(getY() + getSpeed());
+            }
+            if (game.getKeyManager().left) {
+                setX(getX() - getSpeed());
+            }
+            if (game.getKeyManager().right) {
+                setX(getX() + getSpeed());
+            }
+        
         }
         
         
