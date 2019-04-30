@@ -107,6 +107,7 @@ public class Game implements Runnable {
         
         */
         
+        /*
         for(int y = 0; y < 8; y++){
             for(int x = 0; x < 12; x++){
                 int pixel = Assets.altLevel1.getRGB(x, y);
@@ -118,11 +119,9 @@ public class Game implements Runnable {
                 };
             }
         }
+        
+        */
 
-        atom = new Atom(this, map.get(2));
-        
-        atoms.add(atom);
-        
 
         //Initialize doors
         int doorWidth = 75;
@@ -213,8 +212,9 @@ public class Game implements Runnable {
         } else {
             player.setOnPlatformRight(false);
         }
-        
-        doorsTick();
+        if(world == null){
+            doorsTick();
+        }
     }
 
     public void doorsTick() {
@@ -228,7 +228,25 @@ public class Game implements Runnable {
     }
 
     public void goToWorld(Door d) {
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 12; x++) {
+                int pixel = Assets.altLevel1.getRGB(x, y);
+                int red = (pixel >> 16) & 0xff;
+                int green = (pixel >> 8) & 0xff;
+                int blue = (pixel) & 0xff;
+                if (red == 255 && green == 255 && blue == 255) {
+                    map.add(new Platform(x * 100, y * 100, 100, 100));
+                };
+            }
+        }
+
+        atom = new Atom(this, map.get(2));
+
+        atoms.add(atom);
+        
         world = new World(this, player);
+
+
     }
 
     private void restartGame() {
@@ -257,9 +275,6 @@ public class Game implements Runnable {
             for(Atom a : atoms){
                 a.render(g);
             }
-            for (int i = 0; i < map.size(); i++) {
-                map.get(i).render(g);
-            }
             bs.show();
             g.dispose();
         }
@@ -267,6 +282,9 @@ public class Game implements Runnable {
 
     public void renderWorld(World w) {
         w.render(g);
+        for (int i = 0; i < map.size(); i++) {
+            map.get(i).render(g);
+        }
     }
 
     public void doorsRender() {
