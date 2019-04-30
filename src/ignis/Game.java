@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -35,6 +36,7 @@ public class Game implements Runnable {
     private Atom atom;
     private LinkedList<Platform> map;
     private LinkedList<Atom> atoms;
+    private BufferedImage mapImage;
 
     /**
      * to create title, width and height and set the game is still not running
@@ -83,19 +85,6 @@ public class Game implements Runnable {
         //Initialize test platform
         platform = new Platform(400, 500, 400, 50);
         platform2 = new Platform(700, 300, 400, 50);
-
-        for (int xx = 0; xx < 84; xx++) {
-            for (int yy = 0; yy < 17; yy++) {
-                int pixel = Assets.level1.getRGB(xx, yy);
-                int red = (pixel >> 16) & 0xff;
-                int green = (pixel >> 8) & 0xff;
-                int blue = (pixel) & 0xff;
-                if (red == 255 && green == 255 && blue == 255) {
-                    map.add(new Platform(xx * 32, yy * 32, 32, 32));
-                };
-            }
-        }
-
         atom = new Atom(750, 225, this, platform2);
 
         //Initialize doors
@@ -178,13 +167,13 @@ public class Game implements Runnable {
             Door d = doors.get(i);
             d.tick();
             if (player.intersectsDoor(d)) {
-                goToWorld(d);
+                goToWorld(2);
             }
         }
     }
 
-    public void goToWorld(Door d) {
-        world = new World(this, player);
+    public void goToWorld(int d) {
+        world = new World(this, player, 2);
     }
 
     private void restartGame() {
@@ -211,9 +200,7 @@ public class Game implements Runnable {
             }
             player.render(g);
             atom.render(g);
-            for (int i = 0; i < map.size(); i++) {
-                map.get(i).render(g);
-            }
+            
             bs.show();
             g.dispose();
         }
