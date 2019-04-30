@@ -212,6 +212,11 @@ public class Game implements Runnable {
         } else {
             player.setOnPlatformRight(false);
         }
+        
+        
+        for(Platform p : map){
+            p.tick();
+        }
         if(world == null){
             doorsTick();
         }
@@ -226,17 +231,36 @@ public class Game implements Runnable {
             }
         }
     }
+    
+    
+    public String getColor(int red, int green, int blue){
+        if(red == 255 && green == 255 && blue == 255){
+            return "WHITE";
+        } else if(red == 0 && green == 0 && blue == 0){
+            return "BLACK";
+        } else if(red > green && red > blue){
+            return "RED";
+        } else if(green > red && green > blue){
+            return "GREEN";
+        } else if(blue > green && blue > red){
+            return "BLUE";
+        } else {
+            return "NOT DETECTED";
+        }
+    }
 
     public void goToWorld(Door d) {
         for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 12; x++) {
+            for (int x = 0; x < 20; x++) {
                 int pixel = Assets.altLevel1.getRGB(x, y);
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
                 int blue = (pixel) & 0xff;
-                if (red == 255 && green == 255 && blue == 255) {
-                    map.add(new Platform(x * 100, y * 100, 100, 100));
-                };
+                if (getColor(red,green,blue).equals("WHITE")) {
+                    map.add(new Platform(x * 100, y * 100, 100, 100, "STATIC"));
+                } else if (getColor(red,green,blue).equals("GREEN")){
+                    map.add(new Platform(x * 100, y * 100, 100, 100,"ACTIVE"));
+                }
             }
         }
 
