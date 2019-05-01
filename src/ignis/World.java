@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.DataBufferByte;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -45,12 +46,19 @@ public class World {
     }
     
     public void tick(){
+        ArrayList<Atom> atomsToRemove = new ArrayList<>();
         for(Atom a : atoms){
-            if(player.intersectsAtom(a)){
-                atoms.remove(a);
-            }
             a.tick();
+            if(player.intersectsAtom(a)){
+                atomsToRemove.add(a);
+            }
+
         }
+        
+        for(Atom a : atomsToRemove){
+            atoms.remove(a);
+        }
+        atomsToRemove.clear();
         for (int i = 0; i < map.size(); i++) {
             player.handlePlatformIntersection(map.get(i));
         }
