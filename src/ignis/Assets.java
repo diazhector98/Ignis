@@ -21,6 +21,12 @@ public class Assets {
     public static BufferedImage purpleCircle;
     public static BufferedImage level1;    
     public static BufferedImage altLevel1;
+    public static BufferedImage groundBlock;
+    public static BufferedImage backgroundMine;
+    public static BufferedImage playerRight;
+    public static BufferedImage playerLeft;
+    public static BufferedImage hydrogenAtom;
+    public static BufferedImage oxygenAtom;
 
 
 
@@ -37,9 +43,12 @@ public class Assets {
         level1 = ImageLoader.loadImage("/images/level1.png");
         background = ImageLoader.loadImage("/images/GrayRectangle.png");
         altLevel1 = ImageLoader.loadImage("/images/altLevel1.png");
-
-        
-        
+        groundBlock = ImageLoader.loadImage("/images/groundBlock.png");
+        backgroundMine = ImageLoader.loadImage("/images/backgroundMine.png");
+        playerRight = ImageLoader.loadImage("/images/playerRight.png");
+        playerLeft = ImageLoader.loadImage("/images/playerLeft.png");
+        hydrogenAtom = ImageLoader.loadImage("/images/hydrogenAtom.png");
+        oxygenAtom = ImageLoader.loadImage("/images/oxygenAtom.png");
         
     }
     

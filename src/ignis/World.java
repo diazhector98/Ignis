@@ -40,7 +40,7 @@ public class World {
     }
     
     public void render(Graphics g){
-        g.drawImage(Assets.greenSquare, 0, 0, game.getWidth(), game.getHeight(), null);
+        g.drawImage(Assets.backgroundMine, 0, 0, game.getWidth(), game.getHeight(), null);
         g.translate(-(player.getX()-1200/2), -(player.getY()-800/2));
         //g.drawImage(Assets.brownSquare,(player.getX())-600, (player.getY())-400,100,100,null);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 28));
