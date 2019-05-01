@@ -25,14 +25,20 @@ public class World {
     private String compuestoBuscar;
     private Atom atom;
     private LinkedList<Atom> atoms;
+    private int needAtoms = 3;
     
     
     World(Game g, Player p){
+        if (idWorld == 1){
+            needAtoms = 3;
+        }
         this.game = g;
         this.player = p;
         map = new LinkedList<Platform>();
         atoms = new LinkedList<>();
         generateWorld();
+        /// Init variables ///
+        
         
     }
     
@@ -51,8 +57,8 @@ public class World {
             a.tick();
             if(player.intersectsAtom(a)){
                 atomsToRemove.add(a);
+                needAtoms--;
             }
-
         }
         
         for(Atom a : atomsToRemove){
@@ -75,6 +81,9 @@ public class World {
         for(Platform p : map){
             p.tick();
         }
+        
+        //Si el jugador encuentra todos los atomos
+        
     
     }
     
@@ -113,7 +122,6 @@ public class World {
         Atom oxygenAtom = new Atom(game, map.get(5), "O");
         Atom oxygenAtom2 = new Atom(game, map.get(19), "O");
 
-
         atoms.add(hydrogenAtom);
         atoms.add(oxygenAtom);
         atoms.add(oxygenAtom2);
@@ -122,19 +130,23 @@ public class World {
     public void render(Graphics g){
         g.drawImage(Assets.backgroundMine, 0, 0, game.getWidth(), game.getHeight(), null);
         g.translate(-(player.getX()-1200/2), -(player.getY()-800/2));
-        //g.drawImage(Assets.brownSquare,(player.getX())-600, (player.getY())-400,100,100,null);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 28));
         if(idWorld==1){
-        compuestoBuscar = "H2O";
-        g.setColor(Color.WHITE);
-        g.drawString( "Compuesto", (player.getX())+600-150, (player.getY())-350-28);
-        g.drawString( compuestoBuscar, (player.getX())+600-100, (player.getY())-350);
+            compuestoBuscar = "H2O";
+            g.setColor(Color.WHITE);
+            g.drawString( "Compuesto", (player.getX())+600-150, (player.getY())-350-28);
+            g.drawString( compuestoBuscar, (player.getX())+600-100, (player.getY())-350);
         }
         for(Atom a : atoms){
                 a.render(g);
             }
         for (int i = 0; i < map.size(); i++) {
             map.get(i).render(g);
+        }
+        if (needAtoms<=0) {
+            game.setWin(true);
+            g.drawImage(Assets.win,(player.getX())-600, (player.getY())-400, game.getWidth(), game.getHeight(), null);
+            //g.drawString( "You Won!", (player.getX()), (player.getY()));
         }
     }
 }
