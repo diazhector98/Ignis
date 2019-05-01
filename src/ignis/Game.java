@@ -32,6 +32,7 @@ public class Game implements Runnable {
     private World world;
     private Platform platform;
     private Platform platform2;
+    private Boolean win;
     
 
     /**
@@ -48,6 +49,7 @@ public class Game implements Runnable {
         running = false;
         keyManager = new KeyManager();
         doors = new ArrayList<Door>();
+        win = false;
         
     }
 
@@ -75,6 +77,10 @@ public class Game implements Runnable {
 
     public void setWorld(World world) {
         this.world = world;
+    }
+    
+    public void setWin(Boolean val){
+        this.win = val;
     }
     
     
@@ -243,8 +249,9 @@ public class Game implements Runnable {
                 renderWorld(world);
             }
             
-
-            player.render(g);
+            if(!win){
+                player.render(g);
+            }
             
             bs.show();
             g.dispose();
