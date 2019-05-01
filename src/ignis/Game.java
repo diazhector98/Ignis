@@ -32,9 +32,6 @@ public class Game implements Runnable {
     private World world;
     private Platform platform;
     private Platform platform2;
-    private Atom atom;
-    private LinkedList<Platform> map;
-    private LinkedList<Atom> atoms;
     
 
     /**
@@ -51,8 +48,7 @@ public class Game implements Runnable {
         running = false;
         keyManager = new KeyManager();
         doors = new ArrayList<Door>();
-        map = new LinkedList<Platform>();
-        atoms = new LinkedList<>();
+        
     }
 
     /**
@@ -181,12 +177,7 @@ public class Game implements Runnable {
         // avancing player with colision
         player.tick();
         
-        for(Atom a : atoms){
-            if(player.intersectsAtom(a)){
-                atoms.remove(a);
-            }
-            a.tick();
-        }
+        
         /*
         if (player.intersectsPlatform(platform)) {
             player.handlePlatformIntersection();
@@ -200,28 +191,13 @@ public class Game implements Runnable {
         
         
 
-        for (int i = 0; i < map.size(); i++) {
-            player.handlePlatformIntersection(map.get(i));
-        }
         
         
-        if(player.intersectsAnyPlatformFromTheLeft(map)){
-            player.setOnPlatformLeft(true);
-        } else {
-            player.setOnPlatformLeft(false);
-        }
-        if(player.intersectsAnyPlatformFromTheRight(map)){
-            player.setOnPlatformRight(true);
-        } else {
-            player.setOnPlatformRight(false);
-        }
-        
-        
-        for(Platform p : map){
-            p.tick();
-        }
+       
         if(world == null){
             doorsTick();
+        } else {
+            world.tick();
         }
     }
 
@@ -236,49 +212,11 @@ public class Game implements Runnable {
     }
     
     
-    public String getColor(int red, int green, int blue){
-        if(red == 255 && green == 255 && blue == 255){
-            return "WHITE";
-        } else if(red == 0 && green == 0 && blue == 0){
-            return "BLACK";
-        } else if(red > green && red > blue){
-            return "RED";
-        } else if(green > red && green > blue){
-            return "GREEN";
-        } else if(blue > green && blue > red){
-            return "BLUE";
-        } else {
-            return "NOT DETECTED";
-        }
-    }
+    
 
     public void goToWorld(Door d) {
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 20; x++) {
-                int pixel = Assets.altLevel1.getRGB(x, y);
-                int red = (pixel >> 16) & 0xff;
-                int green = (pixel >> 8) & 0xff;
-                int blue = (pixel) & 0xff;
-                if (getColor(red,green,blue).equals("WHITE")) {
-                    map.add(new Platform(x * 100, y * 100, 100, 100, "STATIC"));
-                } else if (getColor(red,green,blue).equals("GREEN")){
-                    map.add(new Platform(x * 100, y * 100, 100, 100,"ACTIVE"));
-                }
-            }
-        }
-
-        Atom hydrogenAtom = new Atom(this, map.get(2), "H");
-        Atom oxygenAtom = new Atom(this, map.get(5), "O");
-        Atom oxygenAtom2 = new Atom(this, map.get(19), "O");
-
-
-        atoms.add(hydrogenAtom);
-        atoms.add(oxygenAtom);
-        atoms.add(oxygenAtom2);
-        
         world = new World(this, player);
-
-
+        world.setIdWorld(1);
     }
 
     private void restartGame() {
@@ -307,9 +245,7 @@ public class Game implements Runnable {
             
 
             player.render(g);
-            for(Atom a : atoms){
-                a.render(g);
-            }
+            
             bs.show();
             g.dispose();
         }
@@ -317,9 +253,7 @@ public class Game implements Runnable {
 
     public void renderWorld(World w) {
         w.render(g);
-        for (int i = 0; i < map.size(); i++) {
-            map.get(i).render(g);
-        }
+        
     }
 
     public void doorsRender() {
