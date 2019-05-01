@@ -70,7 +70,7 @@ public class Platform extends Item{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.darkGraySquare, getX(), getY(), getWidth(), getHeight(), null);            
+        g.drawImage(Assets.groundBlock, getX(), getY(), getWidth(), getHeight(), null);            
     }
     
 }

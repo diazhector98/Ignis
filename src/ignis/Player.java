@@ -20,6 +20,8 @@ public class Player extends PhysicsObject {
     private boolean onFloor;
     private boolean onPlatformRight;
     private boolean onPlatformLeft;
+    private boolean facingLeft;
+    private boolean facingRight;
 
     public Player(int x, int y, int direction, int width, int height, Game game) {
         super(x, y, game.getHeight());
@@ -31,6 +33,8 @@ public class Player extends PhysicsObject {
         this.jumping = false;
         this.jumpingForce = 15;
         this.onFloor = true;
+        this.facingRight = true;
+        this.facingLeft = false;
     }
 
    /**
@@ -244,10 +248,14 @@ public class Player extends PhysicsObject {
                 setY(getY() + getSpeed());
             }
             if (game.getKeyManager().left && !isOnPlatformRight()) {
+                facingLeft = true;
+                facingRight = false;
                 moveLeft();
             }
             if (game.getKeyManager().right && !isOnPlatformLeft()) {
                 moveRight();
+                facingLeft = false;
+                facingRight = true;
             }
         } else {
             if (game.getKeyManager().up) {
@@ -258,9 +266,13 @@ public class Player extends PhysicsObject {
             }
             if (game.getKeyManager().left) {
                 setX(getX() - getSpeed());
+                facingLeft = true;
+                facingRight = false;
             }
             if (game.getKeyManager().right) {
                 setX(getX() + getSpeed());
+                facingLeft = false;
+                facingRight = true;
             }
         
         }
@@ -303,6 +315,11 @@ public class Player extends PhysicsObject {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.blueSquare, getX(), getY(), getWidth(), getHeight(), null);
+        if(facingRight){
+            g.drawImage(Assets.playerRight, getX(), getY(), getWidth(), getHeight(), null);
+        } else if (facingLeft){
+            g.drawImage(Assets.playerLeft, getX(), getY(), getWidth(), getHeight(), null);
+        }
+
     }
 }

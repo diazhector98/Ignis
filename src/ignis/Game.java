@@ -89,7 +89,7 @@ public class Game implements Runnable {
         display = new Display(title, getWidth(), getHeight());
         Assets.init();
         //Initialize player
-        player = new Player(getWidth() / 2, getHeight() - 500, 1, 50, 50, this);
+        player = new Player(getWidth() / 2, getHeight() - 500, 1, 50, 80, this);
 
 
         /*
@@ -264,9 +264,14 @@ public class Game implements Runnable {
             }
         }
 
-        atom = new Atom(this, map.get(2));
+        Atom hydrogenAtom = new Atom(this, map.get(2), "H");
+        Atom oxygenAtom = new Atom(this, map.get(5), "O");
+        Atom oxygenAtom2 = new Atom(this, map.get(19), "O");
 
-        atoms.add(atom);
+
+        atoms.add(hydrogenAtom);
+        atoms.add(oxygenAtom);
+        atoms.add(oxygenAtom2);
         
         world = new World(this, player);
 

@@ -16,17 +16,18 @@ public class Atom extends PhysicsObject{
     
     private int width;
     private int height;
-    private int element;
+    private String element;
     private Platform platform;
     private boolean airborne;
     private int jumpingForce;
     
-    public Atom(Game g, Platform p) {
+    public Atom(Game g, Platform p,String e) {
         super(p.getX(), p.getY() - 60, g.getHeight());
         this.width = 50;
         this.height = 50;
         this.platform = p;
         this.jumpingForce = 15;
+        this.element = e;
     }
 
     public int getWidth() {
@@ -70,7 +71,11 @@ public class Atom extends PhysicsObject{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.purpleCircle, getX(), getY(), getWidth(), getHeight(), null);
+        if(element.equals("H")){
+            g.drawImage(Assets.hydrogenAtom, getX(), getY(), getWidth(), getHeight(), null);
+        } else if (element.equals("O")){
+            g.drawImage(Assets.oxygenAtom, getX(), getY(), getWidth(), getHeight(), null);
+        }
     }
     
     
