@@ -28,6 +28,7 @@ public class Assets {
     public static BufferedImage hydrogenAtom;
     public static BufferedImage oxygenAtom;
     public static BufferedImage win;
+    public static BufferedImage heart;
 
 
 
@@ -51,6 +52,7 @@ public class Assets {
         hydrogenAtom = ImageLoader.loadImage("/images/hydrogenAtom.png");
         oxygenAtom = ImageLoader.loadImage("/images/oxygenAtom.png");
         win = ImageLoader.loadImage("/images/win.png");
+        heart = ImageLoader.loadImage("/images/heart.png");
         
     }
     

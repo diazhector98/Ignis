@@ -135,6 +135,10 @@ public class World {
             compuestoBuscar = "H2O";
             g.setColor(Color.WHITE);
             g.drawString( "Compuesto", (player.getX())+600-150, (player.getY())-350-28);
+            for(int i=0;i<3;i++)
+            {
+            g.drawImage(Assets.heart, (player.getX())-580+i*30, (player.getY())-350-45,20,20, null);
+            }
             g.drawString( compuestoBuscar, (player.getX())+600-100, (player.getY())-350);
         }
         for(Atom a : atoms){
