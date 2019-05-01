@@ -35,6 +35,7 @@ public class Game implements Runnable {
     private Atom atom;
     private LinkedList<Platform> map;
     private LinkedList<Atom> atoms;
+    
 
     /**
      * to create title, width and height and set the game is still not running
@@ -79,6 +80,8 @@ public class Game implements Runnable {
     public void setWorld(World world) {
         this.world = world;
     }
+    
+    
     
     
 
@@ -251,8 +254,11 @@ public class Game implements Runnable {
             if (world == null) {
                 renderWorldMenu();
             } else {
+                world.setIdWorld(1);
                 renderWorld(world);
             }
+            
+
             player.render(g);
             for(Atom a : atoms){
                 a.render(g);
