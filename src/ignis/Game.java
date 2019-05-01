@@ -180,13 +180,19 @@ public class Game implements Runnable {
         keyManager.tick();
         // avancing player with colision
         player.tick();
-        
+        ArrayList<Atom> atomsToRemove = new ArrayList<>();
         for(Atom a : atoms){
-            if(player.intersectsAtom(a)){
-                atoms.remove(a);
-            }
             a.tick();
+            if(player.intersectsAtom(a)){
+                atomsToRemove.add(a);
+            }
+
         }
+        
+        for(Atom a : atomsToRemove){
+            atoms.remove(a);
+        }
+        atomsToRemove.clear();
         /*
         if (player.intersectsPlatform(platform)) {
             player.handlePlatformIntersection();
