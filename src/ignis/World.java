@@ -26,6 +26,7 @@ public class World {
     private Atom atom;
     private LinkedList<Atom> atoms;
     private int needAtoms = 3;
+    private Fire fire;
     
     
     World(Game g, Player p){
@@ -78,8 +79,15 @@ public class World {
         } else {
             player.setOnPlatformRight(false);
         }
+        
+        
+        
         for(Platform p : map){
             p.tick();
+        }
+        
+        if(fire != null){
+            fire.tick();
         }
         
         //Si el jugador encuentra todos los atomos
@@ -125,6 +133,9 @@ public class World {
         atoms.add(hydrogenAtom);
         atoms.add(oxygenAtom);
         atoms.add(oxygenAtom2);
+        
+       fire = new Fire(map.get(25), 50, 70);
+        
     }
     
     public void render(Graphics g){
@@ -135,7 +146,7 @@ public class World {
             compuestoBuscar = "H2O";
             g.setColor(Color.WHITE);
             g.drawString( "Compuesto", (player.getX())+600-150, (player.getY())-350-28);
-            for(int i=0;i<3;i++)
+            for(int i=0;i<player.getLives();i++)
             {
             g.drawImage(Assets.heart, (player.getX())-580+i*30, (player.getY())-350-45,20,20, null);
             }
@@ -146,6 +157,9 @@ public class World {
             }
         for (int i = 0; i < map.size(); i++) {
             map.get(i).render(g);
+        }
+        if(fire != null){
+            fire.render(g);
         }
         if (needAtoms<=0) {
             game.setWin(true);

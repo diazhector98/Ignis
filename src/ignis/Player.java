@@ -22,6 +22,7 @@ public class Player extends PhysicsObject {
     private boolean onPlatformLeft;
     private boolean facingLeft;
     private boolean facingRight;
+    private int lives;
 
     public Player(int x, int y, int direction, int width, int height, Game game) {
         super(x, y, game.getHeight());
@@ -35,6 +36,7 @@ public class Player extends PhysicsObject {
         this.onFloor = true;
         this.facingRight = true;
         this.facingLeft = false;
+        this.lives = 3;
     }
 
    /**
@@ -109,8 +111,19 @@ public class Player extends PhysicsObject {
     public int getDirection() {
         return direction;
     }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
     
-     /**
+    
+    
+    /**
      * getPerimetro
      * Método de acceso que regresa el objeto de la clase Rectangle del jugador 
      * que contiene su posición y sus bordes en la pantalla
@@ -191,6 +204,11 @@ public class Player extends PhysicsObject {
         return obj instanceof Platform
             && getPerimetro().intersects(((Platform) obj).getPerimetro())
             && (getX() + 1 < ((Platform) obj).getX()) && !intersectsPlatformFromAbove(obj); 
+    }
+    
+    public boolean intersectsFire(Object obj){
+        return obj instanceof Fire && getPerimetro().intersects(((Fire) obj).getPerimetro());
+                
     }
     
     
