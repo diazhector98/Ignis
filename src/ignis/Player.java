@@ -24,7 +24,15 @@ public class Player extends PhysicsObject {
     private boolean onPlatformLeft;
     private boolean facingLeft;
     private boolean facingRight;
+    private boolean facingFront;
+    private boolean facingBack;
     private int lives;
+    
+    private Animation leftAnimation;
+    private Animation rightAnimation;
+    private Animation frontAnimation;
+    private Animation backAnimation;
+
 
     public Player(int x, int y, int direction, int width, int height, Game game) {
         super(x, y, game.getHeight());
@@ -32,13 +40,21 @@ public class Player extends PhysicsObject {
         this.width = width;
         this.height = height;
         this.game = game;
-        this.speed = 10;
+        this.speed = 3;
         this.jumping = false;
         this.jumpingForce = 15;
         this.onFloor = true;
         this.facingRight = true;
         this.facingLeft = false;
+        this.facingFront = false;
+        this.facingBack = false;
         this.lives = 3;
+        this.leftAnimation = new Animation(PlayerAssets.playerLeftImages, 100);
+        this.rightAnimation = new Animation(PlayerAssets.playerRightImages, 100);
+        this.frontAnimation = new Animation(PlayerAssets.playerFrontImages, 100);
+        this.backAnimation = new Animation(PlayerAssets.playerBackImages, 100);
+
+
     }
 
    /**
@@ -252,13 +268,45 @@ public class Player extends PhysicsObject {
     public void setOnPlatformLeft(boolean onPlatformLeft) {
         this.onPlatformLeft = onPlatformLeft;
     }
+    
+    public void turnBack(){
+        this.facingBack = true;
+        this.facingFront = false;
+        this.facingLeft = false;
+        this.facingRight = false;
+    }
+    
+    public void turnFront(){
+        this.facingBack = false;
+        this.facingFront = true;
+        this.facingLeft = false;
+        this.facingRight = false;
+    }
+    
+    public void turnRight(){
+        this.facingBack = false;
+        this.facingFront = false;
+        this.facingLeft = false;
+        this.facingRight = true;
+    }
+    
+    public void turnLeft(){
+        this.facingBack = false;
+        this.facingFront = false;
+        this.facingLeft = true;
+        this.facingRight = false;
+    }
 
 
     @Override
     public void tick() {
         // moving player depending on flags
         
-        
+        this.leftAnimation.tick();
+        this.rightAnimation.tick();
+        this.frontAnimation.tick();
+        this.backAnimation.tick();
+
         if (this.game.getWorld() != null) {
             update();
             if (game.getKeyManager().up) {
@@ -268,31 +316,30 @@ public class Player extends PhysicsObject {
                 setY(getY() + getSpeed());
             }
             if (game.getKeyManager().left && !isOnPlatformRight()) {
-                facingLeft = true;
-                facingRight = false;
+                turnLeft();
                 moveLeft();
             }
             if (game.getKeyManager().right && !isOnPlatformLeft()) {
                 moveRight();
-                facingLeft = false;
-                facingRight = true;
+                turnRight();
             }
         } else {
             if (game.getKeyManager().up) {
                 setY(getY() - getSpeed());
+                turnBack();
+                
             }
             if (game.getKeyManager().down) {
                 setY(getY() + getSpeed());
+                turnFront();
             }
             if (game.getKeyManager().left) {
                 setX(getX() - getSpeed());
-                facingLeft = true;
-                facingRight = false;
+                turnLeft();
             }
             if (game.getKeyManager().right) {
                 setX(getX() + getSpeed());
-                facingLeft = false;
-                facingRight = true;
+                turnRight();
             }
         
         }
@@ -336,9 +383,13 @@ public class Player extends PhysicsObject {
     @Override
     public void render(Graphics g) {
         if(facingRight){
-            g.drawImage(PlayerAssets.playerRight, getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(rightAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
         } else if (facingLeft){
-            g.drawImage(PlayerAssets.playerLeft, getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(leftAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+        } else if (facingFront){
+            g.drawImage(frontAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+        } else if (facingBack){
+            g.drawImage(backAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
         }
 
     }

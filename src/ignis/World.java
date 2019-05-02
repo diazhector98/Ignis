@@ -142,7 +142,7 @@ public class World {
     }
     
     public void render(Graphics g){
-        g.drawImage(WorldAssets.backgroundMine, 0, 0, game.getWidth(), game.getHeight(), null);
+        g.drawImage(Assets.darkGraySquare, 0, 0, game.getWidth(), game.getHeight(), null);
         g.translate(-(player.getX()-1200/2), -(player.getY()-800/2));
         g.setFont(new Font("TimesRoman", Font.PLAIN, 28));
         if(idWorld==1){
