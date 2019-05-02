@@ -29,7 +29,7 @@ public class Assets {
     public static BufferedImage oxygenAtom;
     public static BufferedImage win;
     public static BufferedImage heart;
-
+    public static BufferedImage gameOver;
 
 
     /**
@@ -53,7 +53,7 @@ public class Assets {
         oxygenAtom = ImageLoader.loadImage("/images/oxygenAtom.png");
         win = ImageLoader.loadImage("/images/win.png");
         heart = ImageLoader.loadImage("/images/heart.png");
-        
+        gameOver = ImageLoader.loadImage("/images/gg.png");
     }
     
 }

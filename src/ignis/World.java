@@ -152,5 +152,10 @@ public class World {
             g.drawImage(Assets.win,(player.getX())-600, (player.getY())-400, game.getWidth(), game.getHeight(), null);
             //g.drawString( "You Won!", (player.getX()), (player.getY()));
         }
+        
+    }
+    public void gameOver(Graphics g)
+    {
+          g.drawImage(Assets.gameOver, 0, 0, game.getWidth(), game.getHeight(), null);
     }
 }

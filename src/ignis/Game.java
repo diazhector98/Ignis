@@ -33,6 +33,7 @@ public class Game implements Runnable {
     private Platform platform;
     private Platform platform2;
     private Boolean win;
+    private Boolean gameOver;
     
 
     /**
@@ -50,7 +51,7 @@ public class Game implements Runnable {
         keyManager = new KeyManager();
         doors = new ArrayList<Door>();
         win = false;
-        
+        gameOver=false;
     }
 
     /**
@@ -179,11 +180,18 @@ public class Game implements Runnable {
     }
 
     private void tick() {
-        keyManager.tick();
+       
+        if(player.getY()<1000)
+        {
+              keyManager.tick();
         // avancing player with colision
-        player.tick();
-        
-        
+             player.tick();
+             
+        }
+        if(player.getY()>1000)
+        {
+            gameOver=true;
+        }
         /*
         if (player.intersectsPlatform(platform)) {
             player.handlePlatformIntersection();
