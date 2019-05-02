@@ -5,6 +5,7 @@
  */
 package ignis;
 
+import ignis.Assets.Assets;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 

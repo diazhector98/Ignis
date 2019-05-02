@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ignis;
+package ignis.Assets;
 
+import ignis.ImageLoader;
+import ignis.ImageLoader;
 import java.awt.image.BufferedImage;
 
 /**
@@ -21,16 +23,10 @@ public class Assets {
     public static BufferedImage purpleCircle;
     public static BufferedImage level1;    
     public static BufferedImage altLevel1;
-    public static BufferedImage groundBlock;
-    public static BufferedImage backgroundMine;
-    public static BufferedImage playerRight;
-    public static BufferedImage playerLeft;
-    public static BufferedImage hydrogenAtom;
-    public static BufferedImage oxygenAtom;
     public static BufferedImage win;
     public static BufferedImage heart;
     public static BufferedImage fire;
-
+    public static BufferedImage gameOver;
 
 
     /**
@@ -46,16 +42,10 @@ public class Assets {
         level1 = ImageLoader.loadImage("/images/level1.png");
         background = ImageLoader.loadImage("/images/GrayRectangle.png");
         altLevel1 = ImageLoader.loadImage("/images/altLevel1.png");
-        groundBlock = ImageLoader.loadImage("/images/groundBlock.png");
-        backgroundMine = ImageLoader.loadImage("/images/backgroundMine.png");
-        playerRight = ImageLoader.loadImage("/images/playerRight.png");
-        playerLeft = ImageLoader.loadImage("/images/playerLeft.png");
-        hydrogenAtom = ImageLoader.loadImage("/images/hydrogenAtom.png");
-        oxygenAtom = ImageLoader.loadImage("/images/oxygenAtom.png");
         win = ImageLoader.loadImage("/images/win.png");
         heart = ImageLoader.loadImage("/images/heart.png");
         fire = ImageLoader.loadImage("/images/fire.png");
-        
+        gameOver = ImageLoader.loadImage("/images/gg.png");
     }
     
 }

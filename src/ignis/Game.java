@@ -5,6 +5,13 @@
  */
 package ignis;
 
+import ignis.Assets.Assets;
+import ignis.Assets.AtomAssets;
+import ignis.Assets.PlayerAssets;
+import ignis.Assets.TextAssets;
+import ignis.Assets.WorldAssets;
+import ignis.Assets.MenuAssets;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -33,6 +40,7 @@ public class Game implements Runnable {
     private Platform platform;
     private Platform platform2;
     private Boolean win;
+    private Boolean gameOver;
     
 
     /**
@@ -50,7 +58,7 @@ public class Game implements Runnable {
         keyManager = new KeyManager();
         doors = new ArrayList<Door>();
         win = false;
-        
+        gameOver=false;
     }
 
     /**
@@ -93,51 +101,22 @@ public class Game implements Runnable {
     private void init() {
         display = new Display(title, getWidth(), getHeight());
         Assets.init();
+        PlayerAssets.init();
+        AtomAssets.init();
+        WorldAssets.init();
+        TextAssets.init();
+        MenuAssets.init();
         //Initialize player
-        player = new Player(getWidth() / 2, getHeight() - 500, 1, 50, 80, this);
-
-
-        /*
-        for (int xx = 0; xx < 84; xx++) {
-            for (int yy = 0; yy < 17; yy++) {
-                int pixel = Assets.level1.getRGB(xx, yy);
-                int red = (pixel >> 16) & 0xff;
-                int green = (pixel >> 8) & 0xff;
-                int blue = (pixel) & 0xff;
-                if (red == 255 && green == 255 && blue == 255) {
-                    map.add(new Platform(xx * 70, yy * 70, 70, 70));
-                };
-            }
-        }
-        
-        */
-        
-        /*
-        for(int y = 0; y < 8; y++){
-            for(int x = 0; x < 12; x++){
-                int pixel = Assets.altLevel1.getRGB(x, y);
-                int red = (pixel >> 16) & 0xff;
-                int green = (pixel >> 8) & 0xff;
-                int blue = (pixel) & 0xff;
-                if (red == 255 && green == 255 && blue == 255) {
-                    map.add(new Platform(x * 100, y * 100, 100, 100));
-                };
-            }
-        }
-        
-        */
-
+        player = new Player(getWidth() / 2, getHeight() - 100, 1, 50, 80, this);
 
         //Initialize doors
         int doorWidth = 75;
         int doorHeight = 150;
-        int delta = 200;
+        int delta = 120;
         int verticalMargin = 100;
-        int horizontalMargin = 250;
-        for (int i = 0; i < 3; i++) {
-            doors.add(new Door(10, i * delta + verticalMargin, doorWidth, doorHeight, this));
-            doors.add(new Door(i * delta + horizontalMargin, 20, doorHeight, doorWidth, this));
-            doors.add(new Door(getWidth() - 100, i * delta + verticalMargin, doorWidth, doorHeight, this));
+        int horizontalMargin = 70;
+        for (int i = 0; i < 9; i++) {
+            doors.add(new Door(i * delta + horizontalMargin, 50, doorWidth, doorHeight, this, i));
         }
 
         display.getJframe().addKeyListener(keyManager);
@@ -179,11 +158,18 @@ public class Game implements Runnable {
     }
 
     private void tick() {
-        keyManager.tick();
+       
+        if(player.getY()<1000)
+        {
+              keyManager.tick();
         // avancing player with colision
-        player.tick();
-        
-        
+             player.tick();
+             
+        }
+        if(player.getY()>1000)
+        {
+            gameOver=true;
+        }
         /*
         if (player.intersectsPlatform(platform)) {
             player.handlePlatformIntersection();
@@ -271,7 +257,7 @@ public class Game implements Runnable {
     }
 
     private void renderWorldMenu() {
-        g.drawImage(Assets.background, 0, 0, width, height, null);
+        g.drawImage(MenuAssets.BACKGROUND, 0, 0, width, height, null);
         doorsRender();
     }
 

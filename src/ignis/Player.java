@@ -1,5 +1,7 @@
 package ignis;
 
+import ignis.Assets.Assets;
+import ignis.Assets.PlayerAssets;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
@@ -334,9 +336,9 @@ public class Player extends PhysicsObject {
     @Override
     public void render(Graphics g) {
         if(facingRight){
-            g.drawImage(Assets.playerRight, getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(PlayerAssets.playerRight, getX(), getY(), getWidth(), getHeight(), null);
         } else if (facingLeft){
-            g.drawImage(Assets.playerLeft, getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(PlayerAssets.playerLeft, getX(), getY(), getWidth(), getHeight(), null);
         }
 
     }

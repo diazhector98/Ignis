@@ -5,6 +5,8 @@
  */
 package ignis;
 
+import ignis.Assets.Assets;
+import ignis.Assets.WorldAssets;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -70,7 +72,7 @@ public class Platform extends Item{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.groundBlock, getX(), getY(), getWidth(), getHeight(), null);            
+        g.drawImage(WorldAssets.groundBlock, getX(), getY(), getWidth(), getHeight(), null);            
     }
     
 }

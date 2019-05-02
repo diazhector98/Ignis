@@ -5,6 +5,8 @@
  */
 package ignis;
 
+import ignis.Assets.Assets;
+import ignis.Assets.AtomAssets;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -72,9 +74,9 @@ public class Atom extends PhysicsObject{
     @Override
     public void render(Graphics g) {
         if(element.equals("H")){
-            g.drawImage(Assets.hydrogenAtom, getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(AtomAssets.hydrogenAtom, getX(), getY(), getWidth(), getHeight(), null);
         } else if (element.equals("O")){
-            g.drawImage(Assets.oxygenAtom, getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(AtomAssets.oxygenAtom, getX(), getY(), getWidth(), getHeight(), null);
         }
     }
     

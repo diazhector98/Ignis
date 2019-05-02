@@ -5,8 +5,11 @@
  */
 package ignis;
 
+import ignis.Assets.Assets;
+import ignis.Assets.MenuAssets;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -17,13 +20,15 @@ public class Door extends Item {
     private int direction;
     private int width;
     private int height;
+    private BufferedImage image;
     private Game game;
 
-    public Door(int x, int y, int width, int height, Game game) {
+    public Door(int x, int y, int width, int height, Game game, int index) {
         super(x, y);
         this.width = width;
         this.height = height;
         this.game = game;
+        this.image = MenuAssets.getDoor(index);
     }
     
     public int getWidth(){
@@ -44,6 +49,6 @@ public class Door extends Item {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.brownSquare, getX(), getY(), getWidth(), getHeight(), null);
+        g.drawImage(this.image, getX(), getY(), getWidth(), getHeight(), null);
     }
 }

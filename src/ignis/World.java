@@ -5,6 +5,9 @@
  */
 package ignis;
 
+import ignis.Assets.Assets;
+import ignis.Assets.WorldAssets;
+import ignis.Assets.TextAssets;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -112,8 +115,8 @@ public class World {
     }
     
     public void generateWorld(){
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 20; x++) {
+        for (int y = 0; y < 12; y++) {
+            for (int x = 0; x < 30; x++) {
                 int pixel = Assets.altLevel1.getRGB(x, y);
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
@@ -139,18 +142,22 @@ public class World {
     }
     
     public void render(Graphics g){
-        g.drawImage(Assets.backgroundMine, 0, 0, game.getWidth(), game.getHeight(), null);
+        g.drawImage(WorldAssets.backgroundMine, 0, 0, game.getWidth(), game.getHeight(), null);
         g.translate(-(player.getX()-1200/2), -(player.getY()-800/2));
         g.setFont(new Font("TimesRoman", Font.PLAIN, 28));
         if(idWorld==1){
             compuestoBuscar = "H2O";
             g.setColor(Color.WHITE);
-            g.drawString( "Compuesto", (player.getX())+600-150, (player.getY())-350-28);
+            
+            g.drawImage(TextAssets.COMPUESTO, (player.getX())+600-200, (player.getY())-350-28,170,40, null);
             for(int i=0;i<player.getLives();i++)
             {
             g.drawImage(Assets.heart, (player.getX())-580+i*30, (player.getY())-350-45,20,20, null);
             }
-            g.drawString( compuestoBuscar, (player.getX())+600-100, (player.getY())-350);
+            
+            g.drawImage(TextAssets.H20, (player.getX())+600-150, (player.getY())-320,100,40, null);
+
+            //g.drawString( compuestoBuscar, (player.getX())+600-100, (player.getY())-350);
         }
         for(Atom a : atoms){
                 a.render(g);
@@ -166,5 +173,10 @@ public class World {
             g.drawImage(Assets.win,(player.getX())-600, (player.getY())-400, game.getWidth(), game.getHeight(), null);
             //g.drawString( "You Won!", (player.getX()), (player.getY()));
         }
+        
+    }
+    public void gameOver(Graphics g)
+    {
+          g.drawImage(Assets.gameOver, 0, 0, game.getWidth(), game.getHeight(), null);
     }
 }
