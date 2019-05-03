@@ -107,7 +107,55 @@ public abstract class World {
     {
           g.drawImage(Assets.gameOver, 0, 0, game.getWidth(), game.getHeight(), null);
     }
+
+    public void tickPlayer() {
+        player.tick();
+
+        for (int i = 0; i < platforms.size(); i++) {
+            player.handlePlatformIntersection(platforms.get(i));
+        }
+        if (player.intersectsAnyPlatformFromTheLeft(platforms)) {
+            player.setOnPlatformLeft(true);
+        } else {
+            player.setOnPlatformLeft(false);
+        }
+        if (player.intersectsAnyPlatformFromTheRight(platforms)) {
+            player.setOnPlatformRight(true);
+        } else {
+            player.setOnPlatformRight(false);
+        }
+    }
     
+    public void tickAtoms() {
+        ArrayList<Atom> atomsToRemove = new ArrayList<>();
+        for (Atom a : atoms) {
+            a.tick();
+            if (player.intersectsAtom(a)) {
+                atomsToRemove.add(a);
+            }
+        }
+        for (Atom a : atomsToRemove) {
+            atoms.remove(a);
+        }
+        atomsToRemove.clear();
+    }
+
+    public void tickEnemies() {
+        for (Enemy e : enemies) {
+            e.tick();
+            if (player.intersectsEnemy(e) && !player.isInvincible()) {
+                player.setInvincibilityTimer(150);
+                player.loseALife();
+            }
+        }
+    }
+    
+    public void tickPlatforms() {
+        for (Platform p : platforms) {
+            p.tick();
+        }
+    }
+
     public void renderPlayer(Graphics graphics){
         player.render(graphics);
     }
