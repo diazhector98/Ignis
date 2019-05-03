@@ -40,7 +40,7 @@ public class Player extends PhysicsObject {
         this.width = width;
         this.height = height;
         this.game = game;
-        this.speed = 3;
+        this.speed = 5;
         this.jumping = false;
         this.jumpingForce = 15;
         this.onFloor = true;

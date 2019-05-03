@@ -30,6 +30,7 @@ public class World {
     private LinkedList<Atom> atoms;
     private int needAtoms = 3;
     private Fire fire;
+    private LinkedList<Enemy> enemies;
     
     
     World(Game g, Player p){
@@ -40,6 +41,7 @@ public class World {
         this.player = p;
         map = new LinkedList<Platform>();
         atoms = new LinkedList<>();
+        enemies = new LinkedList<>();
         generateWorld();
         /// Init variables ///
         
@@ -89,6 +91,10 @@ public class World {
             p.tick();
         }
         
+        for(Enemy e : enemies){
+            e.tick();
+        }
+        
         if(fire != null){
             fire.tick();
         }
@@ -113,18 +119,18 @@ public class World {
             return "NOT DETECTED";
         }
     }
-    
-    public void generateWorld(){
+
+    public void generateWorld() {
         for (int y = 0; y < 12; y++) {
             for (int x = 0; x < 30; x++) {
                 int pixel = Assets.altLevel1.getRGB(x, y);
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
                 int blue = (pixel) & 0xff;
-                if (getColor(red,green,blue).equals("WHITE")) {
+                if (getColor(red, green, blue).equals("WHITE")) {
                     map.add(new Platform(x * 100, y * 100, 100, 100, "STATIC"));
-                } else if (getColor(red,green,blue).equals("GREEN")){
-                    map.add(new Platform(x * 100, y * 100, 100, 100,"ACTIVE"));
+                } else if (getColor(red, green, blue).equals("GREEN")) {
+                    map.add(new Platform(x * 100, y * 100, 100, 100, "ACTIVE"));
                 }
             }
         }
@@ -136,9 +142,13 @@ public class World {
         atoms.add(hydrogenAtom);
         atoms.add(oxygenAtom);
         atoms.add(oxygenAtom2);
+
+        Robot robot = new Robot(map.get(4));
         
-       fire = new Fire(map.get(25), 50, 70);
-        
+        enemies.add(robot);
+
+        fire = new Fire(map.get(25), 50, 70);
+
     }
     
     public void render(Graphics g){
@@ -164,6 +174,10 @@ public class World {
             }
         for (int i = 0; i < map.size(); i++) {
             map.get(i).render(g);
+        }
+        
+        for(Enemy e : enemies){
+            e.render(g);
         }
         if(fire != null){
             fire.render(g);

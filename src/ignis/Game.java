@@ -7,6 +7,7 @@ package ignis;
 
 import ignis.Assets.Assets;
 import ignis.Assets.AtomAssets;
+import ignis.Assets.EnemyAssets;
 import ignis.Assets.PlayerAssets;
 import ignis.Assets.TextAssets;
 import ignis.Assets.WorldAssets;
@@ -106,6 +107,7 @@ public class Game implements Runnable {
         WorldAssets.init();
         TextAssets.init();
         MenuAssets.init();
+        EnemyAssets.init();
         //Initialize player
         player = new Player(getWidth() / 2, getHeight() - 100, 1, 50, 80, this);
 
