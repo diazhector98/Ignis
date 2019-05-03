@@ -5,6 +5,7 @@
  */
 package ignis;
 
+import ignis.Worlds.World;
 import java.awt.Graphics;
 
 /**
@@ -20,10 +21,12 @@ public class PauseMenu {
     private Button saveButton;
     private int MARGIN = 30;
     private MouseManager mouseManager;
+    private World world;
     
-    public PauseMenu(Game g, Player p){
+    public PauseMenu(Game g, Player p, World w){
         this.game = g;
         this.player = p;
+        this.world = w;
         this.keepGoingButton = new Button(200 + MARGIN, 200 + MARGIN, 200, 100, "KEEPGOING", g);
         this.goToMenuButton = new Button(200 + MARGIN, 300 + MARGIN * 2, 200, 100, "GOTOMENU", g);
         this.saveButton = new Button(200 + MARGIN, 400 + MARGIN * 3, 200, 100, "SAVE", g);
@@ -44,6 +47,7 @@ public class PauseMenu {
             int mouseY = mouseManager.getY();
             if(posInButton(mouseX, mouseY, keepGoingButton)){
                 System.out.println("Keep Going Pressed");
+                world.unPause();
             } else if (posInButton(mouseX, mouseY, goToMenuButton)){
                 System.out.println("Go to Menu Pressed");
             } else if(posInButton(mouseX, mouseY, saveButton)){

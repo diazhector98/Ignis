@@ -64,7 +64,7 @@ public class AlkaliWorld extends World {
         
         
         if(!paused){
-            
+            player.tick();
             ArrayList<Atom> atomsToRemove = new ArrayList<>();
             for(Atom a : atoms){
                 a.tick();
@@ -124,7 +124,6 @@ public class AlkaliWorld extends World {
             g.translate(-(player.getX() - 1200 / 2), -(player.getY() - 800 / 2));
 
             compuestoBuscar = "H2O";
-            g.setColor(Color.WHITE);
             g.drawImage(TextAssets.COMPUESTO, (player.getX()) + 600 - 200, (player.getY()) - 350 - 28, 170, 40, null);
             g.drawImage(TextAssets.H20, (player.getX()) + 600 - 150, (player.getY()) - 320, 100, 40, null);
 

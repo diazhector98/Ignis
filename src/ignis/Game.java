@@ -196,12 +196,11 @@ public class Game implements Runnable {
     private void tick() {
         keyManager.tick();
         if(world == null){
-            player.tick();
             doorsTick();
+            player.tick();
         } else {
             world.tick();
         }
-        player.tick();
     }
 
     public void doorsTick() {

@@ -52,7 +52,7 @@ public abstract class World {
         this.platforms = new LinkedList<Platform>();
         this.atoms = new LinkedList<>();
         this.enemies = new LinkedList<>();
-        this.pauseMenu = new PauseMenu(g, p);
+        this.pauseMenu = new PauseMenu(g, p, this);
         this.paused = false;
         
     }
@@ -85,6 +85,14 @@ public abstract class World {
         } else {
             return "NOT DETECTED";
         }
+    }
+    
+    public void unPause(){
+        this.paused = false;
+    }
+    
+    public void pause() {
+        this.paused = true;    
     }
     
     public abstract void tick();
