@@ -32,6 +32,8 @@ public class Player extends PhysicsObject {
     private Animation rightAnimation;
     private Animation frontAnimation;
     private Animation backAnimation;
+    
+    private int invincibilityTimer;
 
 
     public Player(int x, int y, int direction, int width, int height, Game game) {
@@ -48,11 +50,12 @@ public class Player extends PhysicsObject {
         this.facingLeft = false;
         this.facingFront = false;
         this.facingBack = false;
-        this.lives = 3;
+        this.lives = 5;
         this.leftAnimation = new Animation(PlayerAssets.playerLeftImages, 100);
         this.rightAnimation = new Animation(PlayerAssets.playerRightImages, 100);
         this.frontAnimation = new Animation(PlayerAssets.playerFrontImages, 100);
         this.backAnimation = new Animation(PlayerAssets.playerBackImages, 100);
+        this.invincibilityTimer = 0;
 
 
     }
@@ -229,6 +232,10 @@ public class Player extends PhysicsObject {
                 
     }
     
+    public boolean intersectsEnemy(Object obj){
+        return obj instanceof Enemy && getPerimetro().intersects(((Enemy) obj).getPerimetro());
+    }
+    
     
     public void handleTopPlatformIntersection() {
         System.out.println("Handle top intersection");
@@ -296,7 +303,22 @@ public class Player extends PhysicsObject {
         this.facingLeft = true;
         this.facingRight = false;
     }
-
+    
+    public void loseALife(){
+        this.lives -= 1;
+    }
+    
+    public boolean isInvincible(){
+        return invincibilityTimer > 0;
+    }
+    
+    public void setInvincibilityTimer(int n){
+        this.invincibilityTimer = n;
+    }
+    
+    public int getInvincibilityTimer(){
+        return this.invincibilityTimer;
+    }
 
     @Override
     public void tick() {
@@ -306,7 +328,12 @@ public class Player extends PhysicsObject {
         this.rightAnimation.tick();
         this.frontAnimation.tick();
         this.backAnimation.tick();
-
+        
+        if(getInvincibilityTimer() > 0){
+            setInvincibilityTimer(getInvincibilityTimer() - 1);
+        }
+        
+        
         if (this.game.getWorld() != null) {
             update();
             if (game.getKeyManager().up) {

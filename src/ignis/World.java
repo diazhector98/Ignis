@@ -93,6 +93,10 @@ public class World {
         
         for(Enemy e : enemies){
             e.tick();
+            if(player.intersectsEnemy(e) && !player.isInvincible()){
+                player.setInvincibilityTimer(150);
+                player.loseALife();
+            }
         }
         
         if(fire != null){

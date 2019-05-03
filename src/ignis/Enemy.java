@@ -8,6 +8,7 @@ package ignis;
 import java.awt.Graphics;
 import ignis.Assets.EnemyAssets;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 /**
  *
@@ -90,6 +91,10 @@ public class Enemy extends Item{
         this.height = height;
     }
     
+    public Rectangle getPerimetro() {
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
+    }
+
     
 
     @Override
