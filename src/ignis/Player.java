@@ -360,7 +360,6 @@ public class Player extends PhysicsObject {
             if (game.getKeyManager().up) {
                 setY(getY() - getSpeed());
                 turnBack();
-                
             }
             if (game.getKeyManager().down) {
                 setY(getY() + getSpeed());

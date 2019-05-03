@@ -15,7 +15,8 @@ import java.util.ArrayList;
  * @author hectordiazaceves
  */
 public class MenuAssets {
-    
+
+    //Doors
     public static BufferedImage BACKGROUND;
     public static BufferedImage ALKALI_DOOR;
     public static BufferedImage ALKALINE_DOOR;
@@ -24,17 +25,22 @@ public class MenuAssets {
     public static BufferedImage METALLOIDS_DOOR;
     public static BufferedImage NOBLEGASES_DOOR;
     public static BufferedImage NONMETALS_DOOR;
-
     public static BufferedImage POSTTRANSITIONAL_DOOR;
     public static BufferedImage TRANSITION_DOOR;
-    
+
     private static ArrayList<BufferedImage> doors;
 
+    //Buttons
+    public static BufferedImage KEEPGOING_BUTTON;
+    public static BufferedImage GOTOMENU_BUTTON;
+    public static BufferedImage SAVE_BUTTON;
 
-    
+    //Titles
+    public static BufferedImage PAUSE_TITLE;
+
     public static void init() {
         BACKGROUND = ImageLoader.loadImage("/images/MenuBackground.png");
-        
+
         ALKALI_DOOR = ImageLoader.loadImage("/images/doors/AlkaliDoor.png");
         ALKALINE_DOOR = ImageLoader.loadImage("/images/doors/AlkalineDoor.png");
         LANTHANOIDS_DOOR = ImageLoader.loadImage("/images/doors/LanthanoidsDoor.png");
@@ -44,7 +50,7 @@ public class MenuAssets {
         NONMETALS_DOOR = ImageLoader.loadImage("/images/doors/NonMetalsDoor.png");
         POSTTRANSITIONAL_DOOR = ImageLoader.loadImage("/images/doors/PostTransitionDoor.png");
         TRANSITION_DOOR = ImageLoader.loadImage("/images/doors/TransitionDoor.png");
-        
+
         doors = new ArrayList<>();
         doors.add(ALKALI_DOOR);
         doors.add(ALKALINE_DOOR);
@@ -56,9 +62,22 @@ public class MenuAssets {
         doors.add(POSTTRANSITIONAL_DOOR);
         doors.add(TRANSITION_DOOR);
 
+        KEEPGOING_BUTTON = ImageLoader.loadImage("/images/buttons/keepGoingButton.png");
+        GOTOMENU_BUTTON = ImageLoader.loadImage("/images/buttons/goToMenuButton.png");
+        SAVE_BUTTON = ImageLoader.loadImage("/images/buttons/saveButton.png");
+        PAUSE_TITLE = ImageLoader.loadImage("/images/titles/pauseTitle.png");
+
+    }
+
+    public static BufferedImage getDoor(int index) {
+        return doors.get(index - 1);
     }
     
-    public static BufferedImage getDoor(int index){
-        return doors.get(index - 1);
+    public static BufferedImage getButton(String s){
+        if(s.equals("KEEPGOING")) return KEEPGOING_BUTTON;
+        System.out.println("Not geep going");
+        if(s.equals("GOTOMENU")) return GOTOMENU_BUTTON;
+        if(s.equals("SAVE")) return SAVE_BUTTON;
+        return null;
     }
 }

@@ -43,21 +43,21 @@ public class MetalloidWorld extends World {
             atoms.remove(a);
         }
         atomsToRemove.clear();
-        for (int i = 0; i < map.size(); i++) {
-            player.handlePlatformIntersection(map.get(i));
+        for (int i = 0; i < platforms.size(); i++) {
+            player.handlePlatformIntersection(platforms.get(i));
         }
-        if (player.intersectsAnyPlatformFromTheLeft(map)) {
+        if (player.intersectsAnyPlatformFromTheLeft(platforms)) {
             player.setOnPlatformLeft(true);
         } else {
             player.setOnPlatformLeft(false);
         }
-        if (player.intersectsAnyPlatformFromTheRight(map)) {
+        if (player.intersectsAnyPlatformFromTheRight(platforms)) {
             player.setOnPlatformRight(true);
         } else {
             player.setOnPlatformRight(false);
         }
 
-        for (Platform p : map) {
+        for (Platform p : platforms) {
             p.tick();
         }
 
@@ -79,9 +79,9 @@ public class MetalloidWorld extends World {
                 int green = (pixel >> 8) & 0xff;
                 int blue = (pixel) & 0xff;
                 if (getColor(red, green, blue).equals("WHITE")) {
-                    map.add(new Platform(x * 100, y * 100, 100, 100, "STATIC", MetalloidWorldAssets.block));
+                    platforms.add(new Platform(x * 100, y * 100, 100, 100, "STATIC", MetalloidWorldAssets.block));
                 } else if (getColor(red, green, blue).equals("GREEN")) {
-                    map.add(new Platform(x * 100, y * 100, 100, 100, "ACTIVE", MetalloidWorldAssets.block));
+                    platforms.add(new Platform(x * 100, y * 100, 100, 100, "ACTIVE", MetalloidWorldAssets.block));
                 }
             }
         }
@@ -108,8 +108,8 @@ public class MetalloidWorld extends World {
         for (Atom a : atoms) {
             a.render(g);
         }
-        for (int i = 0; i < map.size(); i++) {
-            map.get(i).render(g);
+        for (int i = 0; i < platforms.size(); i++) {
+            platforms.get(i).render(g);
         }
 
         for (Enemy e : enemies) {

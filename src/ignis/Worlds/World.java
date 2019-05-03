@@ -11,6 +11,7 @@ import ignis.Atom;
 import ignis.Enemy;
 import ignis.Fire;
 import ignis.Game;
+import ignis.PauseMenu;
 import ignis.Platform;
 import ignis.Player;
 import ignis.Robot;
@@ -29,12 +30,15 @@ public abstract class World {
     
     protected Player player;
     protected Game game;
+    protected Graphics g;
     protected int idWorld;
-    protected LinkedList<Platform> map;
+    protected LinkedList<Platform> platforms;
     protected String compuestoBuscar;
     protected LinkedList<Atom> atoms;
     protected int needAtoms = 3;
     protected LinkedList<Enemy> enemies;
+    protected PauseMenu pauseMenu;
+    protected Boolean paused;
     
     
     public World(Game g, Player p, int id) {
@@ -42,12 +46,20 @@ public abstract class World {
         if (idWorld == 1) {
             needAtoms = 3;
         }
+        this.g = g.getG();
         this.game = g;
         this.player = p;
-        map = new LinkedList<Platform>();
-        atoms = new LinkedList<>();
-        enemies = new LinkedList<>();
+        this.platforms = new LinkedList<Platform>();
+        this.atoms = new LinkedList<>();
+        this.enemies = new LinkedList<>();
+        this.pauseMenu = new PauseMenu(g, p);
+        this.paused = false;
         
+    }
+
+    
+    public void showPauseMenu(){
+        this.pauseMenu.render(this.game.getG());
     }
     
     public void setIdWorld(int id){
@@ -83,4 +95,37 @@ public abstract class World {
     {
           g.drawImage(Assets.gameOver, 0, 0, game.getWidth(), game.getHeight(), null);
     }
+    
+    public void renderPlayer(Graphics graphics){
+        player.render(graphics);
+    }
+    
+    public void renderAtoms(Graphics graphics) {
+        for (Atom a : atoms) {
+            a.render(graphics);
+        }
+    }
+    
+    public void renderPlatforms(Graphics graphics) {
+        for (int i = 0; i < platforms.size(); i++) {
+            platforms.get(i).render(graphics);
+        }
+    }
+    
+    public void renderEnemies(Graphics graphics) {
+        for (Enemy e : enemies) {
+            e.render(graphics);
+        }
+    }
+
+    public void renderPlayerLives(Graphics graphics) {
+        for (int i = 0; i < player.getLives(); i++) {
+            graphics.drawImage(Assets.heart, (player.getX()) - 580 + i * 30, (player.getY()) - 350 - 45, 20, 20, null);
+        }
+    }
+
+
+    
+    
+    
 }

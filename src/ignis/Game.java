@@ -101,6 +101,31 @@ public class Game implements Runnable {
     public void setWin(Boolean val){
         this.win = val;
     }
+
+    public BufferStrategy getBs() {
+        return bs;
+    }
+
+    public void setBs(BufferStrategy bs) {
+        this.bs = bs;
+    }
+
+    public Graphics getG() {
+        return g;
+    }
+
+    public void setG(Graphics g) {
+        this.g = g;
+    }
+
+    public Display getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(Display display) {
+        this.display = display;
+    }
+    
     
     
     
@@ -169,28 +194,14 @@ public class Game implements Runnable {
     }
 
     private void tick() {
-       
-        if(player.getY()<1000)
-        {
-              keyManager.tick();
-        // avancing player with colision
-             player.tick();
-             
-        }
-        if(player.getY()>1000)
-        {
-            gameOver=true;
-        }
-        
-
-        
-        
-       
+        keyManager.tick();
         if(world == null){
+            player.tick();
             doorsTick();
         } else {
             world.tick();
         }
+        player.tick();
     }
 
     public void doorsTick() {
@@ -208,7 +219,6 @@ public class Game implements Runnable {
 
     public void goToWorld(Door d) {
         int index = d.getIndex();
-        System.out.println(index);
         switch(index){
             case 1:
                 world = new AlkaliWorld(this,player);
@@ -261,34 +271,35 @@ public class Game implements Runnable {
             if (world == null) {
                 renderWorldMenu();
             } else {
-                world.setIdWorld(1);
                 renderWorld(world);
             }
-            
-            if(!win){
-                player.render(g);
-            }
-            
             bs.show();
             g.dispose();
         }
     }
-
-    public void renderWorld(World w) {
-        w.render(g);
-        
+    
+    public void renderWorldMenu(){
+        renderWorldMenuBackground();
+        renderDoors();
+        renderPlayer();
     }
 
-    public void doorsRender() {
+    public void renderWorld(World w) {
+        w.render(g);   
+    }
+
+    public void renderWorldMenuBackground(){
+        g.drawImage(MenuAssets.BACKGROUND, 0, 0, width, height, null); 
+    }
+    public void renderDoors() {
         for (int i = 0; i < doors.size(); i++) {
             Door d = doors.get(i);
             d.render(g);
         }
     }
-
-    private void renderWorldMenu() {
-        g.drawImage(MenuAssets.BACKGROUND, 0, 0, width, height, null);
-        doorsRender();
+    
+    public void renderPlayer() {
+        player.render(g);
     }
 
     /**
