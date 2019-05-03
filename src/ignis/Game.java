@@ -5,6 +5,7 @@
  */
 package ignis;
 
+import ignis.Worlds.World;
 import ignis.Assets.Assets;
 import ignis.Assets.AtomAssets;
 import ignis.Assets.EnemyAssets;
@@ -12,6 +13,7 @@ import ignis.Assets.PlayerAssets;
 import ignis.Assets.TextAssets;
 import ignis.Assets.WorldAssets;
 import ignis.Assets.MenuAssets;
+import ignis.Worlds.AlkaliWorld;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -209,8 +211,8 @@ public class Game implements Runnable {
     
 
     public void goToWorld(Door d) {
-        world = new World(this, player);
-        world.setIdWorld(1);
+        world = new AlkaliWorld(this, player);
+        world.generateWorld();
     }
 
     private void restartGame() {

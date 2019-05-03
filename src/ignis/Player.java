@@ -2,9 +2,12 @@ package ignis;
 
 import ignis.Assets.Assets;
 import ignis.Assets.PlayerAssets;
+import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  *
@@ -34,6 +37,8 @@ public class Player extends PhysicsObject {
     private Animation backAnimation;
     
     private int invincibilityTimer;
+    
+    private Map<String, Integer> atoms;
 
 
     public Player(int x, int y, int direction, int width, int height, Game game) {
@@ -56,6 +61,7 @@ public class Player extends PhysicsObject {
         this.frontAnimation = new Animation(PlayerAssets.playerFrontImages, 100);
         this.backAnimation = new Animation(PlayerAssets.playerBackImages, 100);
         this.invincibilityTimer = 0;
+        atoms = new HashMap<String, Integer>();
 
 
     }
