@@ -6,9 +6,10 @@
 package ignis;
 
 import ignis.Assets.Assets;
-import ignis.Assets.WorldAssets;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -22,7 +23,8 @@ public class Platform extends Item{
     private int initialX;
     private int initialY;
     private boolean movingLeft;
-    public Platform(int x, int y, int width, int height, String type ) {
+    private BufferedImage blockImage;
+    public Platform(int x, int y, int width, int height, String type, BufferedImage b ) {
         super(x, y);
         this.initialX = x;
         this.initialY = y;
@@ -30,6 +32,7 @@ public class Platform extends Item{
         this.height = height;
         this.type = type;
         this.movingLeft = true;
+        this.blockImage = b;
     }
 
     public int getWidth() {
@@ -72,7 +75,7 @@ public class Platform extends Item{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(WorldAssets.groundBlock, getX(), getY(), getWidth(), getHeight(), null);            
+        g.drawImage(blockImage, getX(), getY(), getWidth(), getHeight(), null);            
     }
     
 }

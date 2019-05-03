@@ -22,6 +22,7 @@ public class Door extends Item {
     private int height;
     private BufferedImage image;
     private Game game;
+    private int index;
 
     public Door(int x, int y, int width, int height, Game game, int index) {
         super(x, y);
@@ -29,6 +30,7 @@ public class Door extends Item {
         this.height = height;
         this.game = game;
         this.image = MenuAssets.getDoor(index);
+        this.index = index;
     }
     
     public int getWidth(){
@@ -38,6 +40,16 @@ public class Door extends Item {
     public int getHeight(){
         return height;
     }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+    
+    
     
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());

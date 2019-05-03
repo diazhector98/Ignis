@@ -59,6 +59,6 @@ public class MenuAssets {
     }
     
     public static BufferedImage getDoor(int index){
-        return doors.get(index);
+        return doors.get(index - 1);
     }
 }

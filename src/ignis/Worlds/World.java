@@ -6,7 +6,6 @@
 package ignis.Worlds;
 
 import ignis.Assets.Assets;
-import ignis.Assets.WorldAssets;
 import ignis.Assets.TextAssets;
 import ignis.Atom;
 import ignis.Enemy;

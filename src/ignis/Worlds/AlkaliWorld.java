@@ -7,6 +7,7 @@ package ignis.Worlds;
 
 import ignis.Assets.Assets;
 import ignis.Assets.TextAssets;
+import ignis.Assets.WorldAssets.AlkaliWorldAssets;
 import ignis.Atom;
 import ignis.Enemy;
 import ignis.Game;
@@ -25,20 +26,22 @@ public class AlkaliWorld extends World {
     
     public AlkaliWorld(Game g, Player p) {
         super(g, p, 1);
+        AlkaliWorldAssets.init();
     }
     
     @Override
     public void generateWorld() {
+        System.out.println("Generating alkali world");
         for (int y = 0; y < 12; y++) {
             for (int x = 0; x < 30; x++) {
-                int pixel = Assets.altLevel1.getRGB(x, y);
+                int pixel = AlkaliWorldAssets.world.getRGB(x, y);
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
                 int blue = (pixel) & 0xff;
                 if (getColor(red, green, blue).equals("WHITE")) {
-                    map.add(new Platform(x * 100, y * 100, 100, 100, "STATIC"));
+                    map.add(new Platform(x * 100, y * 100, 100, 100, "STATIC", AlkaliWorldAssets.block));
                 } else if (getColor(red, green, blue).equals("GREEN")) {
-                    map.add(new Platform(x * 100, y * 100, 100, 100, "ACTIVE"));
+                    map.add(new Platform(x * 100, y * 100, 100, 100, "ACTIVE", AlkaliWorldAssets.block));
                 }
             }
         }
@@ -58,7 +61,7 @@ public class AlkaliWorld extends World {
     
     @Override
     public void tick() {
-         ArrayList<Atom> atomsToRemove = new ArrayList<>();
+        ArrayList<Atom> atomsToRemove = new ArrayList<>();
         for(Atom a : atoms){
             a.tick();
             if(player.intersectsAtom(a)){

@@ -11,9 +11,17 @@ import ignis.Assets.AtomAssets;
 import ignis.Assets.EnemyAssets;
 import ignis.Assets.PlayerAssets;
 import ignis.Assets.TextAssets;
-import ignis.Assets.WorldAssets;
+
 import ignis.Assets.MenuAssets;
+import ignis.Worlds.ActinoidWorld;
 import ignis.Worlds.AlkaliWorld;
+import ignis.Worlds.AlkalineWorld;
+import ignis.Worlds.LanthanoidWorld;
+import ignis.Worlds.MetalloidWorld;
+import ignis.Worlds.NobleGasWorld;
+import ignis.Worlds.NonMetalWorld;
+import ignis.Worlds.PostTransitionWorld;
+import ignis.Worlds.TransitionWorld;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -106,7 +114,6 @@ public class Game implements Runnable {
         Assets.init();
         PlayerAssets.init();
         AtomAssets.init();
-        WorldAssets.init();
         TextAssets.init();
         MenuAssets.init();
         EnemyAssets.init();
@@ -119,8 +126,8 @@ public class Game implements Runnable {
         int delta = 120;
         int verticalMargin = 100;
         int horizontalMargin = 70;
-        for (int i = 0; i < 9; i++) {
-            doors.add(new Door(i * delta + horizontalMargin, 50, doorWidth, doorHeight, this, i));
+        for (int i = 1; i <= 9; i++) {
+            doors.add(new Door((i-1) * delta + horizontalMargin, 50, doorWidth, doorHeight, this, i));
         }
 
         display.getJframe().addKeyListener(keyManager);
@@ -174,17 +181,6 @@ public class Game implements Runnable {
         {
             gameOver=true;
         }
-        /*
-        if (player.intersectsPlatform(platform)) {
-            player.handlePlatformIntersection();
-        }
-
-        if (player.intersectsPlatform(platform2)) {
-            player.handlePlatformIntersection();
-        }
-        */
-        
-        
         
 
         
@@ -211,7 +207,37 @@ public class Game implements Runnable {
     
 
     public void goToWorld(Door d) {
-        world = new AlkaliWorld(this, player);
+        int index = d.getIndex();
+        System.out.println(index);
+        switch(index){
+            case 1:
+                world = new AlkaliWorld(this,player);
+                break;
+            case 2:
+                world = new AlkalineWorld(this, player);
+                break;
+            case 3:
+                world = new LanthanoidWorld(this, player);
+                break;
+            case 4:
+                world = new ActinoidWorld(this, player);
+                break;
+            case 5:
+                world = new TransitionWorld(this, player);
+                break;
+            case 6:
+                world = new PostTransitionWorld(this, player);
+                break;
+            case 7:
+                world = new MetalloidWorld(this, player);
+                break;
+            case 8:
+                world = new NonMetalWorld(this, player);
+                break;
+            case 9:
+                world = new NobleGasWorld(this, player);
+                break;
+        }
         world.generateWorld();
     }
 
