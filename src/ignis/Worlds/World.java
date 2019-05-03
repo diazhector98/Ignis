@@ -95,6 +95,10 @@ public abstract class World {
         this.paused = true;    
     }
     
+    public void returnToMenu() {
+        game.setInitialState();
+    }
+    
     public abstract void tick();
     public abstract void generateWorld();
     public abstract void render(Graphics g);

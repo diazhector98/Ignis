@@ -192,6 +192,12 @@ public class Game implements Runnable {
     public KeyManager getKeyManager() {
         return keyManager;
     }
+    
+    public void setInitialState() {
+        world = null;
+        player.setX(getWidth() / 2);
+        player.setY(getHeight() / 2);
+    }
 
     private void tick() {
         keyManager.tick();

@@ -50,6 +50,7 @@ public class PauseMenu {
                 world.unPause();
             } else if (posInButton(mouseX, mouseY, goToMenuButton)){
                 System.out.println("Go to Menu Pressed");
+                world.returnToMenu();
             } else if(posInButton(mouseX, mouseY, saveButton)){
                 System.out.println("Save button Pressed");
             }
