@@ -14,4 +14,5 @@ public class Robot extends Enemy{
     public Robot(Platform p) {
         super(3, 5, p, 0);
     }
+    
 }

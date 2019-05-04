@@ -27,6 +27,23 @@ public class NobleGasWorld extends World {
         super(g, p, 9);
         NobleGasWorldAssets.init();
     }
+    
+    
+        public String getColor(int red, int green, int blue){
+        if(red == 255 && green == 255 && blue == 255){
+            return "WHITE";
+        } else if(red == 0 && green == 0 && blue == 0){
+            return "BLACK";
+        } else if(red > green && red > blue){
+            return "RED";
+        } else if(green > red && green > blue){
+            return "GREEN";
+        } else if(blue > green && blue > red){
+            return "BLUE";
+        } else {
+            return "NOT DETECTED";
+        }
+    }
 
     @Override
     public void tick() {
