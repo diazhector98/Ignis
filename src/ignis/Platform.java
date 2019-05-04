@@ -65,9 +65,14 @@ public class Platform extends Item{
     public void setIntersected(boolean intersected) {
         this.intersected = intersected;
     }
-    
-    
-    
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
     
     @Override
     public void tick() {
@@ -83,6 +88,8 @@ public class Platform extends Item{
                     movingLeft = true;
                 }
             }
+        } else if( type == "ATOM"){
+            
         }
     }
 

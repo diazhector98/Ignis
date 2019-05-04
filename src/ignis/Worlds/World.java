@@ -51,7 +51,8 @@ public abstract class World {
         this.enemies = new LinkedList<>();
         this.pauseMenu = new PauseMenu(g, p, this);
         this.paused = false;
-        
+        p.setX(0);
+        p.setY(0);
     }
 
     

@@ -210,13 +210,13 @@ public class Player extends PhysicsObject {
  
         if (getX() > p.getX() && getX() + getWidth() < p.getX() + p.getWidth()) {
             correctX = true;
-            System.out.println("Intersect case 1");
+            //System.out.println("Intersect case 1");
         } else if (getX() + getWidth() < p.getX() + p.getWidth() && getX() + getWidth() * 0.50 > p.getX()) {
             correctX = true;
-            System.out.println("Intersect case 2");
+            //System.out.println("Intersect case 2");
         } else if (getX() + getWidth() > p.getX() + p.getWidth() && getX() + getWidth() * 0.10 < p.getX() + p.getWidth()) {
             correctX = true;
-            System.out.println("Intersect case 3");
+            //System.out.println("Intersect case 3");
 
         }
         

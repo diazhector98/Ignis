@@ -22,4 +22,8 @@ public class AtomAssets {
         hydrogenAtom = ImageLoader.loadImage("/images/hydrogenAtom.png");
         oxygenAtom = ImageLoader.loadImage("/images/oxygenAtom.png");
     }
+    
+    public BufferedImage getAtomImage(String elemento){
+        return null;
+    }
 }
