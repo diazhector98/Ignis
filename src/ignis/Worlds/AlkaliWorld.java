@@ -18,6 +18,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+
 /**
  *
  * @author hectordiazaceves
@@ -27,6 +28,8 @@ public class AlkaliWorld extends World {
     public AlkaliWorld(Game g, Player p) {
         super(g, p, 1);
         AlkaliWorldAssets.init();
+        player.setY(4500);
+        player.setX(500);
     }
     
     @Override

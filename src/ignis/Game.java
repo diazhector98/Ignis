@@ -197,6 +197,8 @@ public class Game implements Runnable {
         world = null;
         player.setX(getWidth() / 2);
         player.setY(getHeight() / 2);
+        player.setSpeedY(0);
+
     }
 
     private void tick() {
@@ -224,8 +226,6 @@ public class Game implements Runnable {
 
     public void goToWorld(Door d) {
         int index = d.getIndex();
-        player.setY(4500);
-        player.setX(500);
         switch(index){
             case 1:
                 world = new AlkaliWorld(this,player);

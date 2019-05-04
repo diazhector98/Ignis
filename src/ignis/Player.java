@@ -220,8 +220,14 @@ public class Player extends PhysicsObject {
 
         }
         
+        boolean correctY = false;
         
-        return correctX;
+        if(getY() + getHeight() * 0.9 < p.getY()) {
+            correctY = true;
+        }
+        
+        
+        return correctX;// && correctY;
     }
     
     public boolean intersectsAnyPlatformFromTheLeft(LinkedList<Platform> map){
