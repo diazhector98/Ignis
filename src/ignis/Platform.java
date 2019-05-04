@@ -25,6 +25,7 @@ public class Platform extends Item{
     private int initialY;
     private boolean movingLeft;
     private BufferedImage blockImage;
+    private boolean intersected;
     public Platform(int x, int y, int width, int height, String type, BufferedImage b ) {
         super(x, y);
         this.initialX = x;
@@ -34,6 +35,7 @@ public class Platform extends Item{
         this.type = type;
         this.movingLeft = true;
         this.blockImage = b;
+        this.intersected = false;
     }
 
     public int getWidth() {
@@ -55,6 +57,16 @@ public class Platform extends Item{
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
+
+    public boolean isIntersected() {
+        return intersected;
+    }
+
+    public void setIntersected(boolean intersected) {
+        this.intersected = intersected;
+    }
+    
+    
     
     
     @Override
@@ -76,7 +88,12 @@ public class Platform extends Item{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(blockImage, getX(), getY(), getWidth(), getHeight(), null);            
+        if (!intersected) {
+            g.drawImage(blockImage, getX(), getY(), getWidth(), getHeight(), null);
+
+        } else {
+            g.drawImage(Assets.brownSquare, getX(), getY(), getWidth(), getHeight(), null);
+        }
     }
-    
+
 }

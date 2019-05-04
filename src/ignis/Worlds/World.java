@@ -43,9 +43,6 @@ public abstract class World {
     
     public World(Game g, Player p, int id) {
         this.idWorld = id;
-        if (idWorld == 1) {
-            needAtoms = 3;
-        }
         this.g = g.getG();
         this.game = g;
         this.player = p;

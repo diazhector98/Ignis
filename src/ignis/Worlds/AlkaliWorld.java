@@ -32,8 +32,8 @@ public class AlkaliWorld extends World {
     @Override
     public void generateWorld() {
         System.out.println("Generating alkali world");
-        for (int y = 0; y < 12; y++) {
-            for (int x = 0; x < 30; x++) {
+        for (int y = 0; y < 50; y++) {
+            for (int x = 0; x < 100; x++) {
                 int pixel = AlkaliWorldAssets.world.getRGB(x, y);
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
@@ -45,7 +45,7 @@ public class AlkaliWorld extends World {
                 }
             }
         }
-
+/*
         Atom hydrogenAtom = new Atom(game, platforms.get(2), "H");
         Atom oxygenAtom = new Atom(game, platforms.get(5), "O");
         Atom oxygenAtom2 = new Atom(game, platforms.get(19), "O");
@@ -55,8 +55,10 @@ public class AlkaliWorld extends World {
         atoms.add(oxygenAtom2);
 
         Robot robot = new Robot(platforms.get(4));
-        
+       
         enemies.add(robot);
+
+*/
     }
     
     @Override

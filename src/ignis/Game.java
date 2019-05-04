@@ -224,6 +224,8 @@ public class Game implements Runnable {
 
     public void goToWorld(Door d) {
         int index = d.getIndex();
+        player.setY(4500);
+        player.setX(500);
         switch(index){
             case 1:
                 world = new AlkaliWorld(this,player);

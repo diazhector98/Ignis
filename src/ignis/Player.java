@@ -188,12 +188,40 @@ public class Player extends PhysicsObject {
     }
     
     public void handlePlatformIntersection(Object obj) {
-        if (intersectsPlatformFromAbove(obj)) {
+        Platform p = (Platform) obj;
+        if (isOnTopOfPlatform(obj)) {
+            p.setIntersected(true);
             setJumping(false);
             setSpeedY(0);
-            setY(((Platform) obj).getY() - getHeight());
+            //setY(((Platform) obj).getY() - getHeight());
             setOnFloor(true);
+        } else {
+            p.setIntersected(false);
         }
+    }
+    
+    public boolean isOnTopOfPlatform(Object obj) {
+        if(!(obj instanceof Platform)) return false;
+        Platform p = (Platform) obj;
+        if(!getPerimetro().intersects(p.getPerimetro())) return false;
+        
+        
+        boolean correctX = false;
+ 
+        if (getX() > p.getX() && getX() + getWidth() < p.getX() + p.getWidth()) {
+            correctX = true;
+            System.out.println("Intersect case 1");
+        } else if (getX() + getWidth() < p.getX() + p.getWidth() && getX() + getWidth() * 0.50 > p.getX()) {
+            correctX = true;
+            System.out.println("Intersect case 2");
+        } else if (getX() + getWidth() > p.getX() + p.getWidth() && getX() + getWidth() * 0.10 < p.getX() + p.getWidth()) {
+            correctX = true;
+            System.out.println("Intersect case 3");
+
+        }
+        
+        
+        return correctX;
     }
     
     public boolean intersectsAnyPlatformFromTheLeft(LinkedList<Platform> map){
