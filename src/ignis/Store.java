@@ -18,4 +18,8 @@ public class Store extends Building{
         super(x, y, width, height, BuildingAssets.store, g);
     }
     
+    public void showStore(){
+        
+    }
+    
 }

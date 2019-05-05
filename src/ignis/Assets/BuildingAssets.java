@@ -15,11 +15,27 @@ import java.awt.image.BufferedImage;
 public class BuildingAssets {
     
     public static BufferedImage store;
+    public static BufferedImage storeBackground;
+    
+    
     public static BufferedImage lab;
     
+    
+    
     public static void init() {
-        store = ImageLoader.loadImage("/images/store.png");
-        lab = ImageLoader.loadImage("/images/lab.png");
+        //Store
+        store = getImage("store");
+        storeBackground = getImage("storeBackground");
+        lab = getImage("lab");
+    }
+    
+    public static BufferedImage getImage(String s){
+        String dir = getImageDirectory(s);
+        return ImageLoader.loadImage(dir);
+    }
+    
+    public static String getImageDirectory(String fileName){
+        return "/images/buildings/" + fileName + ".png";
     }
     
 }

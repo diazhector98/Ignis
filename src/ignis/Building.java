@@ -6,6 +6,7 @@
 package ignis;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 /**
@@ -72,6 +73,14 @@ public class Building {
     
     public void render(Graphics g){
         g.drawImage(this.image , getX(), getY(), getWidth(), getHeight(), null);
+    }
+    
+    public Rectangle getPerimeter(){
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
+    }
+    
+    public Rectangle getDoorPerimeter(){
+        return new Rectangle(getX() + getWidth() / 2, getY() + getHeight(), 100, 100);
     }
     
 }
