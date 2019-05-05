@@ -30,6 +30,8 @@ public class EnemyAssets {
         Pair robot = new Pair(ROBOT_LEFT, ROBOT_RIGHT);
         enemiesImages.add(robot);
         
+  
+        
         
     }
     
