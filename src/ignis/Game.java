@@ -8,6 +8,7 @@ package ignis;
 import ignis.Worlds.World;
 import ignis.Assets.Assets;
 import ignis.Assets.AtomAssets;
+import ignis.Assets.BuildingAssets;
 import ignis.Assets.EnemyAssets;
 import ignis.Assets.PlayerAssets;
 import ignis.Assets.TextAssets;
@@ -52,6 +53,8 @@ public class Game implements Runnable {
     private Platform platform2;
     private Boolean win;
     private Boolean gameOver;
+    private Store store;
+    private Lab lab;
     
 
     /**
@@ -70,6 +73,7 @@ public class Game implements Runnable {
         doors = new ArrayList<Door>();
         win = false;
         gameOver=false;
+        
     }
 
     /**
@@ -136,12 +140,14 @@ public class Game implements Runnable {
      */
     private void init() {
         display = new Display(title, getWidth(), getHeight());
+        //Initialize all assets
         Assets.init();
         PlayerAssets.init();
         AtomAssets.init();
         TextAssets.init();
         MenuAssets.init();
         EnemyAssets.init();
+        BuildingAssets.init();
         //Initialize player
         player = new Player(getWidth() / 2, getHeight() - 100, 1, 50, 80, this);
 
@@ -154,6 +160,11 @@ public class Game implements Runnable {
         for (int i = 1; i <= 9; i++) {
             doors.add(new Door((i-1) * delta + horizontalMargin, 50, doorWidth, doorHeight, this, i));
         }
+        
+        //Initialize buildings
+        store = new Store(750,300,350,350, this);
+        lab = new Lab(100,300,350,350, this);
+        
 
         display.getJframe().addKeyListener(keyManager);
     }
@@ -289,6 +300,7 @@ public class Game implements Runnable {
         renderWorldMenuBackground();
         renderDoors();
         renderPlayer();
+        renderBuildings();
     }
 
     public void renderWorld(World w) {
@@ -303,6 +315,11 @@ public class Game implements Runnable {
             Door d = doors.get(i);
             d.render(g);
         }
+    }
+    
+    public void renderBuildings() {
+        store.render(g);
+        lab.render(g);
     }
     
     public void renderPlayer() {
