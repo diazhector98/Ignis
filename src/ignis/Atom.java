@@ -9,6 +9,7 @@ import ignis.Assets.Assets;
 import ignis.Assets.AtomAssets;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -22,6 +23,7 @@ public class Atom extends PhysicsObject{
     private Platform platform;
     private boolean airborne;
     private int jumpingForce;
+    private BufferedImage image;
     
     public Atom(Game g, Platform p,String e) {
         super(p.getX(), p.getY() - 60, g.getHeight());
@@ -30,6 +32,7 @@ public class Atom extends PhysicsObject{
         this.platform = p;
         this.jumpingForce = 15;
         this.element = e;
+        this.image = AtomAssets.getAtomImage(e);
     }
 
     public int getWidth() {
@@ -73,11 +76,7 @@ public class Atom extends PhysicsObject{
 
     @Override
     public void render(Graphics g) {
-        if(element.equals("H")){
-            g.drawImage(AtomAssets.hydrogenAtom, getX(), getY(), getWidth(), getHeight(), null);
-        } else if (element.equals("O")){
-            g.drawImage(AtomAssets.oxygenAtom, getX(), getY(), getWidth(), getHeight(), null);
-        }
+        g.drawImage(this.image , getX(), getY(), getWidth(), getHeight(), null);
     }
     
     
