@@ -216,6 +216,7 @@ public class Game implements Runnable {
         keyManager.tick();
         if(world == null){
             doorsTick();
+            buildingsTick();
             player.tick();
         } else {
             world.tick();
@@ -225,11 +226,15 @@ public class Game implements Runnable {
     public void doorsTick() {
         for (int i = 0; i < doors.size(); i++) {
             Door d = doors.get(i);
-            d.tick();
             if (player.intersectsDoor(d)) {
                 goToWorld(d);
             }
         }
+    }
+    
+    public void buildingsTick() {
+        player.handleBuildingIntersection(store);
+        player.handleBuildingIntersection(lab);
     }
     
     

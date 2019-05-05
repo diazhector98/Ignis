@@ -71,6 +71,7 @@ public class Building {
         this.y = y;
     }
     
+
     public void render(Graphics g){
         g.drawImage(this.image , getX(), getY(), getWidth(), getHeight(), null);
     }

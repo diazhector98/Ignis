@@ -18,4 +18,6 @@ public class Lab extends Building{
         super(x, y, width, height, BuildingAssets.lab, g);
     }
     
+    
+    
 }

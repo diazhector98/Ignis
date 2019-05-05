@@ -21,5 +21,6 @@ public class Store extends Building{
     public void showStore(){
         
     }
+
     
 }

@@ -316,6 +316,71 @@ public class Player extends PhysicsObject {
         this.onPlatformLeft = onPlatformLeft;
     }
     
+    public boolean intersectsBuildingFromLeft(Building building){
+        if(getPerimetro().intersects(building.getPerimeter())){
+            if(getX() + getWidth() <= building.getX() + 10){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean intersectsBuildingFromRight(Building building){
+        if(getPerimetro().intersects(building.getPerimeter())){
+            if(getX() >= building.getX() + building.getWidth()-10){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean intersectsBuildingFromTop(Building building){
+        if(getPerimetro().intersects(building.getPerimeter())){
+            if(getY() + getHeight() >= building.getY() && getY() < building.getY()){
+                if(getX() + getWidth() < building.getX()+building.getWidth()){
+                    if(getX() > building.getX()){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+ 
+    public boolean intersectsBuildingFromBottom(Building building) {
+        if (getPerimetro().intersects(building.getPerimeter())) {
+            if (getY()  > building.getY() + building.getHeight()-30) {
+                if (getX() + getWidth() < building.getX() + building.getWidth()) {
+                    if (getX() > building.getX()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    
+    public void handleBuildingIntersection(Building building) {
+        if (intersectsBuildingFromLeft(building)) {
+            System.out.println("In left building");
+            setX(getX()-10);
+        } else if (intersectsBuildingFromRight(building)) {
+            System.out.println("In right building");
+            setX(getX()+10);
+
+        } else if (intersectsBuildingFromTop(building)) {
+            System.out.println("In top building");
+            setY(getY()-10);
+
+        } else if (intersectsBuildingFromBottom(building)) {
+            System.out.println("In bottom building");
+            setY(getY()+10);
+
+        }
+    }
+    
+    
     public void turnBack(){
         this.facingBack = true;
         this.facingFront = false;
