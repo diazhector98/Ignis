@@ -361,23 +361,27 @@ public class Player extends PhysicsObject {
     }
 
     
-    public void handleBuildingIntersection(Building building) {
+    public boolean handleBuildingIntersection(Building building) {
         if (intersectsBuildingFromLeft(building)) {
             System.out.println("In left building");
             setX(getX()-10);
+            return true;
         } else if (intersectsBuildingFromRight(building)) {
             System.out.println("In right building");
             setX(getX()+10);
-
+            return true;
         } else if (intersectsBuildingFromTop(building)) {
             System.out.println("In top building");
             setY(getY()-10);
+            return true;
 
         } else if (intersectsBuildingFromBottom(building)) {
             System.out.println("In bottom building");
             setY(getY()+10);
-
+            return true;
         }
+        
+        return false;
     }
     
     

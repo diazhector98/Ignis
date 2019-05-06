@@ -12,23 +12,17 @@ import java.awt.image.BufferedImage;
  *
  * @author hectordiazaceves
  */
-public class BuildingAssets {
-    
-    public static BufferedImage store;
-    public static BufferedImage storeBackground;
-    public static BufferedImage storeTitle;
+public class StoreAssets {
     
     
-    public static BufferedImage lab;
+    public static BufferedImage waterIcon;
+    public static BufferedImage saltIcon;
     
         
     
     public static void init() {
-        //Store
-        store = getImage("store");
-        storeBackground = getImage("storeBackground");
-        storeTitle = getImage("storeTitle");
-        lab = getImage("lab");
+        waterIcon = getImage("water");
+        saltIcon = getImage("salt");
     }
     
     public static BufferedImage getImage(String s){
@@ -37,7 +31,6 @@ public class BuildingAssets {
     }
     
     public static String getImageDirectory(String fileName){
-        return "/images/buildings/" + fileName + ".png";
+        return "/images/store/" + fileName + "StoreIcon.png";
     }
-    
 }

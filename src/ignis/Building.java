@@ -20,7 +20,7 @@ public class Building {
     private int height;
     private int x;
     private int y;
-    private Game game;
+    protected Game game;
     
     public Building(int x, int y, int width, int height, BufferedImage image, Game g){
         this.width = width;

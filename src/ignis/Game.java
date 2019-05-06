@@ -55,6 +55,7 @@ public class Game implements Runnable {
     private Boolean gameOver;
     private Store store;
     private Lab lab;
+    private boolean onStore;
     
 
     /**
@@ -73,6 +74,7 @@ public class Game implements Runnable {
         doors = new ArrayList<Door>();
         win = false;
         gameOver=false;
+        onStore = false;
         
     }
 
@@ -233,13 +235,12 @@ public class Game implements Runnable {
     }
     
     public void buildingsTick() {
-        player.handleBuildingIntersection(store);
+        if(player.handleBuildingIntersection(store)){
+            onStore = true;
+        }
         player.handleBuildingIntersection(lab);
     }
     
-    
-    
-
     public void goToWorld(Door d) {
         int index = d.getIndex();
         switch(index){
@@ -306,6 +307,9 @@ public class Game implements Runnable {
         renderDoors();
         renderPlayer();
         renderBuildings();
+        if(onStore){
+            store.renderStore();
+        }
     }
 
     public void renderWorld(World w) {

@@ -20,20 +20,44 @@ public class Compound {
     public Compound(String s, String name){
         
         atoms = new ArrayList<>();
+        addAtomsFromString(s);
         this.name = name;
     }
-    
-    public void addAtomsFromString(String s){
+
+    public void addAtomsFromString(String s) {
         int n = s.length();
         int i = 0;
         String element = "";
         String number = "";
         int qty = 0;
-        
-        while(i < n){
-            
+
+        boolean symbol = true;
+        element += s.charAt(i);
+        i++;
+        while (i < n) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) {
+                if (symbol) {
+                    symbol = false;
+                }
+                number += c;
+            } else {
+                if (Character.isLowerCase(c)) {
+                    element += c;
+                } else {
+                    addAtomToCompound(element, number.equals("") ? 1 : Integer.parseInt(number));
+                    element = "" + c;
+                    number = "";
+                }
+            }
+            i++;
         }
-        
+        addAtomToCompound(element, number.equals("") ? 1 : Integer.parseInt(number));
+
+    }
+    
+    public void addAtomToCompound(String s, int qty){
+        atoms.add(new Pair(s, qty));
     }
         
     
