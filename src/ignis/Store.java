@@ -102,8 +102,8 @@ public class Store extends Building{
                 if(index < items.size()){
                     StoreObject so = items.get(index);
                     game.getG().drawImage(so.getStoreIcon(), c * 230 + 50, 300 + r * 200, so.getHeight(), so.getWidth(), null);
-                    so.setX(c * 300 + 50);
-                    so.setY(250 + r * 200);
+                    so.setX(c * 230 + 50);
+                    so.setY(300 + r * 200);
                 } else {
                     break;
                 }
