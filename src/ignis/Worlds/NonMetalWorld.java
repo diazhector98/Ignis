@@ -8,24 +8,38 @@ package ignis.Worlds;
 import ignis.Assets.Assets;
 import ignis.Assets.TextAssets;
 import ignis.Assets.WorldAssets.NonMetalWorldAssets;
+import ignis.Assets.WorldAssets.PostTransitionWorldAssets;
 import ignis.Atom;
+import ignis.Cloud;
 import ignis.Enemy;
 import ignis.Game;
 import ignis.Platform;
 import ignis.Player;
+import ignis.Robot;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 
 /**
  *
  * @author hectordiazaceves
  */
 public class NonMetalWorld extends World {
-
+    private Map<String, Integer> atomQuantities;
     public NonMetalWorld(Game g, Player p) {
         super(g, p, 8);
+        player.setX(400);
+        player.setY(4700);
         NonMetalWorldAssets.init();
+        atomQuantities = new HashMap<>();
+        //Poner cantidades minimas de los atomos que se necesitan
+        atomQuantities.put("Al", 2);
+        atomQuantities.put("O", 1);
+        
     }
     
         public String getColor(int red, int green, int blue){
@@ -61,8 +75,9 @@ public class NonMetalWorld extends World {
 
     @Override
     public void generateWorld() {
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 12; x++) {
+        LinkedList<Platform> platformsWithAtom = new LinkedList<>();
+        for (int y = 0; y < 50; y++) {
+            for (int x = 0; x < 100; x++) {
                 int pixel = NonMetalWorldAssets.world.getRGB(x, y);
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
@@ -71,15 +86,45 @@ public class NonMetalWorld extends World {
                     platforms.add(new Platform(x * 100, y * 100, 100, 100, "STATIC", NonMetalWorldAssets.block));
                 } else if (getColor(red, green, blue).equals("GREEN")) {
                     platforms.add(new Platform(x * 100, y * 100, 100, 100, "ACTIVE", NonMetalWorldAssets.block));
+                }else if (getColor(red, green, blue).equals("BLUE")) {
+                    Platform p = new Platform(x * 100, y * 100, 100, 100, "ATOM", NonMetalWorldAssets.block);
+                    platforms.add(p);
+                    platformsWithAtom.add(p);
+                } else if (getColor(red, green, blue).equals("RED")) {
+                    Platform p = new Platform(x * 100, y * 100, 100, 100, "Robot", NonMetalWorldAssets.block);
+                    platforms.add(p);
+                    enemies.add(new Cloud(p));
                 }
+                
             }
+        }
+        Set<String> keys = atomQuantities.keySet();
+        for(int i=0; i<atomQuantities.size(); i++){
+            String elemento = (String)keys.toArray()[i];
+            for(int j=0;j<atomQuantities.get(elemento);j++){
+                int k = (int) ((Math.random() * ((platformsWithAtom.size()-1 - 0) + 1)) + 0);
+                Platform p = platformsWithAtom.get(k);
+                Atom a = new Atom(game,p, elemento);
+                platformsWithAtom.remove(k);
+                atoms.add(a);
+                
+            }
+        }
+        
+        int elementIndex = 0;
+        int n = keys.size();
+        for (Platform p : platformsWithAtom){
+            String elemento = (String)keys.toArray()[elementIndex % n];
+            Atom a = new Atom(game, p, elemento);
+            atoms.add(a);
+            elementIndex++;
         }
     }
 
     @Override
     public void render(Graphics g) {
         if (!paused) {
-            g.drawImage(Assets.darkGraySquare, 0, 0, game.getWidth(), game.getHeight(), null);
+            g.drawImage(Assets.blueSquare, 0, 0, game.getWidth(), game.getHeight(), null);
             g.translate(-(player.getX() - 1200 / 2), -(player.getY() - 800 / 2));
             renderPlayerLives(g);
             renderAtoms(g);

@@ -220,16 +220,24 @@ public class Player extends PhysicsObject {
         } else if (getX() + getWidth() > p.getX() + p.getWidth() && getX() + getWidth() * 0.10 < p.getX() + p.getWidth()) {
             correctX = true;
             //System.out.println("Intersect case 3");
-
         }
         
         boolean correctY = false;
         
-        if(getY() + getHeight() * 0.9 < p.getY()) {
+        if(getY() + getHeight() < p.getY()) {
             correctY = true;
         }
         
-        
+        if (getPerimetro().intersects(p.getPerimetro())){
+            if (getY()>=p.getY()+(p.getHeight()/2) && getX()+getWidth()>=p.getX() && getX()<=p.getX()+p.getWidth() ){
+                System.out.println("Abajo");
+                setY(getY()+5);
+                setJumping(true);
+                setSpeedY(5);
+                onFloor=false;
+                correctX=false;
+            }
+        }
         return correctX;// && correctY;
     }
     

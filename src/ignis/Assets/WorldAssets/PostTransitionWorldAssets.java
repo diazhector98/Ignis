@@ -19,7 +19,7 @@ public class PostTransitionWorldAssets {
     
     public static void init() {
         block = ImageLoader.loadImage("/images/worlds/block6.png");
-        background = ImageLoader.loadImage("/images/backgroundMine.png");
+        background = ImageLoader.loadImage("/images/bg6.png");
         world = ImageLoader.loadImage("/images/worlds/world6.png");
     }
 }
