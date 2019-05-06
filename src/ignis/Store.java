@@ -20,13 +20,25 @@ public class Store extends Building{
     private Button backButton;
     private ArrayList<StoreObject> items;
     private Graphics graphics;
+    private MouseManager mouseManager;
+    private boolean onPreview;
+    private StoreObject selectedObject;
+    private StoreItemScreen itemScreen;
     
     public Store(int x, int y, int width, int height, Game g) {
         super(x, y, width, height, BuildingAssets.store, g);
-        backButton = new Button(50,50,150,150,"BACK",g);
-        items = new ArrayList<>();
+        this.backButton = new Button(50,50,150,150,"BACK",g);
+        this.items = new ArrayList<>();
         this.graphics = g.getG();
+        this.mouseManager = new MouseManager();
+        
+        this.game.getDisplay().getJframe().addMouseListener(mouseManager);
+        this.game.getDisplay().getJframe().addMouseMotionListener(mouseManager);
+        this.game.getDisplay().getCanvas().addMouseListener(mouseManager);
+        this.game.getDisplay().getCanvas().addMouseMotionListener(mouseManager);
         addItems();
+        
+        this.onPreview = false;
     }
     
     
@@ -43,11 +55,17 @@ public class Store extends Building{
     
     }
     
-    public void renderStore(){
-        showBackground();
-        showBackButton();
-        showStoreTitle();
-        showItems();
+    public void renderStore() {
+
+        if (!onPreview) {
+            showBackground();
+            showBackButton();
+            showStoreTitle();
+            showItems();
+        } else {
+            showItemPreview();
+        }
+
     }
     
     public void showStoreTitle(){
@@ -65,7 +83,6 @@ public class Store extends Building{
     }
 
     public void showItems() {
-        
         int columns = 4;
         int rows = 2;
         
@@ -75,12 +92,94 @@ public class Store extends Building{
                 if(index < items.size()){
                     StoreObject so = items.get(index);
                     game.getG().drawImage(so.getStoreIcon(), c * 300 + 50, 250 + r * 200, so.getHeight(), so.getWidth(), null);
+                    so.setX(c * 300 + 50);
+                    so.setY(250 + r * 200);
                 } else {
                     break;
                 }
             }
-        }
+        }   
+    }
+    
+    public void tick() {
         
+        if(onPreview){
+            tickPreview();
+        } else {
+            tickStore();
+        }
+    }
+    
+    
+    public void tickStore() {
+        if(mouseManager.isIzquierdo()){
+            int mouseX = mouseManager.getX();
+            int mouseY = mouseManager.getY();
+            for(StoreObject so : items){
+                if(posInObject(mouseX,mouseY, so)){
+                    itemScreen = new StoreItemScreen(so, this.game);
+                    onPreview = true;
+                    selectedObject = so;
+                }
+            }
+            if(posInButton(mouseX,mouseY, backButton)){
+                System.out.println("Back to menu");
+            }
+        }
+    }
+    
+    public void tickPreview(){
+        if(mouseManager.isIzquierdo()){
+            int mouseX = mouseManager.getX();
+            int mouseY = mouseManager.getY();
+            if(posInButton(mouseX, mouseY, itemScreen.getBuyButton())){
+                System.out.println("Buy object!");
+            }
+            if(posInButton(mouseX, mouseY, itemScreen.getBackButton())){
+                System.out.println("Return to store");
+            }
+        }
+    }
+    
+    public void showItemPreview(){
+        game.getG().drawImage(itemScreen.getBackground(), 0, 0, game.getWidth(), game.getHeight(), null);
+        itemScreen.getBackButton().render(game.getG());
+        game.getG().drawImage(itemScreen.getObjectTitle(), 300, 75, 600, 200, null);
+        itemScreen.getBuyButton().render(game.getG());
+    }
+    
+    private boolean posInObject(int x, int y, StoreObject so) {
+        int storeObjectX, storeObjectWidth, storeObjectY, storeObjectHeight;
+
+        storeObjectX = so.getX();
+        storeObjectWidth = so.getWidth();
+        storeObjectY = so.getY();
+        storeObjectHeight = so.getHeight();
+
+        if (x < storeObjectX || x > storeObjectX + storeObjectWidth) {
+            return false;
+        }
+        if (y < storeObjectY || y > storeObjectY + storeObjectHeight) {
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean posInButton(int x, int y, Button button) {
+        int buttonX, buttonWidth, buttonY, buttonHeight;
+
+        buttonX = button.getX();
+        buttonWidth = button.getWidth();
+        buttonY = button.getY();
+        buttonHeight = button.getHeight();
+
+        if (x < buttonX || x > buttonX + buttonWidth) {
+            return false;
+        }
+        if (y < buttonY || y > buttonY + buttonHeight) {
+            return false;
+        }
+        return true;
     }
 
     

@@ -220,6 +220,9 @@ public class Game implements Runnable {
             doorsTick();
             buildingsTick();
             player.tick();
+            if(onStore){
+                store.tick();
+            }
         } else {
             world.tick();
         }

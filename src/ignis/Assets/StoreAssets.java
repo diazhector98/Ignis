@@ -33,4 +33,13 @@ public class StoreAssets {
     public static String getImageDirectory(String fileName){
         return "/images/store/" + fileName + "StoreIcon.png";
     }
+    
+    public static BufferedImage getTitleImage(String s){
+        String dir = getTitleDirectory(s);
+        return ImageLoader.loadImage(dir);
+    }
+    
+    public static String getTitleDirectory(String name){
+        return "/images/store/" + name + "Title.png";
+    }
 }

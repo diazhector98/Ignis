@@ -35,6 +35,8 @@ public class MenuAssets {
     public static BufferedImage GOTOMENU_BUTTON;
     public static BufferedImage SAVE_BUTTON;
     public static BufferedImage BACK_BUTTON;
+    public static BufferedImage BUY_BUTTON;
+
 
     //Titles
     public static BufferedImage PAUSE_TITLE;
@@ -67,8 +69,11 @@ public class MenuAssets {
         GOTOMENU_BUTTON = ImageLoader.loadImage("/images/buttons/goToMenuButton.png");
         SAVE_BUTTON = ImageLoader.loadImage("/images/buttons/saveButton.png");
         BACK_BUTTON = ImageLoader.loadImage("/images/buttons/backButton.png");
+        BUY_BUTTON = ImageLoader.loadImage("/images/store/buyButton.png");
         
         PAUSE_TITLE = ImageLoader.loadImage("/images/titles/pauseTitle.png");
+        
+        
 
     }
 
@@ -81,6 +86,7 @@ public class MenuAssets {
         if(s.equals("GOTOMENU")) return GOTOMENU_BUTTON;
         if(s.equals("SAVE")) return SAVE_BUTTON;
         if(s.equals("BACK")) return BACK_BUTTON;
+        if(s.equals("BUY")) return BUY_BUTTON;
         return null;
     }
 }
