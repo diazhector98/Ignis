@@ -47,7 +47,7 @@ public class Store extends Building{
     
     public void addItems(){
         ArrayList<Pair> itemsData = new ArrayList<>();
-        itemsData.add(new Pair("water","H20"));
+        itemsData.add(new Pair("water","H2O"));
         itemsData.add(new Pair("salt", "NaCl"));
         itemsData.add(new Pair("magnesiumCarbonate","MgCO3"));
         itemsData.add(new Pair("copperFormate", "C2H2CuO4"));
@@ -131,7 +131,11 @@ public class Store extends Building{
                     itemScreen = new StoreItemScreen(so, this.game);
                     onPreview = true;
                     selectedObject = so;
-                    so.getCompound().printCompound();
+                    if(player.canBuy(so)){
+                        System.out.println("Can buy object");
+                    } else {
+                        System.out.println("Cannot buy object");
+                    }
                 }
             }
             if(posInButton(mouseX,mouseY, backButton)){

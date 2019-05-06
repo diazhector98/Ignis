@@ -5,10 +5,12 @@ import ignis.Assets.PlayerAssets;
 import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
+import javafx.util.Pair;
 
 /**
  *
@@ -364,20 +366,16 @@ public class Player extends PhysicsObject {
     
     public boolean handleBuildingIntersection(Building building) {
         if (intersectsBuildingFromLeft(building)) {
-            System.out.println("In left building");
             setX(getX()-10);
             return true;
         } else if (intersectsBuildingFromRight(building)) {
-            System.out.println("In right building");
             setX(getX()+10);
             return true;
         } else if (intersectsBuildingFromTop(building)) {
-            System.out.println("In top building");
             setY(getY()-10);
             return true;
 
         } else if (intersectsBuildingFromBottom(building)) {
-            System.out.println("In bottom building");
             setY(getY()+10);
             return true;
         }
@@ -516,6 +514,25 @@ public class Player extends PhysicsObject {
             setY(getY() - 5);
             accelerate(0, -1 * jumpingForce);
         }
+    }
+    
+    public boolean canBuy(StoreObject so){
+        
+        Map<String,Integer> playerAtoms = atoms;
+        ArrayList<Pair> objectAtoms = so.getCompound().getAtoms();
+        
+        for(Pair p : objectAtoms){
+            String element = (String) p.getKey();
+            int qtyNeeded = (Integer) p.getValue();
+            if(!playerAtoms.containsKey(element)){
+                return false;
+            }
+            if(playerAtoms.get(element) < qtyNeeded){
+                return false;
+            }
+        }
+        
+        return true;
     }
 
     @Override

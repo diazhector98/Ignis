@@ -21,6 +21,7 @@ public class Building {
     private int x;
     private int y;
     protected Game game;
+    protected Player player;
     
     public Building(int x, int y, int width, int height, BufferedImage image, Game g){
         this.width = width;
@@ -29,6 +30,7 @@ public class Building {
         this.y = y;
         this.image = image;
         this.game = g;
+        this.player = g.getPlayer();
     }
 
     public BufferedImage getImage() {

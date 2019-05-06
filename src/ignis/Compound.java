@@ -31,20 +31,18 @@ public class Compound {
         String number = "";
         int qty = 0;
 
-        boolean symbol = true;
         element += s.charAt(i);
         i++;
         while (i < n) {
             char c = s.charAt(i);
             if (Character.isDigit(c)) {
-                if (symbol) {
-                    symbol = false;
-                }
                 number += c;
             } else {
                 if (Character.isLowerCase(c)) {
                     element += c;
+
                 } else {
+
                     addAtomToCompound(element, number.equals("") ? 1 : Integer.parseInt(number));
                     element = "" + c;
                     number = "";
@@ -61,12 +59,23 @@ public class Compound {
     }
     
     public void printCompound(){
+        
         for(Pair p : atoms){
             String element = (String)p.getKey();
             int qty = (Integer) p.getValue();
             System.out.println(element + String.valueOf(qty));
         }
     }
+
+    public ArrayList<Pair> getAtoms() {
+        return atoms;
+    }
+
+    public void setAtoms(ArrayList<Pair> atoms) {
+        this.atoms = atoms;
+    }
+    
+    
         
     
 }
