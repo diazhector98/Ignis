@@ -59,6 +59,14 @@ public class Compound {
     public void addAtomToCompound(String s, int qty){
         atoms.add(new Pair(s, qty));
     }
+    
+    public void printCompound(){
+        for(Pair p : atoms){
+            String element = (String)p.getKey();
+            int qty = (Integer) p.getValue();
+            System.out.println(element + String.valueOf(qty));
+        }
+    }
         
     
 }

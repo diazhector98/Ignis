@@ -36,8 +36,8 @@ public class StoreObject {
         this.compound = new Compound(formula, n);
         this.x = x;
         this.y = y;
-        this.width = 200;
-        this.height = 200;
+        this.width = 150;
+        this.height = 150;
     }
 
     public String getName() {
@@ -84,6 +84,24 @@ public class StoreObject {
     public BufferedImage getStoreIcon(){
         return storeIcon;
     }
+
+    public String getFormula() {
+        return formula;
+    }
+
+    public void setFormula(String formula) {
+        this.formula = formula;
+    }
+
+    public Compound getCompound() {
+        return compound;
+    }
+
+    public void setCompound(Compound compound) {
+        this.compound = compound;
+    }
+    
+    
     
     
     public void render(Graphics g){

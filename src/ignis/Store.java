@@ -49,6 +49,13 @@ public class Store extends Building{
         ArrayList<Pair> itemsData = new ArrayList<>();
         itemsData.add(new Pair("water","H20"));
         itemsData.add(new Pair("salt", "NaCl"));
+        itemsData.add(new Pair("magnesiumCarbonate","MgCO3"));
+        itemsData.add(new Pair("copperFormate", "C2H2CuO4"));
+        itemsData.add(new Pair("zincMetaArsenite", "As2O6Zn3"));
+        itemsData.add(new Pair("einsteniumIodide", "EsI3"));
+        itemsData.add(new Pair("xenonPentafluorideHexafluororuthenate", "XeF5RuF6"));
+        itemsData.add(new Pair("sodiumAluminate", "NaAlO2"));
+        itemsData.add(new Pair("lutetiumOxide", "Lu2O3"));
         
         for(int i = 0; i < itemsData.size(); i++){
             Pair itemData = itemsData.get(i);
@@ -86,7 +93,7 @@ public class Store extends Building{
     }
 
     public void showItems() {
-        int columns = 4;
+        int columns = 5;
         int rows = 2;
         
         for(int r = 0; r < rows; r++){
@@ -94,7 +101,7 @@ public class Store extends Building{
                 int index = r * columns + c;
                 if(index < items.size()){
                     StoreObject so = items.get(index);
-                    game.getG().drawImage(so.getStoreIcon(), c * 300 + 50, 250 + r * 200, so.getHeight(), so.getWidth(), null);
+                    game.getG().drawImage(so.getStoreIcon(), c * 230 + 50, 300 + r * 200, so.getHeight(), so.getWidth(), null);
                     so.setX(c * 300 + 50);
                     so.setY(250 + r * 200);
                 } else {
@@ -124,6 +131,7 @@ public class Store extends Building{
                     itemScreen = new StoreItemScreen(so, this.game);
                     onPreview = true;
                     selectedObject = so;
+                    so.getCompound().printCompound();
                 }
             }
             if(posInButton(mouseX,mouseY, backButton)){
