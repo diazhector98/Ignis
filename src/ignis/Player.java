@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -428,6 +429,15 @@ public class Player extends PhysicsObject {
     public int getInvincibilityTimer(){
         return this.invincibilityTimer;
     }
+    
+    public void addAtom(String element){
+        if(atoms.containsKey(element)){
+            int qty = atoms.get(element);
+            atoms.put(element, qty + 1);
+        } else {
+            atoms.put(element, 1);
+        }
+    }
 
     @Override
     public void tick() {
@@ -478,25 +488,18 @@ public class Player extends PhysicsObject {
             }
         
         }
+    }
+    
+    public void printCollectedAtoms(){
         
+        Set<String> keys = atoms.keySet();
+        Object[] keysArray = keys.toArray();
         
-        
-        
-        // reset x position and y position if colision
-        /*
-        if (getX() + 60 >= game.getWidth()) {
-            setX(game.getWidth() - 60);
-        } else if (getX() <= -30) {
-            setX(-30);
+        for(Object k : keysArray){
+            int qty = atoms.get(k);
+            System.out.println((String)k + " : " + String.valueOf(qty));
         }
-        */
-        /*
-        if (getY() + 80 >= game.getHeight()) {
-            setY(game.getHeight() - 100);
-        } else if (getY() <= -20) {
-            setY(-20);
-        }
-*/
+        
     }
     
     public void moveRight(){

@@ -219,6 +219,7 @@ public class Game implements Runnable {
         player.setX(getWidth() / 2);
         player.setY(getHeight() / 2);
         player.setSpeedY(0);
+        player.printCollectedAtoms();
 
     }
 
