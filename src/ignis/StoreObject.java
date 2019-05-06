@@ -24,12 +24,17 @@ public class StoreObject {
     private int y;
     private int width;
     private int height;
+    private boolean bought;
     
-    public StoreObject(int x, int y, String n, String formula, int id){
+    public StoreObject(int x, int y, String n, String formula, int id, boolean bought){
         this.name = n;
         this.formula = formula;
         this.id = id;
-        this.storeIcon = StoreAssets.getImage(n);
+        if(bought){
+            this.storeIcon = StoreAssets.getImage(n);
+        } else {
+            this.storeIcon = StoreAssets.getDarkImage(n);
+        }
         if(this.storeIcon != null){
             System.out.println("Got " + n + " icon");
         }
@@ -38,6 +43,7 @@ public class StoreObject {
         this.y = y;
         this.width = 150;
         this.height = 150;
+        this.bought = false;
     }
 
     public String getName() {
@@ -100,6 +106,20 @@ public class StoreObject {
     public void setCompound(Compound compound) {
         this.compound = compound;
     }
+
+    public boolean isBought() {
+        return bought;
+    }
+
+    public void setBought(boolean bought) {
+        this.storeIcon = StoreAssets.getImage(name);
+        this.bought = bought;
+    }
+
+    public void setStoreIcon(BufferedImage storeIcon) {
+        this.storeIcon = storeIcon;
+    }
+    
     
     
     

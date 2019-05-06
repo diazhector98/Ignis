@@ -30,8 +30,17 @@ public class StoreAssets {
         return ImageLoader.loadImage(dir);
     }
     
+    public static BufferedImage getDarkImage(String s){
+        String dir = getDarkImageDirectory(s);
+        return ImageLoader.loadImage(dir);
+    }
+    
     public static String getImageDirectory(String fileName){
         return "/images/store/" + fileName + "StoreIcon.png";
+    }
+    
+    public static String getDarkImageDirectory(String fileName){
+        return "/images/store/" + fileName + "StoreIconDark.png";
     }
     
     public static BufferedImage getTitleImage(String s){

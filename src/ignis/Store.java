@@ -59,7 +59,7 @@ public class Store extends Building{
         
         for(int i = 0; i < itemsData.size(); i++){
             Pair itemData = itemsData.get(i);
-            StoreObject object = new StoreObject(i * 50, 200, (String)itemData.getKey(), (String)itemData.getValue(), i);
+            StoreObject object = new StoreObject(i * 50, 200, (String)itemData.getKey(), (String)itemData.getValue(), i, false);
             items.add(object);
         }
     
@@ -145,13 +145,20 @@ public class Store extends Building{
         }
     }
     
-    public void tickPreview(){
-        if(mouseManager.isIzquierdo() && buttonTimer == 0){
+    public void tickPreview() {
+        if (mouseManager.isIzquierdo() && buttonTimer == 0) {
             buttonTimer = 25;
             int mouseX = mouseManager.getX();
             int mouseY = mouseManager.getY();
-            if(posInButton(mouseX, mouseY, itemScreen.getBuyButton())){
-                System.out.println("Buy object!");
+            if (posInButton(mouseX, mouseY, itemScreen.getBuyButton())) {
+                StoreObject so = itemScreen.getObject();
+                if (player.canBuy(so)) {
+                    System.out.println("Can buy object");
+                    so.setBought(true);
+                } else {
+                    System.out.println("Cannot buy object");
+                }
+
             }
             if(posInButton(mouseX, mouseY, itemScreen.getBackButton())){
                 System.out.println("Return to store");
