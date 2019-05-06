@@ -18,7 +18,9 @@ public class EnemyAssets {
     
     public static BufferedImage ROBOT_LEFT;
     public static BufferedImage ROBOT_RIGHT;
-    
+    public static BufferedImage ENEMY2_RIGHT;
+    public static BufferedImage ENEMY2_LEFT; 
+
     
     public static ArrayList<Pair> enemiesImages;
     
@@ -27,8 +29,12 @@ public class EnemyAssets {
         
         ROBOT_LEFT = ImageLoader.loadImage("/images/enemies/enemy1_left.png");
         ROBOT_RIGHT = ImageLoader.loadImage("/images/enemies/enemy1_right.png");
+        ENEMY2_RIGHT = ImageLoader.loadImage("/images/enemies/enemy2_right.png");
+        ENEMY2_LEFT = ImageLoader.loadImage("/images/enemies/enemy2_left.png");
         Pair robot = new Pair(ROBOT_LEFT, ROBOT_RIGHT);
+        Pair enemy2 = new Pair(ENEMY2_RIGHT, ENEMY2_LEFT);
         enemiesImages.add(robot);
+        enemiesImages.add(enemy2);
         
   
         
