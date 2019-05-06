@@ -131,6 +131,14 @@ public class Game implements Runnable {
     public void setDisplay(Display display) {
         this.display = display;
     }
+
+    public boolean isOnStore() {
+        return onStore;
+    }
+
+    public void setOnStore(boolean onStore) {
+        this.onStore = onStore;
+    }
     
     
     

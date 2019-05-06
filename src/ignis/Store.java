@@ -24,6 +24,7 @@ public class Store extends Building{
     private boolean onPreview;
     private StoreObject selectedObject;
     private StoreItemScreen itemScreen;
+    private int buttonTimer;
     
     public Store(int x, int y, int width, int height, Game g) {
         super(x, y, width, height, BuildingAssets.store, g);
@@ -37,6 +38,8 @@ public class Store extends Building{
         this.game.getDisplay().getCanvas().addMouseListener(mouseManager);
         this.game.getDisplay().getCanvas().addMouseMotionListener(mouseManager);
         addItems();
+        
+        this.buttonTimer = 0;
         
         this.onPreview = false;
     }
@@ -102,7 +105,7 @@ public class Store extends Building{
     }
     
     public void tick() {
-        
+        buttonTimer = buttonTimer > 0 ? buttonTimer - 1: 0;
         if(onPreview){
             tickPreview();
         } else {
@@ -112,7 +115,8 @@ public class Store extends Building{
     
     
     public void tickStore() {
-        if(mouseManager.isIzquierdo()){
+        if(mouseManager.isIzquierdo() && buttonTimer == 0){
+            buttonTimer = 25;
             int mouseX = mouseManager.getX();
             int mouseY = mouseManager.getY();
             for(StoreObject so : items){
@@ -124,12 +128,14 @@ public class Store extends Building{
             }
             if(posInButton(mouseX,mouseY, backButton)){
                 System.out.println("Back to menu");
+                game.setOnStore(false);
             }
         }
     }
     
     public void tickPreview(){
-        if(mouseManager.isIzquierdo()){
+        if(mouseManager.isIzquierdo() && buttonTimer == 0){
+            buttonTimer = 25;
             int mouseX = mouseManager.getX();
             int mouseY = mouseManager.getY();
             if(posInButton(mouseX, mouseY, itemScreen.getBuyButton())){
@@ -137,6 +143,7 @@ public class Store extends Building{
             }
             if(posInButton(mouseX, mouseY, itemScreen.getBackButton())){
                 System.out.println("Return to store");
+                onPreview = false;
             }
         }
     }
