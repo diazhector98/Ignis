@@ -16,16 +16,26 @@ import ignis.Player;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 /**
  *
  * @author hectordiazaceves
  */
 public class NobleGasWorld extends World {
-
+ private Map<String, Integer> atomQuantities;
     public NobleGasWorld(Game g, Player p) {
         super(g, p, 9);
         NobleGasWorldAssets.init();
+        player.setY(200);
+        player.setX(800);
+        atomQuantities = new HashMap<>();
+        atomQuantities.put("Xe", 1);
+        atomQuantities.put("F", 11);
+        atomQuantities.put("Ru", 1);
+       
     }
     
     
@@ -62,7 +72,7 @@ public class NobleGasWorld extends World {
 
     @Override
     public void generateWorld() {
-
+          LinkedList<Platform> platformsWithAtom = new LinkedList<>();
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 12; x++) {
                 int pixel = NobleGasWorldAssets.world.getRGB(x, y);
@@ -73,6 +83,12 @@ public class NobleGasWorld extends World {
                     platforms.add(new Platform(x * 100, y * 100, 100, 100, "STATIC", NobleGasWorldAssets.block));
                 } else if (getColor(red, green, blue).equals("GREEN")) {
                     platforms.add(new Platform(x * 100, y * 100, 100, 100, "ACTIVE", NobleGasWorldAssets.block));
+                }
+                else if (getColor(red, green, blue).equals("BLUE")) {
+                    Platform p = new Platform(x * 100, y * 100, 100, 100, "ATOM", NobleGasWorldAssets.block);
+                    platforms.add(p);
+                    platformsWithAtom.add(p);
+                    
                 }
             }
         }
