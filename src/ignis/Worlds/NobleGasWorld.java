@@ -29,8 +29,8 @@ public class NobleGasWorld extends World {
     public NobleGasWorld(Game g, Player p) {
         super(g, p, 9);
         NobleGasWorldAssets.init();
-        player.setY(200);
-        player.setX(800);
+         player.setX(400);
+        player.setY(4700);
         atomQuantities = new HashMap<>();
         atomQuantities.put("Xe", 1);
         atomQuantities.put("F", 11);
@@ -73,8 +73,8 @@ public class NobleGasWorld extends World {
     @Override
     public void generateWorld() {
           LinkedList<Platform> platformsWithAtom = new LinkedList<>();
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 12; x++) {
+        for (int y = 0; y < 50; y++) {
+            for (int x = 0; x < 100; x++) {
                 int pixel = NobleGasWorldAssets.world.getRGB(x, y);
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
