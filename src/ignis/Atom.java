@@ -58,6 +58,14 @@ public class Atom extends PhysicsObject{
     public boolean intersectsPlatform() {
         return getPerimetro().intersects((platform.getPerimetro())); 
     }
+
+    public String getElement() {
+        return element;
+    }
+
+    public void setElement(String element) {
+        this.element = element;
+    }
     
     
     
