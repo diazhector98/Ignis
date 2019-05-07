@@ -35,9 +35,6 @@ public class StoreObject {
         } else {
             this.storeIcon = StoreAssets.getDarkImage(n);
         }
-        if(this.storeIcon != null){
-            System.out.println("Got " + n + " icon");
-        }
         this.compound = new Compound(formula, n);
         this.x = x;
         this.y = y;
