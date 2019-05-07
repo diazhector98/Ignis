@@ -13,6 +13,7 @@ import ignis.Enemy;
 import ignis.Game;
 import ignis.Platform;
 import ignis.Player;
+import ignis.Slime;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -76,6 +77,7 @@ public class ActinoidWorld extends World {
     @Override
     public void generateWorld() {
         LinkedList<Platform> platformsWithAtom = new LinkedList<>();
+        LinkedList<Platform> platformsWithEnemies = new LinkedList<>();
 
         for (int y = 0; y < 50; y++) {
             for (int x = 0; x < 100; x++) {
@@ -91,7 +93,10 @@ public class ActinoidWorld extends World {
                     Platform p = new Platform(x * 100, y * 100, 100, 100, "ATOM", ActinoidWorldAssets.block);
                     platforms.add(p);
                     platformsWithAtom.add(p);
-                    
+                } else if(getColor(red, green, blue).equals("RED")){
+                    Platform p = new Platform(x * 100, y * 100, 100, 100, "ENEMY", ActinoidWorldAssets.block);
+                    platforms.add(p);
+                    platformsWithEnemies.add(p);
                 }
             }
         }
@@ -117,6 +122,11 @@ public class ActinoidWorld extends World {
             Atom a = new Atom(game, p, elemento);
             atoms.add(a);
             elementIndex++;
+        }
+        
+        for(Platform p : platformsWithEnemies){
+            Slime slime = new Slime(p);
+            enemies.add(slime);
         }
         
         

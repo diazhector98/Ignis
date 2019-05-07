@@ -11,6 +11,7 @@ import ignis.Assets.WorldAssets.MetalloidWorldAssets;
 import ignis.Atom;
 import ignis.Enemy;
 import ignis.Game;
+import ignis.Ghost;
 import ignis.Platform;
 import ignis.Player;
 import java.awt.Color;
@@ -75,6 +76,7 @@ public class MetalloidWorld extends World {
     @Override
     public void generateWorld() {
         LinkedList<Platform> platformsWithAtom = new LinkedList<>();
+        LinkedList<Platform> platformsWithEnemies = new LinkedList<>();
 
         for (int y = 0; y < 50; y++) {
             for (int x = 0; x < 100; x++) {
@@ -90,6 +92,10 @@ public class MetalloidWorld extends World {
                     Platform p = new Platform(x * 100, y * 100, 100, 100, "ATOM", MetalloidWorldAssets.block);
                     platforms.add(p);
                     platformsWithAtom.add(p);
+                } else if(getColor(red, green, blue).equals("RED")){
+                    Platform p = new Platform(x * 100, y * 100, 100, 100, "ENEMY", MetalloidWorldAssets.block);
+                    platforms.add(p);
+                    platformsWithEnemies.add(p);
                 }
             }
         }
@@ -116,6 +122,11 @@ public class MetalloidWorld extends World {
             Atom a = new Atom(game, p, elemento);
             atoms.add(a);
             elementIndex++;
+        }
+        
+        for (Platform p : platformsWithEnemies) {
+            Ghost ghost = new Ghost(p);
+            enemies.add(ghost);
         }
     }
 
