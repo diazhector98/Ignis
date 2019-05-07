@@ -3,26 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/hectordiazaceves/NetBeansProjects/Ignis/src/ignis/Assets/MenuAssets.java</file>
-            <file>file:/Users/hectordiazaceves/NetBeansProjects/Ignis/src/ignis/Compound.java</file>
-            <file>file:/Users/hectordiazaceves/NetBeansProjects/Ignis/src/ignis/Store.java</file>
+            <file>file:/Users/hectordiazaceves/NetBeansProjects/Ignis/src/ignis/Assets/EnemyAssets.java</file>
+            <file>file:/Users/hectordiazaceves/NetBeansProjects/Ignis/src/ignis/Database.java</file>
+            <file>file:/Users/hectordiazaceves/NetBeansProjects/Ignis/src/ignis/Worlds/MetalloidWorld.java</file>
             <file>file:/Users/hectordiazaceves/NetBeansProjects/Ignis/src/ignis/Player.java</file>
-            <file>file:/Users/hectordiazaceves/NetBeansProjects/Ignis/src/ignis/Assets/AtomAssets.java</file>
-            <file>file:/Users/hectordiazaceves/NetBeansProjects/Ignis/src/ignis/Assets/StoreAssets.java</file>
-            <file>file:/C:/Users/AlfredoFlores/Documents/Ignis/src/ignis/Assets/WorldAssets/AlkaliWorldAssets.java</file>
-            <file>file:/C:/Users/AlfredoFlores/Documents/Ignis/src/ignis/Worlds/PostTransitionWorld.java</file>
-            <file>file:/C:/Users/AlfredoFlores/Documents/Ignis/src/ignis/Worlds/ActinoidWorld.java</file>
-            <file>file:/C:/Users/AlfredoFlores/Documents/Ignis/src/ignis/Enemy.java</file>
-            <file>file:/C:/Users/AlfredoFlores/Documents/Ignis/src/ignis/Player.java</file>
-            <file>file:/C:/Users/AlfredoFlores/Documents/Ignis/src/ignis/Ignis.java</file>
-            <file>file:/C:/Users/AlfredoFlores/Documents/Ignis/src/ignis/Game.java</file>
-            <file>file:/C:/Users/AlfredoFlores/Documents/Ignis/src/ignis/Assets/EnemyAssets.java</file>
-            <file>file:/C:/Users/AlfredoFlores/Documents/Ignis/src/ignis/Worlds/World.java</file>
-            <file>file:/C:/Users/AlfredoFlores/Documents/Ignis/src/ignis/Worlds/AlkaliWorld.java</file>
-            <file>file:/C:/Users/AlfredoFlores/Documents/Ignis/src/ignis/Assets/WorldAssets/PostTransitionWorldAssets.java</file>
-            <file>file:/C:/Users/AlfredoFlores/Documents/Ignis/src/ignis/Robot.java</file>
-            <file>file:/C:/Users/AlfredoFlores/Documents/Ignis/src/ignis/Atom.java</file>
-            <file>file:/C:/Users/AlfredoFlores/Documents/Ignis/src/ignis/Assets/AtomAssets.java</file>
+            <file>file:/Users/hectordiazaceves/NetBeansProjects/Ignis/src/ignis/Worlds/ActinoidWorld.java</file>
         </group>
     </open-files>
 </project-private>
