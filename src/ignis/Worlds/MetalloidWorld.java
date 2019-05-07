@@ -17,7 +17,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -32,23 +34,23 @@ public class MetalloidWorld extends World {
         MetalloidWorldAssets.init();
         p.setY(4800);
         p.setX(200);
-        
-                atomQuantities = new HashMap<>();
+
+        atomQuantities = new HashMap<>();
         //Poner cantidades minimas de los atomos que se necesitan
         atomQuantities.put("H", 2);
         atomQuantities.put("O", 1);
     }
-    
-        public String getColor(int red, int green, int blue){
-        if(red == 255 && green == 255 && blue == 255){
+
+    public String getColor(int red, int green, int blue) {
+        if (red == 255 && green == 255 && blue == 255) {
             return "WHITE";
-        } else if(red == 0 && green == 0 && blue == 0){
+        } else if (red == 0 && green == 0 && blue == 0) {
             return "BLACK";
-        } else if(red > green && red > blue){
+        } else if (red > green && red > blue) {
             return "RED";
-        } else if(green > red && green > blue){
+        } else if (green > red && green > blue) {
             return "GREEN";
-        } else if(blue > green && blue > red){
+        } else if (blue > green && blue > red) {
             return "BLUE";
         } else {
             return "NOT DETECTED";
@@ -72,8 +74,10 @@ public class MetalloidWorld extends World {
 
     @Override
     public void generateWorld() {
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 12; x++) {
+        LinkedList<Platform> platformsWithAtom = new LinkedList<>();
+
+        for (int y = 0; y < 50; y++) {
+            for (int x = 0; x < 100; x++) {
                 int pixel = MetalloidWorldAssets.world.getRGB(x, y);
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
@@ -82,8 +86,36 @@ public class MetalloidWorld extends World {
                     platforms.add(new Platform(x * 100, y * 100, 100, 100, "STATIC", MetalloidWorldAssets.block));
                 } else if (getColor(red, green, blue).equals("GREEN")) {
                     platforms.add(new Platform(x * 100, y * 100, 100, 100, "ACTIVE", MetalloidWorldAssets.block));
+                } else if (getColor(red, green, blue).equals("BLUE")) {
+                    Platform p = new Platform(x * 100, y * 100, 100, 100, "ATOM", MetalloidWorldAssets.block);
+                    platforms.add(p);
+                    platformsWithAtom.add(p);
                 }
             }
+        }
+
+        Set<String> keys = atomQuantities.keySet();
+        for (int i = 0; i < atomQuantities.size(); i++) {
+            String elemento = (String) keys.toArray()[i];
+            for (int j = 0; j < atomQuantities.get(elemento); j++) {
+                int k = (int) ((Math.random() * ((platformsWithAtom.size() - 1 - 0) + 1)) + 0);
+                System.out.println(k);
+
+                Platform p = platformsWithAtom.get(k);
+                Atom a = new Atom(game, p, elemento);
+                platformsWithAtom.remove(k);
+                atoms.add(a);
+
+            }
+        }
+
+        int elementIndex = 0;
+        int n = keys.size();
+        for (Platform p : platformsWithAtom) {
+            String elemento = (String) keys.toArray()[elementIndex % n];
+            Atom a = new Atom(game, p, elemento);
+            atoms.add(a);
+            elementIndex++;
         }
     }
 
