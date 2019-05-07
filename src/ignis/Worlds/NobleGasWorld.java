@@ -10,6 +10,7 @@ import ignis.Assets.TextAssets;
 import ignis.Assets.WorldAssets.NobleGasWorldAssets;
 import ignis.Atom;
 import ignis.Enemy;
+import ignis.enemy6;
 import ignis.Game;
 import ignis.Platform;
 import ignis.Player;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -33,8 +35,8 @@ public class NobleGasWorld extends World {
         player.setY(4700);
         atomQuantities = new HashMap<>();
         atomQuantities.put("Xe", 1);
-        atomQuantities.put("F", 11);
-        atomQuantities.put("Ru", 1);
+        atomQuantities.put("F", 1);
+     
        
     }
     
@@ -90,10 +92,38 @@ public class NobleGasWorld extends World {
                     platformsWithAtom.add(p);
                     
                 }
+                  else if (getColor(red, green, blue).equals("RED")) {
+                    Platform p = new Platform(x * 100, y * 100, 100, 100, "Robot", NobleGasWorldAssets.block);
+                    platforms.add(p);
+                    enemies.add(new enemy6(p));
+                }
             }
         }
+         Set<String> keys = atomQuantities.keySet();
+        for(int i=0; i<atomQuantities.size(); i++){
+            String elemento = (String)keys.toArray()[i];
+            for(int j=0;j<atomQuantities.get(elemento);j++){
+                int k = (int) ((Math.random() * ((platformsWithAtom.size()-1 - 0) + 1)) + 0);
+                System.out.println(k);
+                
+                Platform p = platformsWithAtom.get(k);
+                Atom a = new Atom(game,p, elemento);
+                platformsWithAtom.remove(k);
+                atoms.add(a);
+                
+            }
+        }
+        
+        int elementIndex = 0;
+        int n = keys.size();
+        for (Platform p : platformsWithAtom){
+            String elemento = (String)keys.toArray()[elementIndex % n];
+            Atom a = new Atom(game, p, elemento);
+            atoms.add(a);
+            elementIndex++;
+        }
     }
-
+    
     @Override
     public void render(Graphics g) {
         if (!paused) {
