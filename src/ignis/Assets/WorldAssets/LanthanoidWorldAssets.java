@@ -19,7 +19,7 @@ public class LanthanoidWorldAssets {
     
     public static void init() {
         block = ImageLoader.loadImage("/images/worlds/block3.png");
-        background = ImageLoader.loadImage("/images/backgroundMine.png");
+        background = ImageLoader.loadImage("/images/Lethbck.jpg");
         world = ImageLoader.loadImage("/images/worlds/world3.png");
     }
 }

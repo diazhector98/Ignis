@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package ignis.Worlds;
-
+import ignis.Assets.WorldAssets.NobleGasWorldAssets;
 import ignis.Assets.Assets;
 import ignis.Assets.TextAssets;
 import ignis.Assets.WorldAssets.NobleGasWorldAssets;
@@ -127,7 +127,7 @@ public class NobleGasWorld extends World {
     @Override
     public void render(Graphics g) {
         if (!paused) {
-            g.drawImage(Assets.darkGraySquare, 0, 0, game.getWidth(), game.getHeight(), null);
+            g.drawImage(NobleGasWorldAssets.background , 0, 0, game.getWidth(), game.getHeight(), null);
             g.translate(-(player.getX() - 1200 / 2), -(player.getY() - 800 / 2));
             renderPlayerLives(g);
             renderAtoms(g);

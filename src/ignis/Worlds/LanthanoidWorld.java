@@ -6,6 +6,7 @@
 package ignis.Worlds;
 
 import ignis.Assets.Assets;
+import ignis.Assets.WorldAssets.LanthanoidWorldAssets;
 import ignis.Assets.TextAssets;
 import ignis.Assets.WorldAssets.LanthanoidWorldAssets;
 import ignis.Assets.WorldAssets.NobleGasWorldAssets;
@@ -127,7 +128,7 @@ private Map<String, Integer> atomQuantities;
     @Override
     public void render(Graphics g) {
         if (!paused) {
-            g.drawImage(Assets.darkGraySquare, 0, 0, game.getWidth(), game.getHeight(), null);
+            g.drawImage(LanthanoidWorldAssets.background, 0, 0, game.getWidth(), game.getHeight(), null);
             g.translate(-(player.getX() - 1200 / 2), -(player.getY() - 800 / 2));
             renderPlayerLives(g);
             renderAtoms(g);
