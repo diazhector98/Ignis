@@ -16,6 +16,8 @@ import ignis.Player;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -23,9 +25,18 @@ import java.util.ArrayList;
  */
 public class MetalloidWorld extends World {
 
+    private Map<String, Integer> atomQuantities;
+
     public MetalloidWorld(Game g, Player p) {
         super(g, p, 7);
         MetalloidWorldAssets.init();
+        p.setY(4800);
+        p.setX(200);
+        
+                atomQuantities = new HashMap<>();
+        //Poner cantidades minimas de los atomos que se necesitan
+        atomQuantities.put("H", 2);
+        atomQuantities.put("O", 1);
     }
     
         public String getColor(int red, int green, int blue){

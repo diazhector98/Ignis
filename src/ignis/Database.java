@@ -43,4 +43,21 @@ public class Database {
             System.out.println("Error is found :" + ex);
         }
     }
+    
+    public void insertToElement(String symbol, String name, int atomicNumber){
+        try {
+            String sql = getInsertToElementsTableQuery(symbol,name,atomicNumber);
+            int result = st.executeUpdate(sql);            
+
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+        }
+    }
+    
+    public String getInsertToElementsTableQuery(String symbol, String name, int atomicNumber){
+        String elements =  "(ID, Symbol, Name, AtomicNumber)";
+        String values = "(" + String.valueOf(atomicNumber) + ",'" + symbol + "','" + name + "'," + String.valueOf(atomicNumber) + ")";
+        System.out.println("INSERT INTO elements VALUES " + values);
+        return "INSERT INTO elements VALUES " + values;
+    }
 }
