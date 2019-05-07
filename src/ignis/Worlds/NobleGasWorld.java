@@ -93,7 +93,7 @@ public class NobleGasWorld extends World {
                     
                 }
                   else if (getColor(red, green, blue).equals("RED")) {
-                    Platform p = new Platform(x * 100, y * 100, 100, 100, "Robot", NobleGasWorldAssets.block);
+                    Platform p = new Platform(x * 100, y * 100, 100, 100, "Enemy6", NobleGasWorldAssets.block);
                     platforms.add(p);
                     enemies.add(new enemy6(p));
                 }

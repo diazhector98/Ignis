@@ -26,6 +26,8 @@ public class LanthanoidWorld extends World {
     public LanthanoidWorld(Game g, Player p) {
         super(g, p, 3);
         LanthanoidWorldAssets.init();
+         player.setX(400);
+        player.setY(4700);
     }
     
         public String getColor(int red, int green, int blue){
@@ -62,8 +64,8 @@ public class LanthanoidWorld extends World {
 
     @Override
     public void generateWorld() {
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 12; x++) {
+        for (int y = 0; y < 50; y++) {
+            for (int x = 0; x < 100; x++) {
                 int pixel = LanthanoidWorldAssets.world.getRGB(x, y);
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
