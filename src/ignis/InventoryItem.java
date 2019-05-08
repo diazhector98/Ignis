@@ -34,11 +34,11 @@ public class InventoryItem {
         this.width = width;
     }
     
-    public void render(Graphics g){
-        g.drawImage(atomIcon, x, y, width / 2, width / 2, null);
-        g.setFont(new Font("Arial", Font.PLAIN, 30));
-        g.setColor(Color.BLACK);  
+    public void render(Game game){
+        game.getG().drawImage(atomIcon, x, y, width / 2, width / 2, null);
+        game.getG().setFont(new Font("Arial", Font.PLAIN, 30));
+        game.getG().setColor(Color.BLACK);  
         String atomQuantityString = Integer.toString(quantity);
-        g.drawString(atomQuantityString, width / 2, height);
+        game.getG().drawString(atomQuantityString,  x + width / 2 + 10,y + height / 2);
     }
 }

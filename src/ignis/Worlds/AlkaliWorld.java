@@ -33,6 +33,11 @@ public class AlkaliWorld extends World {
     
     private Map<String, Integer> atomQuantities;
     
+    /**
+     * 
+     * @param g game object
+     * @param p player object
+     */
     public AlkaliWorld(Game g, Player p) {
         super(g, p, 1);
         AlkaliWorldAssets.init();
@@ -47,6 +52,13 @@ public class AlkaliWorld extends World {
 
     }
     
+     /**
+     * 
+     * @param red value between 0 and 255
+     * @param green value between 0 and 255
+     * @param blue value between 0 and 255
+     * @return a string of a color depending the RGB params 
+     */
         public String getColor(int red, int green, int blue){
         if(red == 255 && green == 255 && blue == 255){
             return "WHITE";
@@ -63,6 +75,11 @@ public class AlkaliWorld extends World {
         }
     }
     
+        
+    /**
+     * Generates a world loading an image depending on the world and reads 
+     * every pixel depending on the color of each pixel.
+     */  
     @Override
     public void generateWorld() {
         System.out.println("Generating alkali world");
@@ -116,7 +133,9 @@ public class AlkaliWorld extends World {
         
         
     }
-    
+    /**
+     * Update world to check if its paused or not.
+     */    
     @Override
     public void tick() {
         if(!paused){
@@ -131,17 +150,21 @@ public class AlkaliWorld extends World {
             pauseMenu.tick();
         }          
     }
-
+    
+    /**
+     * Render the world following the player
+     * @param g 
+     */
     @Override
     public void render(Graphics g) {
         if (!paused) {        
             g.drawImage(Assets.darkGraySquare, 0, 0, game.getWidth(), game.getHeight(), null);
             g.translate(-(player.getX() - 1200 / 2), -(player.getY() - 800 / 2));
-            renderPlayerLives(g);
             renderAtoms(g);
             renderPlatforms(g);
             renderEnemies(g);
             renderPlayer(g);
+            renderPlayerLives(g);
         } else {
             showPauseMenu();
         }

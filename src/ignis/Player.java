@@ -18,38 +18,38 @@ import javafx.util.Pair;
  */
 public class Player extends PhysicsObject {
 
-    private int direction;
-    private int width;
-    private int height;
-    private int speed;
-    private Game game;
-    private boolean jumping;
-    private int jumpingForce;
-    private boolean onFloor;
-    private boolean facingLeft;
-    private boolean facingRight;
-    private boolean facingFront;
-    private boolean facingBack;
-    private boolean right=false, left=false, up=false, down=false;
-    private int lives;
+    private int direction; //Diection of the player
+    private int width; // Width of the player
+    private int height; // heightof the player
+    private int speed; // speed of the player
+    private Game game; // Game object
+    private boolean jumping; // if the player is jumping
+    private int jumpingForce; // jump force
+    private boolean onFloor; // if the player is on the platform
+    private boolean facingLeft; // if the player is facing left
+    private boolean facingRight; // if the player is facing right
+    private boolean facingFront; // if the player is facing front
+    private boolean facingBack; // if the player is facing left
+    private boolean right=false, left=false, up=false, down=false; //if player collision on any platfrom from left, tight , up ,dowon
+    private int lives; // lives of the player
     
-    private Animation leftAnimation;
-    private Animation rightAnimation;
-    private Animation frontAnimation;
-    private Animation backAnimation;
+    private Animation leftAnimation; // player walkinge to the left
+    private Animation rightAnimation; // player walkinge to the right
+    private Animation frontAnimation; // player walkinge to the front
+    private Animation backAnimation; // player walkinge to the back
     
-    private int invincibilityTimer;
+    private int invincibilityTimer; // timer mof player collision with enemy
     
-    private Map<String, Integer> atoms;
+    private Map<String, Integer> atoms; // atoms collected
 
     /**
      *
-     * @param x
-     * @param y
-     * @param direction
-     * @param width
-     * @param height
-     * @param game
+     * @param x x position of the player
+     * @param y y position of the playe
+     * @param direction direction of the player
+     * @param width width of the player
+     * @param height height of the player
+     * @param game game object
      */
     public Player(int x, int y, int direction, int width, int height, Game game) {
         super(x, y, game.getHeight());
@@ -150,16 +150,16 @@ public class Player extends PhysicsObject {
     }
 
     /**
-     *
-     * @return
+     * Get player lives left
+     * @return int of the lives of the player
      */
     public int getLives() {
         return lives;
     }
 
     /**
-     *
-     * @param lives
+     * set manually the player lives
+     * @param lives int
      */
     public void setLives(int lives) {
         this.lives = lives;
@@ -167,15 +167,15 @@ public class Player extends PhysicsObject {
 
     /**
      *
-     * @return
+     * @return a map the atoms that the player collected 
      */
     public Map<String, Integer> getAtoms() {
         return atoms;
     }
 
     /**
-     *
-     * @param atoms
+     * Set the atoms of the player
+     * @param atoms map
      */
     public void setAtoms(Map<String, Integer> atoms) {
         this.atoms = atoms;
@@ -195,7 +195,7 @@ public class Player extends PhysicsObject {
      */
 
     public Rectangle getPerimetro() {
-        return new Rectangle(getX(), getY(), getWidth(), getHeight());
+        return new Rectangle(getX() + 3, getY() + 3, getWidth() - 7, getHeight() - 7);
     }
 
     /**
@@ -207,8 +207,8 @@ public class Player extends PhysicsObject {
     }
 
     /**
-     *
-     * @param jumping
+     * set the player jumping condition if the player is on the platform or is on the air
+     * @param jumping boolean
      */
     public void setJumping(boolean jumping) {
         this.jumping = jumping;
@@ -216,8 +216,8 @@ public class Player extends PhysicsObject {
     
     /**
      *
-     * @param obj
-     * @return
+     * @param obj object of a door
+     * @return a boolean if player intesetcts with any door
      */
     public boolean intersectsDoor(Object obj) {
 
@@ -226,9 +226,9 @@ public class Player extends PhysicsObject {
     }
     
     /**
-     *
-     * @param obj
-     * @return
+     *  
+     * @param obj object of atom
+     * @return a boolean if player intesects with any atom
      */
     public boolean intersectsAtom(Object obj){
         return obj instanceof Atom && getPerimetro().intersects(((Atom) obj).getPerimetro());
@@ -236,8 +236,8 @@ public class Player extends PhysicsObject {
     
     /**
      *
-     * @param obj
-     * @return
+     * @param obj object of platform
+     * @return a boolean if the player intesects with platfroms
      */
     public boolean intersectsPlatform(Object obj) {
 
@@ -246,8 +246,8 @@ public class Player extends PhysicsObject {
     }
     
     /**
-     *
-     * @param obj
+     * Handle player moevements if is on any platform 
+     * @param obj object platform
      */
     public void handlePlatformIntersection(Object obj) {
         Platform p = (Platform) obj;
@@ -263,7 +263,7 @@ public class Player extends PhysicsObject {
     }
     
     /**
-     *
+     * Check the player collision direction of the platforms
      * @param obj
      * @return
      */
@@ -275,25 +275,21 @@ public class Player extends PhysicsObject {
             setSpeedY(0);
             up=false;
             jumping=false;
-            System.out.println("Up");
         }
         
         if(getPerimetro().intersects(p.getPerimetroLeft())){
             setX(getX()-10);
             left=true;
-            System.out.println("left");
         }
         
         if(getPerimetro().intersects(p.getPerimetroRight())){
             setX(getX()+10);
             right=true;
-            System.out.println("right");
         }
         
         if(getPerimetro().intersects(p.getPerimetroDown())){
-            setSpeedY(5);
+            setSpeedY(2);
             right=true;
-            System.out.println("right");
         }
         
       
@@ -476,7 +472,7 @@ public class Player extends PhysicsObject {
     }
     
     /**
-     *
+     * Handle player animation going right
      */
     public void turnRight(){
         this.facingBack = false;
@@ -486,7 +482,7 @@ public class Player extends PhysicsObject {
     }
     
     /**
-     *
+     * Handle player animation going left
      */
     public void turnLeft(){
         this.facingBack = false;
@@ -496,7 +492,7 @@ public class Player extends PhysicsObject {
     }
     
     /**
-     *
+     * Handle player atoms if the player dies
      */
     public void loseALife(){
         if(lives > 0){
@@ -510,30 +506,30 @@ public class Player extends PhysicsObject {
     
     /**
      *
-     * @return
+     * @return a boolean if the was intersected by an enemy
      */
     public boolean isInvincible(){
         return invincibilityTimer > 0;
     }
     
     /**
-     *
-     * @param n
+     *  Set the player invicibility timer to an integer
+     * @param n n as the time of invicibility
      */
     public void setInvincibilityTimer(int n){
         this.invincibilityTimer = n;
     }
     
     /**
-     *
-     * @return
+     * get Invincibility timer
+     * @return an integer 
      */
     public int getInvincibilityTimer(){
         return this.invincibilityTimer;
     }
     
     /**
-     *
+     *  add to player an atom if player collision with it
      * @param element
      */
     public void addAtom(String element){
@@ -544,7 +540,10 @@ public class Player extends PhysicsObject {
             atoms.put(element, 1);
         }
     }
-
+    
+    /**
+     * Update player movement, collisions, animations.
+     */
     @Override
     public void tick() {
         // moving player depending on flags
@@ -597,7 +596,7 @@ public class Player extends PhysicsObject {
     }
     
     /**
-     *
+     * Print the collected atoms
      */
     public void printCollectedAtoms(){
         
@@ -612,21 +611,21 @@ public class Player extends PhysicsObject {
     }
     
     /**
-     *
+     * Move player to the right
      */
     public void moveRight(){
         move(speed, 0);
     }
     
     /**
-     *
+     * Move player to the left
      */
     public void moveLeft(){
         move(-1 * speed, 0);
     }
     
     /**
-     *
+     * Jump player up
      */
     public void jump(){
         if(!isJumping()){
@@ -637,7 +636,7 @@ public class Player extends PhysicsObject {
     }
     
     /**
-     *
+     * Check if the player can buy compunds from the collected atoms
      * @param so
      * @return
      */
@@ -661,7 +660,7 @@ public class Player extends PhysicsObject {
     }
     
     /**
-     *
+     * Discount atoms if the player buys compunds
      * @param so
      */
     public void discountAtomsFromStoreObject(StoreObject so) {
@@ -682,17 +681,20 @@ public class Player extends PhysicsObject {
             }
         }
     }
-
+    /**
+     * Display player on the screen with animations
+     * @param g game object
+     */
     @Override
     public void render(Graphics g) {
         if(facingRight){
-            g.drawImage(rightAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(rightAnimation.getCurrentFrame(), getX(), getY() + 10, getWidth(), getHeight(), null);
         } else if (facingLeft){
-            g.drawImage(leftAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(leftAnimation.getCurrentFrame(), getX(), getY() + 10, getWidth(), getHeight(), null);
         } else if (facingFront){
-            g.drawImage(frontAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(frontAnimation.getCurrentFrame(), getX(), getY() + 10, getWidth(), getHeight(), null);
         } else if (facingBack){
-            g.drawImage(backAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(backAnimation.getCurrentFrame(), getX(), getY() + 10, getWidth(), getHeight(), null);
         }
 
     }

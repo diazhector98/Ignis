@@ -140,11 +140,11 @@ public class AlkalineWorld extends World {
         if (!paused) {
             g.drawImage(Assets.darkGraySquare, 0, 0, game.getWidth(), game.getHeight(), null);
             g.translate(-(player.getX() - 1200 / 2), -(player.getY() - 800 / 2));
-            renderPlayerLives(g);
             renderAtoms(g);
             renderPlatforms(g);
             renderEnemies(g);
             renderPlayer(g);
+            renderPlayerLives(g);
         } else {
             showPauseMenu();
         }

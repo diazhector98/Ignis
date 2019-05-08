@@ -12,8 +12,8 @@ package ignis;
 public class Robot extends Enemy{
     
     /**
-     *
-     * @param p
+     * Robot (child of enemy class)
+     * @param p object platform where it instances.
      */
     public Robot(Platform p) {
         super(3, 5, p, 0);

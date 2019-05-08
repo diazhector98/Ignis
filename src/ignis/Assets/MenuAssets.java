@@ -37,9 +37,17 @@ public class MenuAssets {
     public static BufferedImage BACK_BUTTON;
     public static BufferedImage BUY_BUTTON;
     public static BufferedImage DOORS_BUTTON;
+   
 
     //Titles
     public static BufferedImage PAUSE_TITLE;
+    
+    //Instuctions
+     public static BufferedImage INFO;
+    public static BufferedImage INVENTORY_TOGGLE;
+    public static BufferedImage CONTROLS_TOGGLE;
+    
+    public static BufferedImage INSTRUCTIONS_WHOLE;
 
     public static void init() {
         BACKGROUND = ImageLoader.loadImage("/images/MenuBackground.png");
@@ -53,6 +61,7 @@ public class MenuAssets {
         NONMETALS_DOOR = ImageLoader.loadImage("/images/doors/NonMetalsDoor.png");
         POSTTRANSITIONAL_DOOR = ImageLoader.loadImage("/images/doors/PostTransitionDoor.png");
         TRANSITION_DOOR = ImageLoader.loadImage("/images/doors/TransitionDoor.png");
+        
 
         doors = new ArrayList<>();
         doors.add(ALKALI_DOOR);
@@ -72,8 +81,12 @@ public class MenuAssets {
         BUY_BUTTON = ImageLoader.loadImage("/images/store/buyButton.png");
         DOORS_BUTTON = ImageLoader.loadImage("/images/buttons/doorsButton.png");
         PAUSE_TITLE = ImageLoader.loadImage("/images/titles/pauseTitle.png");
+        INFO=ImageLoader.loadImage ("/images/titles/Instructions.png");
+        INVENTORY_TOGGLE = ImageLoader.loadImage("/images/titles/toggleInventory.png");
+
+        CONTROLS_TOGGLE = ImageLoader.loadImage("/images/titles/toggleControls.png");
         
-        
+        INSTRUCTIONS_WHOLE = ImageLoader.loadImage("/images/titles/instructionsWhole.png");
 
     }
 

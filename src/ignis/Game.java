@@ -60,6 +60,12 @@ public class Game implements Runnable {
     private boolean onLab;
     private User user;
     private Database database;
+    private boolean onInventory;
+    private boolean onControls;
+    private InventoryMenu inventoryMenu;
+    private int buttonTimer;
+    private ControlsScreen controlsScreen;
+   
     
 
     /**
@@ -84,7 +90,7 @@ public class Game implements Runnable {
         SoundAssets.init();
         this.user = user;
         this.database = new Database();
-        
+        this.buttonTimer = 0;
     }
 
     /** getDatabase
@@ -251,6 +257,7 @@ public class Game implements Runnable {
      */
     private void init() {
         display = new Display(title, getWidth(), getHeight());
+        
         //Initialize all assets
         Assets.init();
         PlayerAssets.init();
@@ -268,6 +275,9 @@ public class Game implements Runnable {
         player.setAtoms(user.getAtomQuantities());
         player.setLives(user.getUserLives());
         
+        this.inventoryMenu = new InventoryMenu(this, player);
+        this.controlsScreen = new ControlsScreen(this, player);
+        
         System.out.println("Player unique atoms: " + String.valueOf(player.getAtoms().size()));
 
         //Initialize doors
@@ -281,8 +291,8 @@ public class Game implements Runnable {
         }
         
         //Initialize buildings
-        store = new Store(750,300,350,350, this);
-        lab = new Lab(100,300,350,350, this);
+        store = new Store(750,350,250,250, this);
+        lab = new Lab(100,350,250,250, this);
      
 
         display.getJframe().addKeyListener(keyManager);
@@ -339,20 +349,43 @@ public class Game implements Runnable {
 
     }
 
-    private void tick() {
-        keyManager.tick(); // tick key manager
-     
-        if(world == null){ // if player is not in world 
+private void tick() {
+        
+        if(this.buttonTimer > 0){
+            this.buttonTimer--;
+        }
+        keyManager.tick();
+        
+        if(keyManager.I && this.buttonTimer == 0){
+            System.out.println("Pressed I");
+            this.buttonTimer = 30;
+            if(onInventory){
+                onInventory = false;
+            } else {
+                this.inventoryMenu.createItemListFromPlayer();
+                onInventory = true;
+            }
+        } else if (keyManager.C && this.buttonTimer == 0){
+            this.buttonTimer = 30;
+            if(onControls){
+                onControls = false;
+            } else {
+                onControls = true;
+            }
+        }
+        if(world == null){
             doorsTick();
             buildingsTick();
             player.tick();
-            if(onStore){   /// if player is on the store
+            if(onStore){
                 store.tick();
-            } else if(onLab){ // if player is on the lab
+            } else if(onLab){
                 lab.tick();
+            } else if (onInventory){
+                inventoryMenu.tick();
             }
         } else {
-            world.tick(); /// if player is on world 
+            world.tick();
         }
     }
 
@@ -474,11 +507,15 @@ public class Game implements Runnable {
         renderDoors();
         renderPlayer();
         renderBuildings();
-        /// Store
+
         if(onStore){
             store.renderStore();
         } else if(onLab){ /// Lab
             lab.render();
+        } else if(onInventory){
+            inventoryMenu.render();
+        } else if(onControls){
+            controlsScreen.render();
         }
     }
 
@@ -490,8 +527,7 @@ public class Game implements Runnable {
         w.render(g);   
     }
 
-    /**renderWorldMenuBackground
-     * Render the bck for the menu
+
      */
     public void renderWorldMenuBackground(){
         g.drawImage(MenuAssets.BACKGROUND, 0, 0, width, height, null); 

@@ -22,12 +22,13 @@ public class PauseMenu {
     private int MARGIN = 30;
     private MouseManager mouseManager;
     private World world;
+    private Info info;
     
     /**
      *
-     * @param g
-     * @param p
-     * @param w
+     * @param g game object
+     * @param p player object
+     * @param w world object
      */
     public PauseMenu(Game g, Player p, World w){
         this.game = g;
@@ -35,6 +36,7 @@ public class PauseMenu {
         this.world = w;
         this.keepGoingButton = new Button(200 + MARGIN, 200 + MARGIN, 200, 100, "KEEPGOING", g);
         this.goToMenuButton = new Button(200 + MARGIN, 300 + MARGIN * 2, 200, 100, "GOTOMENU", g);
+        this.info= new Info (400+MARGIN, 200 +MARGIN, 400,400,g);
         this.saveButton = new Button(200 + MARGIN, 400 + MARGIN * 3, 200, 100, "SAVE", g);
         this.mouseManager = new MouseManager();
                 
@@ -48,7 +50,7 @@ public class PauseMenu {
     }
     
     /**
-     *
+     * Update pause menu to check any interaction with the buttons
      */
     public void tick() {
 
@@ -75,6 +77,13 @@ public class PauseMenu {
 
     }
     
+    /**
+     * 
+     * @param x button x position
+     * @param y button y position
+     * @param b button object
+     * @return true if position is on the button
+     */
     private boolean posInButton(int x, int y, Button b) {
         int buttonX, buttonWidth, buttonY, buttonHeight;
 
@@ -93,12 +102,15 @@ public class PauseMenu {
     }
     
     /**
-     *
+     * render pause menu to display on the screen
      * @param g
      */
     public void render(Graphics g){
+        this.info.render (g);
         this.keepGoingButton.render(g);
         this.goToMenuButton.render(g);
         this.saveButton.render(g);
+        
+        
     }
 }
