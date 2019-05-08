@@ -41,6 +41,7 @@ public class MenuAssets {
     //Titles
     public static BufferedImage PAUSE_TITLE;
     public static BufferedImage INVENTORY_TOGGLE;
+    public static BufferedImage CONTROLS_TOGGLE;
 
     public static void init() {
         BACKGROUND = ImageLoader.loadImage("/images/MenuBackground.png");
@@ -74,7 +75,7 @@ public class MenuAssets {
         DOORS_BUTTON = ImageLoader.loadImage("/images/buttons/doorsButton.png");
         PAUSE_TITLE = ImageLoader.loadImage("/images/titles/pauseTitle.png");
         INVENTORY_TOGGLE = ImageLoader.loadImage("/images/titles/toggleInventory.png");
-        
+        CONTROLS_TOGGLE = ImageLoader.loadImage("/images/titles/toggleControls.png");
 
     }
 

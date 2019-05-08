@@ -494,6 +494,7 @@ public class Game implements Runnable {
         renderDoors();
         renderPlayer();
         renderBuildings();
+        renderToggles();
         if(onStore){
             store.renderStore();
         } else if(onLab){
@@ -511,6 +512,11 @@ public class Game implements Runnable {
         w.render(g);   
     }
 
+    public void renderToggles() {
+        g.drawImage(MenuAssets.INVENTORY_TOGGLE, width / 2, height - 200, 100, 50, null); 
+        g.drawImage(MenuAssets.CONTROLS_TOGGLE, width / 2, height - 200, 100, 50, null); 
+
+    }
     /**
      *
      */
