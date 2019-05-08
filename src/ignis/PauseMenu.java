@@ -37,6 +37,8 @@ public class PauseMenu {
         this.game.getDisplay().getJframe().addMouseMotionListener(mouseManager);
         this.game.getDisplay().getCanvas().addMouseListener(mouseManager);
         this.game.getDisplay().getCanvas().addMouseMotionListener(mouseManager);
+        
+        SoundAssets.init();
     }
     
     
