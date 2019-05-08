@@ -62,6 +62,9 @@ public class Store extends Building{
             Pair itemData = itemsData.get(i);
             StoreObject object = new StoreObject(i * 50, 200, (String)itemData.getKey(), (String)itemData.getValue(), i + 1, false);
             items.add(object);
+            if(game.getUser().hasObject(object)){
+                object.setBought(true);
+            }
         }
     
     }

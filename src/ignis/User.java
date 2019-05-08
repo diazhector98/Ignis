@@ -49,6 +49,10 @@ public class User {
         database.addObjectToUser(so, ID);
     }
     
+    public boolean hasObject(StoreObject so){
+        return database.userHasObject(ID, so);
+    }
+    
     
     
     

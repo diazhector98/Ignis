@@ -199,5 +199,23 @@ public class Database {
             System.out.println("Error is found :" + ex);
         }
     }
+
+    public boolean userHasObject(int userId, StoreObject so) {
+        try {
+            String sql = "SELECT * FROM UserObjects ";
+            String whereClause = "WHERE UserId = '" + String.valueOf(userId) + "'";
+            whereClause += " AND ObjectId = '" + so.getId() + "'";
+            sql += whereClause;
+            System.out.println(sql);
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+            return false;
+        }
+        return false;
+    }
     
 }
