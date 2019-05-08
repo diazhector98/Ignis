@@ -114,6 +114,7 @@ public abstract class World {
             a.tick();
             if (player.intersectsAtom(a)) {
                 atomsToRemove.add(a);
+                player.addAtom(a.getElement());
             }
         }
         for (Atom a : atomsToRemove) {

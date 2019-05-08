@@ -80,10 +80,7 @@ public class AlkaliWorld extends World {
                 }
             }
         }
-        
-        
-        
-        
+
         Set<String> keys = atomQuantities.keySet();
         for(int i=0; i<atomQuantities.size(); i++){
             String elemento = (String)keys.toArray()[i];
@@ -109,23 +106,6 @@ public class AlkaliWorld extends World {
         }
         
         
-           //System.out.println(keys.toArray()[0]);
-
-        
-/*
-        Atom hydrogenAtom = new Atom(game, platforms.get(2), "H");
-        Atom oxygenAtom = new Atom(game, platforms.get(5), "O");
-        Atom oxygenAtom2 = new Atom(game, platforms.get(19), "O");
-
-        atoms.add(hydrogenAtom);
-        atoms.add(oxygenAtom);
-        atoms.add(oxygenAtom2);
-
-        Robot robot = new Robot(platforms.get(4));
-       
-        enemies.add(robot);
-
-*/
     }
     
     @Override

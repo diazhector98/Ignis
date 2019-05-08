@@ -16,7 +16,8 @@ public class Ignis {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("Start");
+        Database database = new Database();
+        database.getData();
         Game g = new Game("Atomos", 1200,800);
         g.start();
     }
