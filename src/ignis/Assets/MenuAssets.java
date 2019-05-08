@@ -78,12 +78,8 @@ public class MenuAssets {
         BUY_BUTTON = ImageLoader.loadImage("/images/store/buyButton.png");
         DOORS_BUTTON = ImageLoader.loadImage("/images/buttons/doorsButton.png");
         PAUSE_TITLE = ImageLoader.loadImage("/images/titles/pauseTitle.png");
-<<<<<<< HEAD
         INFO=ImageLoader.loadImage ("/images/titles/Instructions.png");
-=======
         INVENTORY_TOGGLE = ImageLoader.loadImage("/images/titles/toggleInventory.png");
->>>>>>> master
-        
 
     }
 
