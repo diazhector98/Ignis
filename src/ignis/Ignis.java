@@ -27,10 +27,7 @@ public class Ignis {
         
         database.getData();
         getCredentials();
-        
-        Game g = new Game("Atomos", 1200, 800);
-        g.start();
-        
+                
         
     }
 
@@ -99,6 +96,9 @@ public class Ignis {
                 Database database = new Database();
                 if(database.usernameInDatabase(username)){
                    messageLabel.setText("Welcome!");
+                   User user = database.getUserWithUsername(username);
+                   Game g = new Game("Atomos", 1200, 800, user);
+                   g.start();
                 } else {
                    messageLabel.setText("No player has that username");
                 }

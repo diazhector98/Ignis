@@ -10,6 +10,8 @@ package ignis;
  * @author hectordiazaceves
  */
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Database {
 
@@ -77,11 +79,7 @@ public class Database {
         try {
             String sql = "SELECT * FROM users WHERE username = '" + username + "'";
             rs = st.executeQuery(sql);
-            System.out.println("Checking username");
             while (rs.next()) {
-                String user = rs.getString("username");
-                String userId = rs.getString("ID");
-                System.out.println(user + ":" + userId);
                 return true;
             }
 
@@ -89,7 +87,150 @@ public class Database {
             System.out.println("Error is found :" + ex);
             return false;
         }
-        
         return false;
     }
+    
+    public boolean userHasAtom (int userId, String atomSymbol){
+        try {
+            String sql = "SELECT * FROM UserAtoms ";
+            String whereClause = "WHERE UserId = '" + String.valueOf(userId) + "'";
+            whereClause += " AND symbol = '" + atomSymbol + "'";
+            sql += whereClause;
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+            return false;
+        }
+        return false;
+    }
+    
+    public int getUserAtomQuantity(int userId, String atomSymbol) {
+        try {
+            String sql = "SELECT * FROM UserAtoms ";
+            String whereClause = "WHERE UserId = '" + String.valueOf(userId) + "'";
+            whereClause += " AND symbol = '" + atomSymbol + "'";
+            sql += whereClause;
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                String quantity = rs.getString("quantity");
+                return Integer.parseInt(quantity);
+            }
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+            return 0;
+        }
+        return 0;
+    }
+
+    public Map<String, Integer> getUserAtomsMap (int userId){
+        Map<String, Integer> map = new HashMap<>();
+        try {
+            String sql = "SELECT * FROM UserAtoms ";
+            String whereClause = "WHERE UserId = '" + String.valueOf(userId) + "'";
+            sql += whereClause;
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                String symbol = rs.getString("symbol");
+                String quantity = rs.getString("quantity");
+                map.put(symbol, Integer.parseInt(quantity));
+            }
+            return map;
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+            return null;
+        }  
+
+    }
+    
+    public void updateUserAtomQuantity(int userId, String symbol, int newQuantity){
+        try {
+            String sql = "UPDATE UserAtoms";
+            sql += "SET quantity = '" + String.valueOf(newQuantity) + "' ";
+            sql += "WHERE UserId = '" + String.valueOf(userId) + "' ";
+            sql += "AND symbol = '" + symbol + "'";
+            st.executeUpdate(sql);            
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+        }
+    }
+    
+    public void insertUserAtomQuantity(int userId, String symbol, int quantity){
+        try {
+            String sql = "INSERT INTO UserAtoms (UserId, symbol, quantity) ";
+            sql += "VALUES ('" + String.valueOf(userId) + "','" + symbol + "','" + String.valueOf(quantity) + "')";
+            st.executeUpdate(sql);            
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+        }
+    }
+    
+    public void deleteAllUserAtoms(int userId){
+        try {
+            String sql = "DELETE FROM UserAtoms";
+            sql += " WHERE UserId = '" + String.valueOf(userId) + "' ";
+            System.out.println(sql);
+            st.executeUpdate(sql);            
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+        }
+    }
+    
+    public void addStoreObject(StoreObject storeObject){
+        try {
+            String sql = "INSERT INTO objects VALUES ";
+            sql += "('" + storeObject.getId() + "', '" + storeObject.getName() + "')";
+            st.executeUpdate(sql);            
+
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+        }
+    }
+    
+    public void addObjectToUser(StoreObject storeObject, int userId){
+        try {
+            String sql = "INSERT INTO UserObjects VALUES ";
+            sql += "('" + String.valueOf(userId) + "', '" + String.valueOf(storeObject.getId()) + "')";
+            st.executeUpdate(sql);            
+
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+        }
+    }
+
+    public boolean userHasObject(int userId, StoreObject so) {
+        try {
+            String sql = "SELECT * FROM UserObjects ";
+            String whereClause = "WHERE UserId = '" + String.valueOf(userId) + "'";
+            whereClause += " AND ObjectId = '" + so.getId() + "'";
+            sql += whereClause;
+            System.out.println(sql);
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+            return false;
+        }
+        return false;
+    }
+    
+    public User getUserWithUsername(String username){
+        try {
+            String sql = "SELECT * FROM users WHERE username = '" + username + "'";
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                int id = Integer.parseInt(rs.getString("id"));
+                return new User(id, username);
+            }
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+            return null;
+        }
+        return null;
+    }
+    
 }

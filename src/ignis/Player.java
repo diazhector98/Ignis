@@ -149,6 +149,17 @@ public class Player extends PhysicsObject {
         this.lives = lives;
     }
 
+    public Map<String, Integer> getAtoms() {
+        return atoms;
+    }
+
+    public void setAtoms(Map<String, Integer> atoms) {
+        this.atoms = atoms;
+    }
+    
+    
+    
+
     
     
     

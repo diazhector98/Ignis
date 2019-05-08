@@ -43,6 +43,14 @@ public class StoreObject {
         this.bought = false;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }

@@ -57,6 +57,8 @@ public class Game implements Runnable {
     private Store store;
     private Lab lab;
     private boolean onStore;
+    private User user;
+    private Database database;
     
 
     /**
@@ -66,7 +68,7 @@ public class Game implements Runnable {
      * @param width to set the width of the window
      * @param height to set the height of the window
      */
-    public Game(String title, int width, int height) {
+    public Game(String title, int width, int height, User user) {
         this.title = title;
         this.width = width;
         this.height = height;
@@ -77,9 +79,29 @@ public class Game implements Runnable {
         gameOver=false;
         onStore = false;
         SoundAssets.init();
+        this.user = user;
+        this.database = new Database();
         
     }
 
+    public Database getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(Database database) {
+        this.database = database;
+    }
+    
+    
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
     /**
      * To get the width of the game window
      *
@@ -165,6 +187,10 @@ public class Game implements Runnable {
        
         //Initialize player
         player = new Player(getWidth() / 2, getHeight() - 100, 1, 50, 80, this);
+        
+        player.setAtoms(user.getAtomQuantities());
+        
+        System.out.println("Player unique atoms: " + String.valueOf(player.getAtoms().size()));
 
         //Initialize doors
         int doorWidth = 75;

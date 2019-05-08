@@ -60,8 +60,11 @@ public class Store extends Building{
         
         for(int i = 0; i < itemsData.size(); i++){
             Pair itemData = itemsData.get(i);
-            StoreObject object = new StoreObject(i * 50, 200, (String)itemData.getKey(), (String)itemData.getValue(), i, false);
+            StoreObject object = new StoreObject(i * 50, 200, (String)itemData.getKey(), (String)itemData.getValue(), i + 1, false);
             items.add(object);
+            if(game.getUser().hasObject(object)){
+                object.setBought(true);
+            }
         }
     
     }
@@ -157,6 +160,7 @@ public class Store extends Building{
                 if (player.canBuy(so)) {
                     System.out.println("Can buy object");
                     so.setBought(true);
+                    game.getUser().addObject(so);
                     SoundAssets.click.play();
                 } else {
                     System.out.println("Cannot buy object");
