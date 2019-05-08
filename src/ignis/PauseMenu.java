@@ -7,7 +7,7 @@ package ignis;
 
 import ignis.Worlds.World;
 import java.awt.Graphics;
-
+import ignis.Assets.SoundAssets;
 /**
  *
  * @author hectordiazaceves
@@ -47,11 +47,14 @@ public class PauseMenu {
             int mouseY = mouseManager.getY();
             if(posInButton(mouseX, mouseY, keepGoingButton)){
                 System.out.println("Keep Going Pressed");
+                 SoundAssets.click.play();
                 world.unPause();
             } else if (posInButton(mouseX, mouseY, goToMenuButton)){
+                  SoundAssets.click.play();
                 System.out.println("Go to Menu Pressed");
                 world.returnToMenu();
             } else if(posInButton(mouseX, mouseY, saveButton)){
+                  SoundAssets.click.play();
                 System.out.println("Save button Pressed");
             }
         }
