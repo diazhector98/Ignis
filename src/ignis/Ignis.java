@@ -97,7 +97,11 @@ public class Ignis {
             public void actionPerformed(ActionEvent arg0) {
                 String username = usernameTextField.getText();
                 Database database = new Database();
-                database.usernameInDatabase(username);
+                if(database.usernameInDatabase(username)){
+                   messageLabel.setText("Welcome!");
+                } else {
+                   messageLabel.setText("No player has that username");
+                }
             }
         });
     }
