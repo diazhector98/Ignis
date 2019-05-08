@@ -6,6 +6,7 @@
 package ignis;
 
 import ignis.Assets.BuildingAssets;
+import ignis.Assets.SoundAssets;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class Store extends Building{
         this.game.getDisplay().getCanvas().addMouseListener(mouseManager);
         this.game.getDisplay().getCanvas().addMouseMotionListener(mouseManager);
         addItems();
-        
+        SoundAssets.init();
         this.buttonTimer = 0;
         
         this.onPreview = false;
@@ -140,6 +141,7 @@ public class Store extends Building{
             }
             if(posInButton(mouseX,mouseY, backButton)){
                 System.out.println("Back to menu");
+                SoundAssets.click.play();
                 game.setOnStore(false);
             }
         }
@@ -155,6 +157,7 @@ public class Store extends Building{
                 if (player.canBuy(so)) {
                     System.out.println("Can buy object");
                     so.setBought(true);
+                    SoundAssets.click.play();
                 } else {
                     System.out.println("Cannot buy object");
                 }
@@ -163,6 +166,8 @@ public class Store extends Building{
             if(posInButton(mouseX, mouseY, itemScreen.getBackButton())){
                 System.out.println("Return to store");
                 onPreview = false;
+                SoundAssets.click.play();
+                        
             }
         }
     }
