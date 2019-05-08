@@ -160,7 +160,9 @@ public class Store extends Building{
                 if (player.canBuy(so)) {
                     System.out.println("Can buy object");
                     so.setBought(true);
+                    player.discountAtomsFromStoreObject(so);
                     game.getUser().addObject(so);
+                    game.getUser().updateAtomQuantities(player.getAtoms());
                     SoundAssets.click.play();
                 } else {
                     System.out.println("Cannot buy object");

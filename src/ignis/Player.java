@@ -494,6 +494,25 @@ public class Player extends PhysicsObject {
         
         return true;
     }
+    
+    public void discountAtomsFromStoreObject(StoreObject so) {
+        Map<String, Integer> playerAtoms = atoms;
+        ArrayList<Pair> objectAtoms = so.getCompound().getAtoms();
+        for (Pair p : objectAtoms) {
+            String element = (String) p.getKey();
+            int qtyNeeded = (Integer) p.getValue();
+            
+            int playerQty = playerAtoms.get(element);
+            
+            int finalQty = playerQty - qtyNeeded;
+            
+            if(finalQty == 0){
+                atoms.remove(element);
+            } else {
+                atoms.put(element, finalQty);
+            }
+        }
+    }
 
     @Override
     public void render(Graphics g) {

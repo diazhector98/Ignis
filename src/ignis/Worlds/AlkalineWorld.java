@@ -32,7 +32,7 @@ public class AlkalineWorld extends World {
     public AlkalineWorld(Game g, Player p) {
         super(g, p, 2);
         AlkalineWorldAssets.init();
-        player.setY(4430);
+        player.setY(4200);
         player.setX(500);
         atomQuantities = new HashMap<>();
         //Poner cantidades minimas de los atomos que se necesitan
