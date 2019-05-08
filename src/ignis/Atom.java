@@ -27,17 +27,19 @@ public class Atom extends PhysicsObject {
 
     /**
      *
-     * @param g
-     * @param p
-     * @param e
+     * @param g Object of type Game where the Atom interacts
+     * @param p Object of type Platform to indicate where the Atom is going to be
+     * @param e String which just means the symbol of the atom (or element)
      */
     public Atom(Game g, Platform p, String e) {
+        //Use super to establish location based on platform
         super(p.getX(), p.getY() - 60, g.getHeight());
         this.width = 50;
         this.height = 50;
         this.platform = p;
         this.jumpingForce = 15;
         this.element = e;
+        //Atom to get 
         this.image = AtomAssets.getAtomImage(e);
     }
 

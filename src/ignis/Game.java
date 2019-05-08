@@ -60,6 +60,10 @@ public class Game implements Runnable {
     private boolean onLab;
     private User user;
     private Database database;
+    private boolean onInventory;
+    private InventoryMenu inventoryMenu;
+    private int buttonTimer;
+   
     
 
     /**
@@ -84,7 +88,7 @@ public class Game implements Runnable {
         SoundAssets.init();
         this.user = user;
         this.database = new Database();
-        
+        this.buttonTimer = 0;
     }
 
     /**
@@ -251,6 +255,7 @@ public class Game implements Runnable {
      */
     private void init() {
         display = new Display(title, getWidth(), getHeight());
+        
         //Initialize all assets
         Assets.init();
         PlayerAssets.init();
@@ -267,6 +272,8 @@ public class Game implements Runnable {
         
         player.setAtoms(user.getAtomQuantities());
         player.setLives(user.getUserLives());
+        
+        this.inventoryMenu = new InventoryMenu(this, player);
         
         System.out.println("Player unique atoms: " + String.valueOf(player.getAtoms().size()));
 
@@ -340,8 +347,21 @@ public class Game implements Runnable {
     }
 
     private void tick() {
+        
+        if(this.buttonTimer > 0){
+            this.buttonTimer--;
+        }
         keyManager.tick();
-     
+        
+        if(keyManager.I && this.buttonTimer == 0){
+            System.out.println("Pressed I");
+            this.buttonTimer = 30;
+            if(onInventory){
+                onInventory = false;
+            } else {
+                onInventory = true;
+            }
+        }
         if(world == null){
             doorsTick();
             buildingsTick();
@@ -350,6 +370,8 @@ public class Game implements Runnable {
                 store.tick();
             } else if(onLab){
                 lab.tick();
+            } else if (onInventory){
+                inventoryMenu.tick();
             }
         } else {
             world.tick();
@@ -476,6 +498,8 @@ public class Game implements Runnable {
             store.renderStore();
         } else if(onLab){
             lab.render();
+        } else if(onInventory){
+            inventoryMenu.render();
         }
     }
 
