@@ -25,9 +25,9 @@ public class PauseMenu {
     
     /**
      *
-     * @param g
-     * @param p
-     * @param w
+     * @param g game object
+     * @param p player object
+     * @param w world object
      */
     public PauseMenu(Game g, Player p, World w){
         this.game = g;
@@ -48,7 +48,7 @@ public class PauseMenu {
     }
     
     /**
-     *
+     * Update pause menu to check any interaction with the buttons
      */
     public void tick() {
 
@@ -75,6 +75,13 @@ public class PauseMenu {
 
     }
     
+    /**
+     * 
+     * @param x button x position
+     * @param y button y position
+     * @param b button object
+     * @return true if position is on the button
+     */
     private boolean posInButton(int x, int y, Button b) {
         int buttonX, buttonWidth, buttonY, buttonHeight;
 
@@ -93,7 +100,7 @@ public class PauseMenu {
     }
     
     /**
-     *
+     * render pause menu to display on the screen
      * @param g
      */
     public void render(Graphics g){
