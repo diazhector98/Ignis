@@ -129,11 +129,11 @@ public class NobleGasWorld extends World {
         if (!paused) {
             g.drawImage(NobleGasWorldAssets.background , 0, 0, game.getWidth(), game.getHeight(), null);
             g.translate(-(player.getX() - 1200 / 2), -(player.getY() - 800 / 2));
-            renderPlayerLives(g);
             renderAtoms(g);
             renderPlatforms(g);
             renderEnemies(g);
             renderPlayer(g);
+            renderPlayerLives(g);
         } else {
             showPauseMenu();
         }

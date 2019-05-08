@@ -16,21 +16,21 @@ import java.awt.image.BufferedImage;
  */
 public class Lab extends Building {
 
-    private Button backButton;
-    private Button doorsButton;
-    private MouseManager mouseManager;
-    private Graphics graphics;
-    private DoorScreen doorScreen;
-    private boolean onDoors;
-    private int buttonTimer;
+    private Button backButton; // back button
+    private Button doorsButton; // doors button
+    private MouseManager mouseManager; // mouse manager
+    private Graphics graphics; // game graphics
+    private DoorScreen doorScreen; // Door screen
+    private boolean onDoors; // if mouse is on door
+    private int buttonTimer; // timer of the button
     
     /**
      *
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param g
+     * @param x x position of the lab
+     * @param y y position of the lab
+     * @param width width of the lab
+     * @param height height of the lab
+     * @param g game object
      */
     public Lab(int x, int y, int width, int height, Game g) {
         super(x, y, width, height, BuildingAssets.lab, g);
@@ -52,7 +52,7 @@ public class Lab extends Building {
     }
     
     /**
-     *
+     * Update lab to check if is clicked
      */
     public void tickLab() {
         if (mouseManager.isIzquierdo() && buttonTimer == 0) {
@@ -72,7 +72,7 @@ public class Lab extends Building {
     }
     
     /**
-     *
+     * Update Doors to check if are clicked
      */
     public void tickDoors() {
         if (mouseManager.isIzquierdo() && buttonTimer == 0) {

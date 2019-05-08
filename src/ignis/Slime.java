@@ -12,7 +12,7 @@ package ignis;
 public class Slime extends Enemy {
     
     /**
-     *
+     * Slime (child of enemy class)
      * @param p
      */
     public Slime(Platform p) {

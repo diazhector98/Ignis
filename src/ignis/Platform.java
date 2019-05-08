@@ -29,12 +29,12 @@ public class Platform extends Item{
 
     /**
      *
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param type
-     * @param b
+     * @param x x position of the platform
+     * @param y y position of the platform
+     * @param width width of the platform
+     * @param height height of the platform
+     * @param type type of the platform
+     * @param b image of the platform
      */
     public Platform(int x, int y, int width, int height, String type, BufferedImage b ) {
         super(x, y);
@@ -49,48 +49,48 @@ public class Platform extends Item{
     }
 
     /**
-     *
-     * @return
+     * get the platform with
+     * @return platform width
      */
     public int getWidth() {
         return width;
     }
 
     /**
-     *
-     * @param width
+     * set the platform width
+     * @param width of the platform
      */
     public void setWidth(int width) {
         this.width = width;
     }
 
     /**
-     *
-     * @return
+     * get the platform Height
+     * @return height
      */
     public int getHeight() {
         return height;
     }
 
     /**
-     *
-     * @param height
+     *  set platform height
+     * @param height of the platform
      */
     public void setHeight(int height) {
         this.height = height;
     }
     
     /**
-     *
-     * @return
+     *  get the platfrom bounds
+     * @return a Rectangle object
      */
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
     
     /**
-     *
-     * @return
+     * get the platfrom left bounds
+     * @return a Rectangle object
      */
     public Rectangle getPerimetroLeft() {
         return new Rectangle(getX()-10 , getY(), 100, 100);
@@ -105,31 +105,31 @@ public class Platform extends Item{
     }
 
     /**
-     *
-     * @return
+     * get the platform upper bounds
+     * @return a Rectangle object
      */
     public Rectangle getPerimetroUp() {
         return new Rectangle(getX(), getY()-20, getWidth(), getHeight()+10);
     }
 
     /**
-     *
-     * @return
+     * get the platform bottom bounds
+     * @return a Rectangle object
      */
     public Rectangle getPerimetroDown() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight()+10);
     }
 
     /**
-     *
-     * @return
+     * 
+     * @return boolean if the player intesects with the platform
      */
     public boolean isIntersected() {
         return intersected;
     }
 
     /**
-     *
+     *  set boolean to interected variable
      * @param intersected
      */
     public void setIntersected(boolean intersected) {
@@ -138,20 +138,22 @@ public class Platform extends Item{
 
     /**
      *
-     * @return
+     * @return type of the platform
      */
     public String getType() {
         return type;
     }
 
     /**
-     *
+     * set the type of the `platform
      * @param type
      */
     public void setType(String type) {
         this.type = type;
     }
-    
+    /**
+     * update the platfrom
+     */
     @Override
     public void tick() {
         if(type == "ACTIVE"){
@@ -170,7 +172,10 @@ public class Platform extends Item{
             
         }
     }
-
+    /**
+     * render the platform on the display
+     * @param g game object
+     */
     @Override
     public void render(Graphics g) {
         if (!intersected) {
