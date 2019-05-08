@@ -36,7 +36,7 @@ public class MenuAssets {
     public static BufferedImage SAVE_BUTTON;
     public static BufferedImage BACK_BUTTON;
     public static BufferedImage BUY_BUTTON;
-
+    public static BufferedImage DOORS_BUTTON;
 
     //Titles
     public static BufferedImage PAUSE_TITLE;
@@ -70,7 +70,7 @@ public class MenuAssets {
         SAVE_BUTTON = ImageLoader.loadImage("/images/buttons/saveButton.png");
         BACK_BUTTON = ImageLoader.loadImage("/images/buttons/backButton.png");
         BUY_BUTTON = ImageLoader.loadImage("/images/store/buyButton.png");
-        
+        DOORS_BUTTON = ImageLoader.loadImage("/images/buttons/doorsButton.png");
         PAUSE_TITLE = ImageLoader.loadImage("/images/titles/pauseTitle.png");
         
         
@@ -87,6 +87,8 @@ public class MenuAssets {
         if(s.equals("SAVE")) return SAVE_BUTTON;
         if(s.equals("BACK")) return BACK_BUTTON;
         if(s.equals("BUY")) return BUY_BUTTON;
+        if(s.equals("DOORS")) return DOORS_BUTTON;
+        
         return null;
     }
 }

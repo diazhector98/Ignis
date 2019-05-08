@@ -19,7 +19,16 @@ public class BuildingAssets {
     public static BufferedImage storeTitle;
     
     
+    
+    
     public static BufferedImage lab;
+    
+    
+    public static BufferedImage labBackground;
+    public static BufferedImage doors;
+    public static BufferedImage periodicTable;
+    public static BufferedImage periodicTableTitle;
+    
     
         
     
@@ -29,6 +38,11 @@ public class BuildingAssets {
         storeBackground = getImage("storeBackground");
         storeTitle = getImage("storeTitle");
         lab = getImage("lab");
+        
+        labBackground = getLabImage("background");
+        doors = getLabImage("doorsImage");
+        periodicTable = getLabImage("periodicTable");
+        periodicTableTitle = getLabImage("periodicTableTitle");
     }
     
     public static BufferedImage getImage(String s){
@@ -38,6 +52,16 @@ public class BuildingAssets {
     
     public static String getImageDirectory(String fileName){
         return "/images/buildings/" + fileName + ".png";
+    }
+    
+    
+    public static BufferedImage getLabImage(String s){
+        String dir = getLabImageDirectory(s);
+        return ImageLoader.loadImage(dir);
+    }
+    
+    public static String getLabImageDirectory(String fileName){
+            return "/images/laboratory/" + fileName + ".png";
     }
     
 }

@@ -57,6 +57,7 @@ public class Game implements Runnable {
     private Store store;
     private Lab lab;
     private boolean onStore;
+    private boolean onLab;
     private User user;
     private Database database;
     
@@ -78,6 +79,7 @@ public class Game implements Runnable {
         win = false;
         gameOver=false;
         onStore = false;
+        onLab = false;
         SoundAssets.init();
         this.user = user;
         this.database = new Database();
@@ -264,6 +266,8 @@ public class Game implements Runnable {
             player.tick();
             if(onStore){
                 store.tick();
+            } else if(onLab){
+                lab.tick();
             }
         } else {
             world.tick();
@@ -284,11 +288,12 @@ public class Game implements Runnable {
     
     public void buildingsTick() {
         if(player.handleBuildingIntersection(store)){
-            
-            
             onStore = true;
         }
-        player.handleBuildingIntersection(lab);
+        if(player.handleBuildingIntersection(lab)){
+            onLab = true;
+        }
+        
     }
     
     public void goToWorld(Door d) {
@@ -367,9 +372,9 @@ public class Game implements Runnable {
         renderBuildings();
         if(onStore){
             store.renderStore();
+        } else if(onLab){
+            lab.render();
         }
-        
-        
     }
 
     public void renderWorld(World w) {
