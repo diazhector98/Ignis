@@ -93,32 +93,32 @@ public class Game implements Runnable {
         this.buttonTimer = 0;
     }
 
-    /**
-     *
-     * @return
+    /** getDatabase
+     * Get the database of the game 
+     * @return Database of the game
      */
     public Database getDatabase() {
         return database;
     }
 
-    /**
-     *
+    /** setDatabase
+     * Set the database of the game
      * @param database
      */
     public void setDatabase(Database database) {
         this.database = database;
     }
     
-    /**
-     *
-     * @return
+    /** getUser
+     * Get the user of the game
+     * @return User of the game
      */
     public User getUser() {
         return user;
     }
 
-    /**
-     *
+    /**setUser
+     * Set the user of the game
      * @param user
      */
     public void setUser(User user) {
@@ -143,104 +143,104 @@ public class Game implements Runnable {
         return height;
     }
 
-    /**
-     *
-     * @return
+    /**getWorld
+     * Get the world of the game
+     * @return <code>Wolrd<code> of the game
      */
     public World getWorld() {
         return world;
     }
 
-    /**
-     *
+    /** setWorld
+     * Set the world of the game
      * @param world
      */
     public void setWorld(World world) {
         this.world = world;
     }
     
-    /**
-     *
+    /**setWin 
+     * Set when the player win
      * @param val
      */
     public void setWin(Boolean val){
         this.win = val;
     }
 
-    /**
-     *
-     * @return
+    /**getBs
+     * Get the Buffer Strategy
+     * @return<code>BufferStrategy<code>
      */
     public BufferStrategy getBs() {
         return bs;
     }
 
-    /**
-     *
+    /** setBs
+     * Set the BufferStrategy of the game
      * @param bs
      */
     public void setBs(BufferStrategy bs) {
         this.bs = bs;
     }
 
-    /**
-     *
-     * @return
+    /** getG
+     * Get the graphics of the game 
+     * @return <code>Graphics<code> of the game
      */
     public Graphics getG() {
         return g;
     }
 
-    /**
-     *
+    /**setG
+     * Set the graphics of the game 
      * @param g
      */
     public void setG(Graphics g) {
         this.g = g;
     }
 
-    /**
-     *
-     * @return
+    /** getDisplay
+     * Get the display of the game
+     * @return <code>Display<code> of the game
      */
     public Display getDisplay() {
         return display;
     }
 
-    /**
-     *
+    /** setDisplay
+     * Set the Display of the game
      * @param display
      */
     public void setDisplay(Display display) {
         this.display = display;
     }
 
-    /**
-     *
-     * @return
+    /** isOnStore
+     * Get if the game is on the store
+     * @return <code>boolean<code> to know if game in the store
      */
     public boolean isOnStore() {
         return onStore;
     }
 
-    /**
-     *
+    /**setOnStore
+     * Set if the game is on the store
      * @param onStore
      */
     public void setOnStore(boolean onStore) {
         this.onStore = onStore;
     }
 
-    /**
-     *
-     * @return
+    /** isOnLab
+     * Get if the game is on the lab
+     * @return <code>boolean<code> to know if the game is on the lab
      */
     public boolean isOnLab() {
         return onLab;
     }
 
-    /**
-     *
+    /**setonLab
+     * Set if the game is on the lab
      * @param onLab
      */
     public void setOnLab(boolean onLab) {
@@ -329,16 +329,16 @@ public class Game implements Runnable {
         stop();
     }
 
-    /**
-     *
-     * @return
+    /**getKeyManager
+     * Get the key manager of the game
+     * @return <code>keyManager<code> of the game
      */
     public KeyManager getKeyManager() {
         return keyManager;
     }
     
-    /**
-     *
+    /** setInitialState 
+     * Set the initial state of the game
      */
     public void setInitialState() {
         world = null;
@@ -349,7 +349,7 @@ public class Game implements Runnable {
 
     }
 
-    private void tick() {
+private void tick() {
         
         if(this.buttonTimer > 0){
             this.buttonTimer--;
@@ -389,40 +389,40 @@ public class Game implements Runnable {
         }
     }
 
-    /**
-     *
+    /**doorsTick
+     * Send player to a world depending on the door he intersects
      */
     public void doorsTick() {
         for (int i = 0; i < doors.size(); i++) {
             Door d = doors.get(i);
-            if (player.intersectsDoor(d)) {
-                SoundAssets.puerta.play(); 
-                goToWorld(d);
+            if (player.intersectsDoor(d)) { /// intersect 
+                SoundAssets.puerta.play();  /// play sound
+                goToWorld(d); /// send to the corresponding world depending on door id
                
             }
         }
     }
 
-    /**
-     *
+    /** buildingsTick
+     * Tick the buildings
      */
     public void buildingsTick() {
-        if(player.handleBuildingIntersection(store)){
+        if(player.handleBuildingIntersection(store)){ /// if player intersects store 
             onStore = true;
         }
-        if(player.handleBuildingIntersection(lab)){
+        if(player.handleBuildingIntersection(lab)){ /// if player intersects lab
             onLab = true;
         }
         
     }
     
-    /**
-     *
+    /** goToWorld
+     * Go to world depending on the id of the door
      * @param d
      */
     public void goToWorld(Door d) {
         int index = d.getIndex();
-        switch(index){
+        switch(index){  /// get world depending on index of door
             case 1:
                 world = new AlkaliWorld(this,player);
                 break;
@@ -454,16 +454,16 @@ public class Game implements Runnable {
         world.generateWorld();
     }
 
-    /**
-     *
-     * @return
+    /**getPlayer
+     * Get the player of the game
+     * @return<code>Player<code> of the game
      */
     public Player getPlayer() {
         return player;
     }
 
-    /**
-     *
+    /**setPlayer
+     * Set the player of the game
      * @param player
      */
     public void setPlayer(Player player) {
@@ -473,7 +473,9 @@ public class Game implements Runnable {
     private void restartGame() {
 
     }
-
+    /**render
+     * Render of the game
+     */
     private void render() {
         // get the buffer strategy from the display
         bs = display.getCanvas().getBufferStrategy();
@@ -497,18 +499,18 @@ public class Game implements Runnable {
         }
     }
     
-    /**
-     *
+    /**renderWorldMenu
+     * Render the world menu
      */
     public void renderWorldMenu(){
         renderWorldMenuBackground();
         renderDoors();
         renderPlayer();
         renderBuildings();
-        renderToggles();
+
         if(onStore){
             store.renderStore();
-        } else if(onLab){
+        } else if(onLab){ /// Lab
             lab.render();
         } else if(onInventory){
             inventoryMenu.render();
@@ -517,28 +519,22 @@ public class Game implements Runnable {
         }
     }
 
-    /**
-     *
+    /**renderWorld
+     * Render the world 
      * @param w
      */
     public void renderWorld(World w) {
         w.render(g);   
     }
 
-    public void renderToggles() {
-        g.drawImage(MenuAssets.INVENTORY_TOGGLE, width / 2 - 130, height - 100, 150, 75, null); 
-        g.drawImage(MenuAssets.CONTROLS_TOGGLE, width / 2 + 130, height - 100, 150, 75, null); 
 
-    }
-    /**
-     *
      */
     public void renderWorldMenuBackground(){
         g.drawImage(MenuAssets.BACKGROUND, 0, 0, width, height, null); 
     }
 
-    /**
-     *
+    /**renderDoors
+     * Render the doors of the game
      */
     public void renderDoors() {
         for (int i = 0; i < doors.size(); i++) {
@@ -547,22 +543,22 @@ public class Game implements Runnable {
         }
     }
     
-    /**
-     *
+    /**renderBuildings
+     * Render the buildings of the game
      */
     public void renderBuildings() {
         store.render(g);
         lab.render(g);
     }
     
-    /**
-     *
+    /**renderPlayer
+     * Render player of the game
      */
     public void renderPlayer() {
         player.render(g);
     }
 
-    /**
+    /** start
      * setting the thead for the game
      */
     public synchronized void start() {
@@ -573,7 +569,7 @@ public class Game implements Runnable {
         }
     }
 
-    /**
+    /** stop
      * stopping the thread
      */
     public synchronized void stop() {

@@ -15,13 +15,14 @@ import java.awt.image.BufferedImage;
  * @author hectordiazaceves
  */
 public class DoorScreen {
+    
     private BufferedImage background;
     private Button backButton;
     private BufferedImage doorsImages;
     private Game game;
     
-    /**
-     *
+    /**DoorScreen
+     * Door screen constructor
      * @param g
      */
     public DoorScreen (Game g){
@@ -30,72 +31,72 @@ public class DoorScreen {
         this.game = g;
     }
 
-    /**
-     *
-     * @return
+    /**getBackground
+     * Get the background image
+     * @return BufferedImage of the door screen
      */
     public BufferedImage getBackground() {
         return background;
     }
 
-    /**
-     *
-     * @param background
+    /** setBackground
+     * Set the background image
+     * @param background image
      */
     public void setBackground(BufferedImage background) {
         this.background = background;
     }
 
-    /**
-     *
-     * @return
+    /** getBackButton
+     *  Get the back button 
+     * @return Button
      */
     public Button getBackButton() {
         return backButton;
     }
 
-    /**
-     *
+    /**setBackButton
+     * sets the back button
      * @param backButton
      */
     public void setBackButton(Button backButton) {
         this.backButton = backButton;
     }
 
-    /**
-     *
-     * @return
+    /**getDoorsImage
+     * Gets the image of the door
+     * @return Buffered image of the doors
      */
     public BufferedImage getDoorsImages() {
         return doorsImages;
     }
 
-    /**
-     *
+    /**setDoorsImages
+     * Set the images of the doors
      * @param doorsImages
      */
     public void setDoorsImages(BufferedImage doorsImages) {
         this.doorsImages = doorsImages;
     }
 
-    /**
-     *
-     * @return
+    /** getGame
+     * Get the game 
+     * @return game 
      */
     public Game getGame() {
         return game;
     }
 
-    /**
-     *
+    /**setGame
+     * Set the game
      * @param game
      */
     public void setGame(Game game) {
         this.game = game;
     }
     
-    /**
-     *
+    /**render
+     * Render the image of the door screen
      * @param g
      */
     public void render(Graphics g){
