@@ -8,6 +8,8 @@ import ignis.Game;
 import java.awt.Graphics;
 import ignis.Assets.SoundAssets;
 import ignis.Worlds.World;
+import java.util.ArrayList;
+import java.util.Map;
 /**
  *
  * @author Jorge
@@ -20,6 +22,7 @@ public class InventoryMenu {
     private Button saveButton;
     private int MARGIN = 30;
     private MouseManager mouseManager;
+    private ArrayList<InventoryItem> items;
     
    public InventoryMenu(Game g, Player p)
    {
@@ -35,9 +38,38 @@ public class InventoryMenu {
         this.game.getDisplay().getJframe().addMouseMotionListener(mouseManager);
         this.game.getDisplay().getCanvas().addMouseListener(mouseManager);
         this.game.getDisplay().getCanvas().addMouseMotionListener(mouseManager);
+        
+        this.items = new ArrayList<>();
+        
 
         SoundAssets.init();
    }
+
+    public void createItemListFromPlayer() {
+        Map<String, Integer> playerAtoms = player.getAtoms();
+        Object[] atomSymbols = playerAtoms.keySet().toArray();
+
+        int columns = 8;
+        int rows = 5;
+        
+        int n = atomSymbols.length;
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < columns; c++) {
+                int index = r * columns + c;
+                if (index < n) {
+                    String symbol = (String)atomSymbols[index];
+                    int qty = playerAtoms.get(symbol);
+                    int posX = c * 100 + 100;
+                    int posY = 100 + r * 100;
+                    InventoryItem item = new InventoryItem(posX, posY, 100, 150,symbol, qty);
+                    this.items.add(item);
+                } else {
+                    break;
+                }
+            }
+        }
+
+    }
    public void tick()
    {
        if (mouseManager.isIzquierdo()) {
