@@ -5,6 +5,8 @@
  */
 package ignis;
 
+import java.util.Map;
+
 /**
  *
  * @author hectordiazaceves
@@ -21,8 +23,12 @@ public class User {
      this.database = new Database();
     }
     
-    public void addAtomToUser(String symbol){
+    public void addAtom(String symbol){
         
+    }
+    
+    public Map<String, Integer> getAtomQuantities(){
+        return database.getUserAtomsMap(ID);
     }
     
     

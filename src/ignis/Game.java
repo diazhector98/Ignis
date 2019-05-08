@@ -57,6 +57,7 @@ public class Game implements Runnable {
     private Store store;
     private Lab lab;
     private boolean onStore;
+    private User user;
     
 
     /**
@@ -77,9 +78,18 @@ public class Game implements Runnable {
         gameOver=false;
         onStore = false;
         SoundAssets.init();
+        this.user = user;
         
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
     /**
      * To get the width of the game window
      *
@@ -165,6 +175,10 @@ public class Game implements Runnable {
        
         //Initialize player
         player = new Player(getWidth() / 2, getHeight() - 100, 1, 50, 80, this);
+        
+        player.setAtoms(user.getAtomQuantities());
+        
+        System.out.println("Player unique atoms: " + String.valueOf(player.getAtoms().size()));
 
         //Initialize doors
         int doorWidth = 75;
