@@ -31,6 +31,22 @@ public class User {
         return database.getUserAtomsMap(ID);
     }
     
+    public void clearAllAtomsFromDatabase() {
+        database.deleteAllUserAtoms(ID);
+    }
+    
+    public void updateAtomQuantities(Map<String,Integer> userAtoms){
+        clearAllAtomsFromDatabase();
+        Object[] atomSymbols = userAtoms.keySet().toArray();
+        for(Object obj : atomSymbols){
+            String symbol = (String) obj;
+            int quantity = userAtoms.get(symbol);
+            database.insertUserAtomQuantity(ID, symbol, quantity);
+        }
+    }
+    
+    
+    
     
     
 }

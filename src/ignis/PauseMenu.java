@@ -43,21 +43,22 @@ public class PauseMenu {
     
     
     public void tick() {
-        
-        if(mouseManager.isIzquierdo()){
+
+        if (mouseManager.isIzquierdo()) {
             int mouseX = mouseManager.getX();
             int mouseY = mouseManager.getY();
-            if(posInButton(mouseX, mouseY, keepGoingButton)){
+            if (posInButton(mouseX, mouseY, keepGoingButton)) {
                 System.out.println("Keep Going Pressed");
-                 SoundAssets.click.play();
+                SoundAssets.click.play();
                 world.unPause();
-            } else if (posInButton(mouseX, mouseY, goToMenuButton)){
-                  SoundAssets.click.play();
+            } else if (posInButton(mouseX, mouseY, goToMenuButton)) {
+                SoundAssets.click.play();
                 System.out.println("Go to Menu Pressed");
                 world.returnToMenu();
-            } else if(posInButton(mouseX, mouseY, saveButton)){
-                  SoundAssets.click.play();
+            } else if (posInButton(mouseX, mouseY, saveButton)) {
+                SoundAssets.click.play();
                 System.out.println("Save button Pressed");
+                game.getUser().updateAtomQuantities(player.getAtoms());
             }
         }
     }

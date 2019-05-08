@@ -79,6 +79,7 @@ public class Game implements Runnable {
         onStore = false;
         SoundAssets.init();
         this.user = user;
+        this.user.clearAllAtomsFromDatabase();
         
     }
 

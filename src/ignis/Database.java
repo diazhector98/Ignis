@@ -157,4 +157,25 @@ public class Database {
         }
     }
     
+    public void insertUserAtomQuantity(int userId, String symbol, int quantity){
+        try {
+            String sql = "INSERT INTO UserAtoms (UserId, symbol, quantity) ";
+            sql += "VALUES ('" + String.valueOf(userId) + "','" + symbol + "','" + String.valueOf(quantity) + "')";
+            st.executeUpdate(sql);            
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+        }
+    }
+    
+    public void deleteAllUserAtoms(int userId){
+        try {
+            String sql = "DELETE FROM UserAtoms";
+            sql += " WHERE UserId = '" + String.valueOf(userId) + "' ";
+            System.out.println(sql);
+            st.executeUpdate(sql);            
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+        }
+    }
+    
 }
