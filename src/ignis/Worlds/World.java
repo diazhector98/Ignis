@@ -6,6 +6,7 @@
 package ignis.Worlds;
 
 import ignis.Assets.Assets;
+import ignis.Assets.SoundAssets;
 import ignis.Assets.TextAssets;
 import ignis.Atom;
 import ignis.Enemy;
@@ -53,6 +54,7 @@ public abstract class World {
         this.paused = false;
         p.setX(0);
         p.setY(0);
+        SoundAssets.init();
     }
 
     
@@ -115,6 +117,7 @@ public abstract class World {
             if (player.intersectsAtom(a)) {
                 atomsToRemove.add(a);
                 player.addAtom(a.getElement());
+                 SoundAssets.atom.play(); 
             }
         }
         for (Atom a : atomsToRemove) {
@@ -128,6 +131,7 @@ public abstract class World {
             e.tick();
             if (player.intersectsEnemy(e) && !player.isInvincible()) {
                 player.setInvincibilityTimer(150);
+                SoundAssets.hit.play();
                 player.loseALife();
             }
         }
