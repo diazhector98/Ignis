@@ -26,12 +26,11 @@ public class Player extends PhysicsObject {
     private boolean jumping;
     private int jumpingForce;
     private boolean onFloor;
-    private boolean onPlatformRight;
-    private boolean onPlatformLeft;
     private boolean facingLeft;
     private boolean facingRight;
     private boolean facingFront;
     private boolean facingBack;
+    private boolean right=false, left=false, up=false, down=false;
     private int lives;
     
     private Animation leftAnimation;
@@ -204,78 +203,36 @@ public class Player extends PhysicsObject {
     }
     
     public boolean isOnTopOfPlatform(Object obj) {
-        if(!(obj instanceof Platform)) return false;
-        Platform p = (Platform) obj;
-        if(!getPerimetro().intersects(p.getPerimetro())) return false;
-        
-        
         boolean correctX = false;
- 
-        if (getX() > p.getX() && getX() + getWidth() < p.getX() + p.getWidth()) {
-            correctX = true;
-            //System.out.println("Intersect case 1");
-        } else if (getX() + getWidth() < p.getX() + p.getWidth() && getX() + getWidth() * 0.50 > p.getX()) {
-            correctX = true;
-            //System.out.println("Intersect case 2");
-        } else if (getX() + getWidth() > p.getX() + p.getWidth() && getX() + getWidth() * 0.10 < p.getX() + p.getWidth()) {
-            correctX = true;
-            //System.out.println("Intersect case 3");
+        Platform p = (Platform) obj;
+        
+        if(getPerimetro().intersects(p.getPerimetroUp())){
+            setSpeedY(0);
+            up=false;
+            jumping=false;
+            System.out.println("Up");
         }
         
-        boolean correctY = false;
-        
-        if(getY() + getHeight() < p.getY()) {
-            correctY = true;
+        if(getPerimetro().intersects(p.getPerimetroLeft())){
+            setX(getX()-10);
+            left=true;
+            System.out.println("left");
         }
         
-        if (getPerimetro().intersects(p.getPerimetro())){
-            if (getY()>=p.getY()+(p.getHeight()/2) && getX()+getWidth()>=p.getX() && getX()<=p.getX()+p.getWidth() ){
-                System.out.println("Abajo");
-                setY(getY()+5);
-                setJumping(true);
-                setSpeedY(5);
-                onFloor=false;
-                correctX=false;
-            }
+        if(getPerimetro().intersects(p.getPerimetroRight())){
+            setX(getX()+10);
+            right=true;
+            System.out.println("right");
         }
+        
+        if(getPerimetro().intersects(p.getPerimetroDown())){
+            setSpeedY(5);
+            right=true;
+            System.out.println("right");
+        }
+        
+      
         return correctX;// && correctY;
-    }
-    
-    public boolean intersectsAnyPlatformFromTheLeft(LinkedList<Platform> map){
-        for(Platform p : map){
-            if(intersectsPlatformFromLeft(p)){
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public boolean intersectsAnyPlatformFromTheRight(LinkedList<Platform> map){
-        for(Platform p : map){
-            if(intersectsPlatformFromRight(p)){
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public boolean intersectsPlatformFromAbove(Object obj){
-        return obj instanceof Platform
-                && getPerimetro().intersects(((Platform) obj).getPerimetro())
-                && getY() + 6 * getHeight() / 10 <= ((Platform) obj).getY();   
-    }
-    
-    
-    public boolean intersectsPlatformFromRight(Object obj){
-        return obj instanceof Platform
-            && getPerimetro().intersects(((Platform) obj).getPerimetro())
-            && (getX() + 1 > ((Platform) obj).getX()) && !intersectsPlatformFromAbove(obj); 
-    }
-    
-    public boolean intersectsPlatformFromLeft(Object obj){
-        return obj instanceof Platform
-            && getPerimetro().intersects(((Platform) obj).getPerimetro())
-            && (getX() + 1 < ((Platform) obj).getX()) && !intersectsPlatformFromAbove(obj); 
     }
     
     public boolean intersectsFire(Object obj){
@@ -286,14 +243,6 @@ public class Player extends PhysicsObject {
     public boolean intersectsEnemy(Object obj){
         return obj instanceof Enemy && getPerimetro().intersects(((Enemy) obj).getPerimetro());
     }
-    
-    
-    public void handleTopPlatformIntersection() {
-        System.out.println("Handle top intersection");
-        setJumping(false);
-        setSpeedY(0);
-        setOnFloor(true);
-    }
 
     public boolean isOnFloor() {
         return onFloor;
@@ -302,29 +251,21 @@ public class Player extends PhysicsObject {
     public void setOnFloor(boolean onFloor) {
         this.onFloor = onFloor;
     }
-    
-    public void handleRightPlatformIntersection() {
-        setOnPlatformRight(true);
-    }
-    
-    public void handleLeftPlatformIntersection() {
-        setOnPlatformLeft(true);
-    }
 
     public boolean isOnPlatformRight() {
-        return onPlatformRight;
+        return right;
     }
 
     public void setOnPlatformRight(boolean onPlatformRight) {
-        this.onPlatformRight = onPlatformRight;
+        this.right = onPlatformRight;
     }
 
     public boolean isOnPlatformLeft() {
-        return onPlatformLeft;
+        return left;
     }
 
     public void setOnPlatformLeft(boolean onPlatformLeft) {
-        this.onPlatformLeft = onPlatformLeft;
+        this.left = onPlatformLeft;
     }
     
     public boolean intersectsBuildingFromLeft(Building building){
@@ -464,14 +405,12 @@ public class Player extends PhysicsObject {
             if (game.getKeyManager().up) {
                 jump();
             }
-            if (game.getKeyManager().down && !isOnFloor()) {
-                setY(getY() + getSpeed());
-            }
-            if (game.getKeyManager().left && !isOnPlatformRight()) {
+            
+            if (game.getKeyManager().left && !right) {
                 turnLeft();
                 moveLeft();
             }
-            if (game.getKeyManager().right && !isOnPlatformLeft()) {
+            if (game.getKeyManager().right && !left) {
                 moveRight();
                 turnRight();
             }
@@ -494,6 +433,8 @@ public class Player extends PhysicsObject {
             }
         
         }
+        right=false;
+        left=false;
     }
     
     public void printCollectedAtoms(){

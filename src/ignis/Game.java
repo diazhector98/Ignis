@@ -76,6 +76,7 @@ public class Game implements Runnable {
         win = false;
         gameOver=false;
         onStore = false;
+        SoundAssets.init();
         
     }
 
@@ -159,7 +160,8 @@ public class Game implements Runnable {
         MenuAssets.init();
         EnemyAssets.init();
         BuildingAssets.init();
-           
+        SoundAssets.maintheme.setLooping(true);
+        SoundAssets.maintheme.play();   
        
         //Initialize player
         player = new Player(getWidth() / 2, getHeight() - 100, 1, 50, 80, this);
@@ -245,7 +247,7 @@ public class Game implements Runnable {
         for (int i = 0; i < doors.size(); i++) {
             Door d = doors.get(i);
             if (player.intersectsDoor(d)) {
-                 
+                SoundAssets.puerta.play(); 
                 goToWorld(d);
                
             }

@@ -57,6 +57,20 @@ public class Platform extends Item{
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
+    
+    public Rectangle getPerimetroLeft() {
+        return new Rectangle(getX()-10 , getY(), 100, 100);
+    }
+    
+    public Rectangle getPerimetroRight() {
+        return new Rectangle(getX()+10, getY(), 100, 100);
+    }
+    public Rectangle getPerimetroUp() {
+        return new Rectangle(getX(), getY()-20, getWidth(), getHeight()+10);
+    }
+    public Rectangle getPerimetroDown() {
+        return new Rectangle(getX(), getY(), getWidth(), getHeight()+10);
+    }
 
     public boolean isIntersected() {
         return intersected;
