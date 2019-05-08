@@ -55,6 +55,7 @@ public class PauseMenu {
                 SoundAssets.click.play();
                 System.out.println("Go to Menu Pressed");
                 world.returnToMenu();
+                game.getUser().updateAtomQuantities(player.getAtoms());
             } else if (posInButton(mouseX, mouseY, saveButton)) {
                 SoundAssets.click.play();
                 System.out.println("Save button Pressed");
