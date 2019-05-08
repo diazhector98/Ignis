@@ -14,6 +14,8 @@ import ignis.Game;
 import ignis.Platform;
 import ignis.Player;
 import ignis.Robot;
+import ignis.Slime;
+import ignis.Spider;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -34,8 +36,8 @@ public class AlkaliWorld extends World {
     public AlkaliWorld(Game g, Player p) {
         super(g, p, 1);
         AlkaliWorldAssets.init();
-        player.setY(4500);
-        player.setX(500);
+        player.setY(4100);
+        player.setX(300);
         atomQuantities = new HashMap<>();
         //Poner cantidades minimas de los atomos que se necesitan
         atomQuantities.put("Na", 2);
@@ -80,6 +82,10 @@ public class AlkaliWorld extends World {
                     platforms.add(p);
                     platformsWithAtom.add(p);
                     
+                } else if (getColor(red, green, blue).equals("RED")){
+                    Platform p = new Platform(x * 100, y * 100, 100, 100, "Spider", AlkaliWorldAssets.block);
+                    platforms.add(p);
+                    enemies.add(new Slime(p));
                 }
             }
         }
@@ -131,10 +137,6 @@ public class AlkaliWorld extends World {
         if (!paused) {        
             g.drawImage(Assets.darkGraySquare, 0, 0, game.getWidth(), game.getHeight(), null);
             g.translate(-(player.getX() - 1200 / 2), -(player.getY() - 800 / 2));
-            compuestoBuscar = "H2O";
-            g.drawImage(TextAssets.COMPUESTO, (player.getX()) + 600 - 200, (player.getY()) - 350 - 28, 170, 40, null);
-            g.drawImage(TextAssets.H20, (player.getX()) + 600 - 150, (player.getY()) - 320, 100, 40, null);
-
             renderPlayerLives(g);
             renderAtoms(g);
             renderPlatforms(g);
