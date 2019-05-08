@@ -13,7 +13,7 @@ public class Tree extends Enemy{
     
     /**
      *
-     * @param p
+     * @param p Object Plataform to indicate in which platform Enemy Tree is going to respawn 
      */
     public Tree(Platform p) {
         super(3, 5, p, 2);

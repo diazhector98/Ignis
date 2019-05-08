@@ -14,7 +14,7 @@ public class enemy6 extends Enemy{
 
     /**
      *
-     * @param p
+     * @param p Object of Plataform to indicate where the enemy6 is going to spawn 
      */
     public enemy6(Platform p) {
         super(3, 5, p, 1);
