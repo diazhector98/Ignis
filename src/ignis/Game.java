@@ -14,6 +14,7 @@ import ignis.Assets.PlayerAssets;
 import ignis.Assets.TextAssets;
 
 import ignis.Assets.MenuAssets;
+import ignis.Assets.SoundAssets;
 import ignis.Worlds.ActinoidWorld;
 import ignis.Worlds.AlkaliWorld;
 import ignis.Worlds.AlkalineWorld;
@@ -158,6 +159,8 @@ public class Game implements Runnable {
         MenuAssets.init();
         EnemyAssets.init();
         BuildingAssets.init();
+           
+       
         //Initialize player
         player = new Player(getWidth() / 2, getHeight() - 100, 1, 50, 80, this);
 
@@ -174,7 +177,7 @@ public class Game implements Runnable {
         //Initialize buildings
         store = new Store(750,300,350,350, this);
         lab = new Lab(100,300,350,350, this);
-        
+     
 
         display.getJframe().addKeyListener(keyManager);
     }
@@ -225,6 +228,7 @@ public class Game implements Runnable {
 
     private void tick() {
         keyManager.tick();
+     
         if(world == null){
             doorsTick();
             buildingsTick();
@@ -241,13 +245,18 @@ public class Game implements Runnable {
         for (int i = 0; i < doors.size(); i++) {
             Door d = doors.get(i);
             if (player.intersectsDoor(d)) {
+                 
                 goToWorld(d);
+               
             }
         }
     }
+
     
     public void buildingsTick() {
         if(player.handleBuildingIntersection(store)){
+            
+            
             onStore = true;
         }
         player.handleBuildingIntersection(lab);
@@ -330,6 +339,8 @@ public class Game implements Runnable {
         if(onStore){
             store.renderStore();
         }
+        
+        
     }
 
     public void renderWorld(World w) {
