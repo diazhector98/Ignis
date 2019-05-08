@@ -18,6 +18,12 @@ public class EnemyAssets {
     
     public static BufferedImage ROBOT_LEFT;
     public static BufferedImage ROBOT_RIGHT;
+
+    public static BufferedImage SPIDER_LEFT;
+    public static BufferedImage SPIDER_RIGHT;
+    public static BufferedImage TREE_LEFT;
+    public static BufferedImage TREE_RIGHT;
+    
     public static BufferedImage ENEMY2_RIGHT;
     public static BufferedImage ENEMY2_LEFT; 
     public static BufferedImage SLIME_LEFT;
@@ -45,6 +51,22 @@ public class EnemyAssets {
         Pair slime = new Pair(SLIME_LEFT,SLIME_RIGHT);
         Pair ghost = new Pair(GHOST_LEFT, GHOST_RIGHT);
         enemiesImages.add(robot);
+        
+        
+        SPIDER_LEFT = ImageLoader.loadImage("/images/enemies/enemy7_left.png");
+        SPIDER_RIGHT = ImageLoader.loadImage("/images/enemies/enemy7_right.png");
+        
+        Pair spider = new Pair(SPIDER_LEFT, SPIDER_RIGHT);
+        
+        enemiesImages.add(spider);
+        
+        TREE_LEFT=ImageLoader.loadImage("/images/enemies/enemy9_left.png");
+        TREE_RIGHT=ImageLoader.loadImage("/images/enemies/enemy9_right.png");
+        Pair tree= new Pair (TREE_LEFT,TREE_RIGHT);
+        enemiesImages.add (tree);
+  
+        
+        
         enemiesImages.add(enemy2);
         enemiesImages.add(slime);
         enemiesImages.add(ghost);

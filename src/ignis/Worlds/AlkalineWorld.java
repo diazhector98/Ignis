@@ -13,19 +13,34 @@ import ignis.Enemy;
 import ignis.Game;
 import ignis.Platform;
 import ignis.Player;
+import ignis.Spider;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 
 /**
  *
  * @author hectordiazaceves
  */
 public class AlkalineWorld extends World {
+    private Map<String, Integer> atomQuantities;
 
     public AlkalineWorld(Game g, Player p) {
         super(g, p, 2);
         AlkalineWorldAssets.init();
+        player.setY(4430);
+        player.setX(500);
+        atomQuantities = new HashMap<>();
+        //Poner cantidades minimas de los atomos que se necesitan
+        atomQuantities.put("Mg", 2);
+        atomQuantities.put("Bg", 3);
+        atomQuantities.put("Ca", 5);
+       atomQuantities.put("Ra", 3);
+        atomQuantities.put("Sr", 4);
     }
     
         public String getColor(int red, int green, int blue){
@@ -61,9 +76,11 @@ public class AlkalineWorld extends World {
 
     @Override
     public void generateWorld() {
+        LinkedList<Platform> platformsWithAtom = new LinkedList<>();
+        LinkedList<Platform> platformsWithEnemies = new LinkedList<>();
 
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 12; x++) {
+        for (int y = 0; y < 50; y++) {
+            for (int x = 0; x < 100; x++) {
                 int pixel = AlkalineWorldAssets.world.getRGB(x, y);
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
@@ -73,7 +90,48 @@ public class AlkalineWorld extends World {
                 } else if (getColor(red, green, blue).equals("GREEN")) {
                     platforms.add(new Platform(x * 100, y * 100, 100, 100, "ACTIVE", AlkalineWorldAssets.block));
                 }
+                else if (getColor(red, green, blue).equals("BLUE")) {
+                    Platform p = new Platform(x * 100, y * 100, 100, 100, "ATOM", AlkalineWorldAssets.block);
+                    platforms.add(p);
+                    platformsWithAtom.add(p);
+                    
+                }
+                
+               else if(getColor(red, green, blue).equals("RED")){
+                    Platform p = new Platform(x * 100, y * 100, 100, 100, "ENEMY", AlkalineWorldAssets.block);
+                    platforms.add(p);
+                    platformsWithEnemies.add(p);
+                }
             }
+        }
+        
+        Set<String> keys = atomQuantities.keySet();
+        for(int i=0; i<atomQuantities.size(); i++){
+            String elemento = (String)keys.toArray()[i];
+            for(int j=0;j<atomQuantities.get(elemento);j++){
+                int k = (int) ((Math.random() * ((platformsWithAtom.size()-1 - 0) + 1)) + 0);
+                System.out.println(k);
+                
+                Platform p = platformsWithAtom.get(k);
+                Atom a = new Atom(game,p, elemento);
+                platformsWithAtom.remove(k);
+                atoms.add(a);
+                
+            }
+        }
+        
+        for(Platform p : platformsWithEnemies){
+            Spider spider = new Spider(p);
+            enemies.add(spider);
+        }
+        
+        int elementIndex = 0;
+        int n = keys.size();
+        for (Platform p : platformsWithAtom){
+            String elemento = (String)keys.toArray()[elementIndex % n];
+            Atom a = new Atom(game, p, elemento);
+            atoms.add(a);
+            elementIndex++;
         }
     }
 
