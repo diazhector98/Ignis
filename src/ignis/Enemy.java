@@ -50,96 +50,96 @@ public class Enemy extends Item{
         this.height = 70;
     }
 
-    /** getLives
-     * Get the lives of the enemy
-     * @return <int> lives of the enemy
+    /**
+     *
+     * @return
      */
     public int getLives() {
         return lives;
     }
 
-    /** setLives
-     * Set the lives of the enemy
-     * @param lives <int> of the enemy
+    /**
+     *
+     * @param lives
      */
     public void setLives(int lives) {
         this.lives = lives;
     }
 
-    /** getSpeed
-     * Get the speed of the enemy
-     * @return <int> speed of the enemy
+    /**
+     *
+     * @return
      */
     public int getSpeed() {
         return speed;
     }
 
-    /** setSpeed
-     * Set the speed of the enemy
-     * @param speed <int> of the enemy
+    /**
+     *
+     * @param speed
      */
     public void setSpeed(int speed) {
         this.speed = speed;
     }
 
-    /** getPlataform
-     * Get the platform
-     * @return Platform of the enemy
+    /**
+     *
+     * @return
      */
     public Platform getPlatform() {
         return platform;
     }
 
-    /**setPlataform
-     * Set the platform
+    /**
+     *
      * @param platform
      */
     public void setPlatform(Platform platform) {
         this.platform = platform;
     }
 
-    /** getIndex
-     * Get the index of the enemy
-     * @return <int> index of the enemy
+    /**
+     *
+     * @return
      */
     public int getIndex() {
         return index;
     }
 
-    /** setIndex
-     * Set the index of the enemy
+    /**
+     *
      * @param index
      */
     public void setIndex(int index) {
         this.index = index;
     }
 
-    /** getWidth
-     * Get the width of the enemy
-     * @return <int> width of the enemy
+    /**
+     *
+     * @return
      */
     public int getWidth() {
         return width;
     }
 
-    /**setWidth
-     * Set the width of the enemy
+    /**
+     *
      * @param width
      */
     public void setWidth(int width) {
         this.width = width;
     }
 
-    /**getHeight
-     * Get the height of the enemy
-     * @return <int> height of the enemy
+    /**
+     *
+     * @return
      */
     public int getHeight() {
         return height;
     }
 
-    /**setHeight
-     * Set the height of the enemy
+    /**
+     *
      * @param height
      */
     public void setHeight(int height) {
