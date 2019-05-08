@@ -19,8 +19,8 @@ public class User {
     
     /**
      *
-     * @param ID
-     * @param username
+     * @param ID Int indicate id username
+     * @param username String indicates name of username
      */
     public User(int ID, String username){
      this.ID = ID;
@@ -30,7 +30,7 @@ public class User {
     
     /**
      *
-     * @param symbol
+     * @param symbol String to state the symbol of the element/atom 
      */
     public void addAtom(String symbol){
         
@@ -38,14 +38,14 @@ public class User {
     
     /**
      *
-     * @return
+     * @return Database method getUserAtomsMap
      */
     public Map<String, Integer> getAtomQuantities(){
         return database.getUserAtomsMap(ID);
     }
     
     /**
-     *
+     *Method from database deleteAllUserAtoms
      */
     public void clearAllAtomsFromDatabase() {
         database.deleteAllUserAtoms(ID);
@@ -53,7 +53,7 @@ public class User {
     
     /**
      *
-     * @param userAtoms
+     * @param userAtoms Map<String,Integer> to create user Atoms 
      */
     public void updateAtomQuantities(Map<String,Integer> userAtoms){
         clearAllAtomsFromDatabase();
@@ -67,7 +67,7 @@ public class User {
     
     /**
      *
-     * @param so
+     * @param so Object from StoreObject to add object 
      */
     public void addObject(StoreObject so){
         database.addObjectToUser(so, ID);
@@ -75,7 +75,7 @@ public class User {
     
     /**
      *
-     * @param so
+     * @param so Object StoreObject to verify is user has object
      * @return
      */
     public boolean hasObject(StoreObject so){
@@ -84,7 +84,7 @@ public class User {
     
     /**
      *
-     * @return
+     * @return database getUserLives method 
      */
     public int getUserLives(){
         return database.getUserLives(ID);
@@ -92,7 +92,7 @@ public class User {
     
     /**
      *
-     * @param newLives
+     * @param newLives Int to state user new lives
      */
     public void updateUserLives(int newLives){
         database.updateUserLives(ID, newLives);

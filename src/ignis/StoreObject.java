@@ -54,7 +54,7 @@ public class StoreObject {
 
     /**
      *
-     * @return
+     * @return int id 
      */
     public int getId() {
         return id;
@@ -62,7 +62,7 @@ public class StoreObject {
 
     /**
      *
-     * @param id
+     * @param id int set id 
      */
     public void setId(int id) {
         this.id = id;
@@ -70,7 +70,7 @@ public class StoreObject {
 
     /**
      *
-     * @return
+     * @return string name
      */
     public String getName() {
         return name;
@@ -86,7 +86,7 @@ public class StoreObject {
 
     /**
      *
-     * @return
+     * @return int x 
      */
     public int getX() {
         return x;
@@ -94,7 +94,7 @@ public class StoreObject {
 
     /**
      *
-     * @param x
+     * @param x int to set this x 
      */
     public void setX(int x) {
         this.x = x;
@@ -102,7 +102,7 @@ public class StoreObject {
 
     /**
      *
-     * @return
+     * @return int y 
      */
     public int getY() {
         return y;
@@ -110,7 +110,7 @@ public class StoreObject {
 
     /**
      *
-     * @param y
+     * @param y int set this y 
      */
     public void setY(int y) {
         this.y = y;
@@ -118,7 +118,7 @@ public class StoreObject {
 
     /**
      *
-     * @return
+     * @return int width 
      */
     public int getWidth() {
         return width;
@@ -134,7 +134,7 @@ public class StoreObject {
 
     /**
      *
-     * @return
+     * @return int height 
      */
     public int getHeight() {
         return height;
@@ -142,7 +142,7 @@ public class StoreObject {
 
     /**
      *
-     * @param height
+     * @param height Int to establish height 
      */
     public void setHeight(int height) {
         this.height = height;
@@ -150,7 +150,7 @@ public class StoreObject {
     
     /**
      *
-     * @return
+     * @return BufferedImage storeIcon 
      */
     public BufferedImage getStoreIcon(){
         return storeIcon;
@@ -158,7 +158,7 @@ public class StoreObject {
 
     /**
      *
-     * @return
+     * @return string formula
      */
     public String getFormula() {
         return formula;
@@ -174,7 +174,7 @@ public class StoreObject {
 
     /**
      *
-     * @return
+     * @return Object compound 
      */
     public Compound getCompound() {
         return compound;
@@ -182,7 +182,7 @@ public class StoreObject {
 
     /**
      *
-     * @param compound
+     * @param compound Object Compund to set this compound 
      */
     public void setCompound(Compound compound) {
         this.compound = compound;
@@ -190,7 +190,7 @@ public class StoreObject {
 
     /**
      *
-     * @return
+     * @return boolean bought 
      */
     public boolean isBought() {
         return bought;
@@ -207,7 +207,7 @@ public class StoreObject {
 
     /**
      *
-     * @param storeIcon
+     * @param storeIcon BufferedImage storeIcon to set storeIcon 
      */
     public void setStoreIcon(BufferedImage storeIcon) {
         this.storeIcon = storeIcon;
@@ -215,7 +215,7 @@ public class StoreObject {
     
     /**
      *
-     * @param g
+     * @param g Graphics 
      */
     public void render(Graphics g){
 

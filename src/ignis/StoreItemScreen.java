@@ -25,8 +25,8 @@ public class StoreItemScreen {
     
     /**
      *
-     * @param obj
-     * @param g
+     * @param obj Object StoreObject
+     * @param g Object Game 
      */
     public StoreItemScreen(StoreObject obj, Game g){        
         this.background = BuildingAssets.storeBackground;
@@ -39,7 +39,7 @@ public class StoreItemScreen {
 
     /**
      *
-     * @return
+     * @return background 
      */
     public BufferedImage getBackground() {
         return background;
@@ -47,7 +47,7 @@ public class StoreItemScreen {
 
     /**
      *
-     * @param background
+     * @param background to set background 
      */
     public void setBackground(BufferedImage background) {
         this.background = background;
@@ -55,7 +55,7 @@ public class StoreItemScreen {
 
     /**
      *
-     * @return
+     * @return backbutton
      */
     public Button getBackButton() {
         return backButton;
@@ -63,7 +63,7 @@ public class StoreItemScreen {
 
     /**
      *
-     * @param backButton
+     * @param backButton set backbutton 
      */
     public void setBackButton(Button backButton) {
         this.backButton = backButton;
@@ -71,7 +71,7 @@ public class StoreItemScreen {
 
     /**
      *
-     * @return
+     * @return StoreObject object 
      */
     public StoreObject getObject() {
         return object;
@@ -87,7 +87,7 @@ public class StoreItemScreen {
 
     /**
      *
-     * @return
+     * @return object game
      */
     public Game getGame() {
         return game;
@@ -95,7 +95,7 @@ public class StoreItemScreen {
 
     /**
      *
-     * @param game
+     * @param game set object game
      */
     public void setGame(Game game) {
         this.game = game;
@@ -103,7 +103,7 @@ public class StoreItemScreen {
     
     /**
      *
-     * @return
+     * @return objecttitle
      */
     public BufferedImage getObjectTitle() {
         return objectTitle;
@@ -111,7 +111,7 @@ public class StoreItemScreen {
 
     /**
      *
-     * @param objectTitle
+     * @param objectTitle set Objecttitle
      */
     public void setObjectTitle(BufferedImage objectTitle) {
         this.objectTitle = objectTitle;
@@ -119,7 +119,7 @@ public class StoreItemScreen {
 
     /**
      *
-     * @return
+     * @return object buybutton
      */
     public Button getBuyButton() {
         return buyButton;
@@ -127,7 +127,7 @@ public class StoreItemScreen {
 
     /**
      *
-     * @param buyButton
+     * @param buyButton set buybutton
      */
     public void setBuyButton(Button buyButton) {
         this.buyButton = buyButton;
@@ -135,7 +135,7 @@ public class StoreItemScreen {
     
     /**
      *
-     * @param g
+     * @param g Graphics 
      */
     public void render(Graphics g){
         g.drawImage(background, 0, 0, game.getWidth(), game.getWidth(), null);

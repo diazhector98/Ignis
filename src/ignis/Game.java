@@ -528,7 +528,7 @@ private void tick() {
     }
 
 
-     */
+     
     public void renderWorldMenuBackground(){
         g.drawImage(MenuAssets.BACKGROUND, 0, 0, width, height, null); 
     }
