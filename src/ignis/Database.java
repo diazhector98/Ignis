@@ -218,4 +218,19 @@ public class Database {
         return false;
     }
     
+    public User getUserWithUsername(String username){
+        try {
+            String sql = "SELECT * FROM users WHERE username = '" + username + "'";
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                int id = Integer.parseInt(rs.getString("id"));
+                return new User(id, username);
+            }
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+            return null;
+        }
+        return null;
+    }
+    
 }
