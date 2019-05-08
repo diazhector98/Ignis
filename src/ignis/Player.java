@@ -5,9 +5,12 @@ import ignis.Assets.PlayerAssets;
 import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
+import javafx.util.Pair;
 
 /**
  *
@@ -23,12 +26,11 @@ public class Player extends PhysicsObject {
     private boolean jumping;
     private int jumpingForce;
     private boolean onFloor;
-    private boolean onPlatformRight;
-    private boolean onPlatformLeft;
     private boolean facingLeft;
     private boolean facingRight;
     private boolean facingFront;
     private boolean facingBack;
+    private boolean right=false, left=false, up=false, down=false;
     private int lives;
     
     private Animation leftAnimation;
@@ -147,6 +149,17 @@ public class Player extends PhysicsObject {
         this.lives = lives;
     }
 
+    public Map<String, Integer> getAtoms() {
+        return atoms;
+    }
+
+    public void setAtoms(Map<String, Integer> atoms) {
+        this.atoms = atoms;
+    }
+    
+    
+    
+
     
     
     
@@ -201,70 +214,36 @@ public class Player extends PhysicsObject {
     }
     
     public boolean isOnTopOfPlatform(Object obj) {
-        if(!(obj instanceof Platform)) return false;
-        Platform p = (Platform) obj;
-        if(!getPerimetro().intersects(p.getPerimetro())) return false;
-        
-        
         boolean correctX = false;
- 
-        if (getX() > p.getX() && getX() + getWidth() < p.getX() + p.getWidth()) {
-            correctX = true;
-            //System.out.println("Intersect case 1");
-        } else if (getX() + getWidth() < p.getX() + p.getWidth() && getX() + getWidth() * 0.50 > p.getX()) {
-            correctX = true;
-            //System.out.println("Intersect case 2");
-        } else if (getX() + getWidth() > p.getX() + p.getWidth() && getX() + getWidth() * 0.10 < p.getX() + p.getWidth()) {
-            correctX = true;
-            //System.out.println("Intersect case 3");
-
+        Platform p = (Platform) obj;
+        
+        if(getPerimetro().intersects(p.getPerimetroUp())){
+            setSpeedY(0);
+            up=false;
+            jumping=false;
+            System.out.println("Up");
         }
         
-        boolean correctY = false;
-        
-        if(getY() + getHeight() * 0.9 < p.getY()) {
-            correctY = true;
+        if(getPerimetro().intersects(p.getPerimetroLeft())){
+            setX(getX()-10);
+            left=true;
+            System.out.println("left");
         }
         
+        if(getPerimetro().intersects(p.getPerimetroRight())){
+            setX(getX()+10);
+            right=true;
+            System.out.println("right");
+        }
         
+        if(getPerimetro().intersects(p.getPerimetroDown())){
+            setSpeedY(5);
+            right=true;
+            System.out.println("right");
+        }
+        
+      
         return correctX;// && correctY;
-    }
-    
-    public boolean intersectsAnyPlatformFromTheLeft(LinkedList<Platform> map){
-        for(Platform p : map){
-            if(intersectsPlatformFromLeft(p)){
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public boolean intersectsAnyPlatformFromTheRight(LinkedList<Platform> map){
-        for(Platform p : map){
-            if(intersectsPlatformFromRight(p)){
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public boolean intersectsPlatformFromAbove(Object obj){
-        return obj instanceof Platform
-                && getPerimetro().intersects(((Platform) obj).getPerimetro())
-                && getY() + 6 * getHeight() / 10 <= ((Platform) obj).getY();   
-    }
-    
-    
-    public boolean intersectsPlatformFromRight(Object obj){
-        return obj instanceof Platform
-            && getPerimetro().intersects(((Platform) obj).getPerimetro())
-            && (getX() + 1 > ((Platform) obj).getX()) && !intersectsPlatformFromAbove(obj); 
-    }
-    
-    public boolean intersectsPlatformFromLeft(Object obj){
-        return obj instanceof Platform
-            && getPerimetro().intersects(((Platform) obj).getPerimetro())
-            && (getX() + 1 < ((Platform) obj).getX()) && !intersectsPlatformFromAbove(obj); 
     }
     
     public boolean intersectsFire(Object obj){
@@ -275,14 +254,6 @@ public class Player extends PhysicsObject {
     public boolean intersectsEnemy(Object obj){
         return obj instanceof Enemy && getPerimetro().intersects(((Enemy) obj).getPerimetro());
     }
-    
-    
-    public void handleTopPlatformIntersection() {
-        System.out.println("Handle top intersection");
-        setJumping(false);
-        setSpeedY(0);
-        setOnFloor(true);
-    }
 
     public boolean isOnFloor() {
         return onFloor;
@@ -291,30 +262,87 @@ public class Player extends PhysicsObject {
     public void setOnFloor(boolean onFloor) {
         this.onFloor = onFloor;
     }
-    
-    public void handleRightPlatformIntersection() {
-        setOnPlatformRight(true);
-    }
-    
-    public void handleLeftPlatformIntersection() {
-        setOnPlatformLeft(true);
-    }
 
     public boolean isOnPlatformRight() {
-        return onPlatformRight;
+        return right;
     }
 
     public void setOnPlatformRight(boolean onPlatformRight) {
-        this.onPlatformRight = onPlatformRight;
+        this.right = onPlatformRight;
     }
 
     public boolean isOnPlatformLeft() {
-        return onPlatformLeft;
+        return left;
     }
 
     public void setOnPlatformLeft(boolean onPlatformLeft) {
-        this.onPlatformLeft = onPlatformLeft;
+        this.left = onPlatformLeft;
     }
+    
+    public boolean intersectsBuildingFromLeft(Building building){
+        if(getPerimetro().intersects(building.getPerimeter())){
+            if(getX() + getWidth() <= building.getX() + 10){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean intersectsBuildingFromRight(Building building){
+        if(getPerimetro().intersects(building.getPerimeter())){
+            if(getX() >= building.getX() + building.getWidth()-10){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean intersectsBuildingFromTop(Building building){
+        if(getPerimetro().intersects(building.getPerimeter())){
+            if(getY() + getHeight() >= building.getY() && getY() < building.getY()){
+                if(getX() + getWidth() < building.getX()+building.getWidth()){
+                    if(getX() > building.getX()){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+ 
+    public boolean intersectsBuildingFromBottom(Building building) {
+        if (getPerimetro().intersects(building.getPerimeter())) {
+            if (getY()  > building.getY() + building.getHeight()-30) {
+                if (getX() + getWidth() < building.getX() + building.getWidth()) {
+                    if (getX() > building.getX()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    
+    public boolean handleBuildingIntersection(Building building) {
+        if (intersectsBuildingFromLeft(building)) {
+            setX(getX()-10);
+            return true;
+        } else if (intersectsBuildingFromRight(building)) {
+            setX(getX()+10);
+            return true;
+        } else if (intersectsBuildingFromTop(building)) {
+            setY(getY()-10);
+            return true;
+
+        } else if (intersectsBuildingFromBottom(building)) {
+            setY(getY()+10);
+            return true;
+        }
+        
+        return false;
+    }
+    
     
     public void turnBack(){
         this.facingBack = true;
@@ -359,6 +387,15 @@ public class Player extends PhysicsObject {
     public int getInvincibilityTimer(){
         return this.invincibilityTimer;
     }
+    
+    public void addAtom(String element){
+        if(atoms.containsKey(element)){
+            int qty = atoms.get(element);
+            atoms.put(element, qty + 1);
+        } else {
+            atoms.put(element, 1);
+        }
+    }
 
     @Override
     public void tick() {
@@ -379,14 +416,12 @@ public class Player extends PhysicsObject {
             if (game.getKeyManager().up) {
                 jump();
             }
-            if (game.getKeyManager().down && !isOnFloor()) {
-                setY(getY() + getSpeed());
-            }
-            if (game.getKeyManager().left && !isOnPlatformRight()) {
+            
+            if (game.getKeyManager().left && !right) {
                 turnLeft();
                 moveLeft();
             }
-            if (game.getKeyManager().right && !isOnPlatformLeft()) {
+            if (game.getKeyManager().right && !left) {
                 moveRight();
                 turnRight();
             }
@@ -409,25 +444,20 @@ public class Player extends PhysicsObject {
             }
         
         }
+        right=false;
+        left=false;
+    }
+    
+    public void printCollectedAtoms(){
         
+        Set<String> keys = atoms.keySet();
+        Object[] keysArray = keys.toArray();
         
-        
-        
-        // reset x position and y position if colision
-        /*
-        if (getX() + 60 >= game.getWidth()) {
-            setX(game.getWidth() - 60);
-        } else if (getX() <= -30) {
-            setX(-30);
+        for(Object k : keysArray){
+            int qty = atoms.get(k);
+            System.out.println((String)k + " : " + String.valueOf(qty));
         }
-        */
-        /*
-        if (getY() + 80 >= game.getHeight()) {
-            setY(game.getHeight() - 100);
-        } else if (getY() <= -20) {
-            setY(-20);
-        }
-*/
+        
     }
     
     public void moveRight(){
@@ -444,6 +474,25 @@ public class Player extends PhysicsObject {
             setY(getY() - 5);
             accelerate(0, -1 * jumpingForce);
         }
+    }
+    
+    public boolean canBuy(StoreObject so){
+        
+        Map<String,Integer> playerAtoms = atoms;
+        ArrayList<Pair> objectAtoms = so.getCompound().getAtoms();
+        
+        for(Pair p : objectAtoms){
+            String element = (String) p.getKey();
+            int qtyNeeded = (Integer) p.getValue();
+            if(!playerAtoms.containsKey(element)){
+                return false;
+            }
+            if(playerAtoms.get(element) < qtyNeeded){
+                return false;
+            }
+        }
+        
+        return true;
     }
 
     @Override

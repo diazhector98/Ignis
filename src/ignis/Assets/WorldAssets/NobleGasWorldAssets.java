@@ -19,7 +19,7 @@ public class NobleGasWorldAssets {
     
     public static void init() {
         block = ImageLoader.loadImage("/images/worlds/block9.png");
-        background = ImageLoader.loadImage("/images/backgroundMine.png");
+        background = ImageLoader.loadImage("/images/NobleGasbck.jpg");
         world = ImageLoader.loadImage("/images/worlds/world9.png");
     }
 }

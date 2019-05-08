@@ -8,11 +8,13 @@ package ignis;
 import ignis.Worlds.World;
 import ignis.Assets.Assets;
 import ignis.Assets.AtomAssets;
+import ignis.Assets.BuildingAssets;
 import ignis.Assets.EnemyAssets;
 import ignis.Assets.PlayerAssets;
 import ignis.Assets.TextAssets;
 
 import ignis.Assets.MenuAssets;
+import ignis.Assets.SoundAssets;
 import ignis.Worlds.ActinoidWorld;
 import ignis.Worlds.AlkaliWorld;
 import ignis.Worlds.AlkalineWorld;
@@ -52,6 +54,11 @@ public class Game implements Runnable {
     private Platform platform2;
     private Boolean win;
     private Boolean gameOver;
+    private Store store;
+    private Lab lab;
+    private boolean onStore;
+    private User user;
+    private Database database;
     
 
     /**
@@ -61,7 +68,7 @@ public class Game implements Runnable {
      * @param width to set the width of the window
      * @param height to set the height of the window
      */
-    public Game(String title, int width, int height) {
+    public Game(String title, int width, int height, User user) {
         this.title = title;
         this.width = width;
         this.height = height;
@@ -70,8 +77,31 @@ public class Game implements Runnable {
         doors = new ArrayList<Door>();
         win = false;
         gameOver=false;
+        onStore = false;
+        SoundAssets.init();
+        this.user = user;
+        this.database = new Database();
+        
     }
 
+    public Database getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(Database database) {
+        this.database = database;
+    }
+    
+    
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
     /**
      * To get the width of the game window
      *
@@ -125,6 +155,14 @@ public class Game implements Runnable {
     public void setDisplay(Display display) {
         this.display = display;
     }
+
+    public boolean isOnStore() {
+        return onStore;
+    }
+
+    public void setOnStore(boolean onStore) {
+        this.onStore = onStore;
+    }
     
     
     
@@ -136,14 +174,23 @@ public class Game implements Runnable {
      */
     private void init() {
         display = new Display(title, getWidth(), getHeight());
+        //Initialize all assets
         Assets.init();
         PlayerAssets.init();
         AtomAssets.init();
         TextAssets.init();
         MenuAssets.init();
         EnemyAssets.init();
+        BuildingAssets.init();
+        SoundAssets.maintheme.setLooping(true);
+        SoundAssets.maintheme.play();   
+       
         //Initialize player
         player = new Player(getWidth() / 2, getHeight() - 100, 1, 50, 80, this);
+        
+        player.setAtoms(user.getAtomQuantities());
+        
+        System.out.println("Player unique atoms: " + String.valueOf(player.getAtoms().size()));
 
         //Initialize doors
         int doorWidth = 75;
@@ -154,6 +201,11 @@ public class Game implements Runnable {
         for (int i = 1; i <= 9; i++) {
             doors.add(new Door((i-1) * delta + horizontalMargin, 50, doorWidth, doorHeight, this, i));
         }
+        
+        //Initialize buildings
+        store = new Store(750,300,350,350, this);
+        lab = new Lab(100,300,350,350, this);
+     
 
         display.getJframe().addKeyListener(keyManager);
     }
@@ -198,14 +250,20 @@ public class Game implements Runnable {
         player.setX(getWidth() / 2);
         player.setY(getHeight() / 2);
         player.setSpeedY(0);
+        player.printCollectedAtoms();
 
     }
 
     private void tick() {
         keyManager.tick();
+     
         if(world == null){
             doorsTick();
+            buildingsTick();
             player.tick();
+            if(onStore){
+                store.tick();
+            }
         } else {
             world.tick();
         }
@@ -214,16 +272,24 @@ public class Game implements Runnable {
     public void doorsTick() {
         for (int i = 0; i < doors.size(); i++) {
             Door d = doors.get(i);
-            d.tick();
             if (player.intersectsDoor(d)) {
+                SoundAssets.puerta.play(); 
                 goToWorld(d);
+               
             }
         }
     }
-    
-    
-    
 
+    
+    public void buildingsTick() {
+        if(player.handleBuildingIntersection(store)){
+            
+            
+            onStore = true;
+        }
+        player.handleBuildingIntersection(lab);
+    }
+    
     public void goToWorld(Door d) {
         int index = d.getIndex();
         switch(index){
@@ -258,6 +324,14 @@ public class Game implements Runnable {
         world.generateWorld();
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+    
     private void restartGame() {
 
     }
@@ -289,6 +363,12 @@ public class Game implements Runnable {
         renderWorldMenuBackground();
         renderDoors();
         renderPlayer();
+        renderBuildings();
+        if(onStore){
+            store.renderStore();
+        }
+        
+        
     }
 
     public void renderWorld(World w) {
@@ -303,6 +383,11 @@ public class Game implements Runnable {
             Door d = doors.get(i);
             d.render(g);
         }
+    }
+    
+    public void renderBuildings() {
+        store.render(g);
+        lab.render(g);
     }
     
     public void renderPlayer() {
