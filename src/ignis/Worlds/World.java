@@ -92,19 +92,8 @@ public abstract class World {
 
     public void tickPlayer() {
         player.tick();
-
         for (int i = 0; i < platforms.size(); i++) {
             player.handlePlatformIntersection(platforms.get(i));
-        }
-        if (player.intersectsAnyPlatformFromTheLeft(platforms)) {
-            player.setOnPlatformLeft(true);
-        } else {
-            player.setOnPlatformLeft(false);
-        }
-        if (player.intersectsAnyPlatformFromTheRight(platforms)) {
-            player.setOnPlatformRight(true);
-        } else {
-            player.setOnPlatformRight(false);
         }
     }
     
