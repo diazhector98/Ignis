@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package ignis;
 
 import ignis.Assets.BuildingAssets;
@@ -19,6 +20,8 @@ import java.util.Map;
  *
  * @author Jorge
  */
+
+
 public class InventoryMenu {
 
     private Game game;
@@ -55,6 +58,7 @@ public class InventoryMenu {
     }
 
     public void createItemListFromPlayer() {
+        this.items.clear();
         Map<String, Integer> playerAtoms = player.getAtoms();
         Object[] atomSymbols = playerAtoms.keySet().toArray();
 

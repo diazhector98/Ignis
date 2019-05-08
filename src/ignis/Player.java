@@ -195,7 +195,7 @@ public class Player extends PhysicsObject {
      */
 
     public Rectangle getPerimetro() {
-        return new Rectangle(getX(), getY(), getWidth(), getHeight());
+        return new Rectangle(getX() + 3, getY() + 3, getWidth() - 7, getHeight() - 7);
     }
 
     /**
@@ -275,25 +275,21 @@ public class Player extends PhysicsObject {
             setSpeedY(0);
             up=false;
             jumping=false;
-            System.out.println("Up");
         }
         
         if(getPerimetro().intersects(p.getPerimetroLeft())){
             setX(getX()-10);
             left=true;
-            System.out.println("left");
         }
         
         if(getPerimetro().intersects(p.getPerimetroRight())){
             setX(getX()+10);
             right=true;
-            System.out.println("right");
         }
         
         if(getPerimetro().intersects(p.getPerimetroDown())){
-            setSpeedY(5);
+            setSpeedY(2);
             right=true;
-            System.out.println("right");
         }
         
       
@@ -686,13 +682,13 @@ public class Player extends PhysicsObject {
     @Override
     public void render(Graphics g) {
         if(facingRight){
-            g.drawImage(rightAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(rightAnimation.getCurrentFrame(), getX(), getY() + 10, getWidth(), getHeight(), null);
         } else if (facingLeft){
-            g.drawImage(leftAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(leftAnimation.getCurrentFrame(), getX(), getY() + 10, getWidth(), getHeight(), null);
         } else if (facingFront){
-            g.drawImage(frontAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(frontAnimation.getCurrentFrame(), getX(), getY() + 10, getWidth(), getHeight(), null);
         } else if (facingBack){
-            g.drawImage(backAnimation.getCurrentFrame(), getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(backAnimation.getCurrentFrame(), getX(), getY() + 10, getWidth(), getHeight(), null);
         }
 
     }

@@ -61,8 +61,10 @@ public class Game implements Runnable {
     private User user;
     private Database database;
     private boolean onInventory;
+    private boolean onControls;
     private InventoryMenu inventoryMenu;
     private int buttonTimer;
+    private ControlsScreen controlsScreen;
    
     
 
@@ -274,6 +276,7 @@ public class Game implements Runnable {
         player.setLives(user.getUserLives());
         
         this.inventoryMenu = new InventoryMenu(this, player);
+        this.controlsScreen = new ControlsScreen(this, player);
         
         System.out.println("Player unique atoms: " + String.valueOf(player.getAtoms().size()));
 
@@ -288,8 +291,8 @@ public class Game implements Runnable {
         }
         
         //Initialize buildings
-        store = new Store(750,300,350,350, this);
-        lab = new Lab(100,300,350,350, this);
+        store = new Store(750,350,250,250, this);
+        lab = new Lab(100,350,250,250, this);
      
 
         display.getJframe().addKeyListener(keyManager);
@@ -359,7 +362,15 @@ public class Game implements Runnable {
             if(onInventory){
                 onInventory = false;
             } else {
+                this.inventoryMenu.createItemListFromPlayer();
                 onInventory = true;
+            }
+        } else if (keyManager.C && this.buttonTimer == 0){
+            this.buttonTimer = 30;
+            if(onControls){
+                onControls = false;
+            } else {
+                onControls = true;
             }
         }
         if(world == null){
@@ -501,6 +512,8 @@ public class Game implements Runnable {
             lab.render();
         } else if(onInventory){
             inventoryMenu.render();
+        } else if(onControls){
+            controlsScreen.render();
         }
     }
 
@@ -513,8 +526,8 @@ public class Game implements Runnable {
     }
 
     public void renderToggles() {
-        g.drawImage(MenuAssets.INVENTORY_TOGGLE, width / 2, height - 200, 100, 50, null); 
-        g.drawImage(MenuAssets.CONTROLS_TOGGLE, width / 2, height - 200, 100, 50, null); 
+        g.drawImage(MenuAssets.INVENTORY_TOGGLE, width / 2 - 130, height - 100, 150, 75, null); 
+        g.drawImage(MenuAssets.CONTROLS_TOGGLE, width / 2 + 130, height - 100, 150, 75, null); 
 
     }
     /**
