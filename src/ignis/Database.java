@@ -10,6 +10,8 @@ package ignis;
  * @author hectordiazaceves
  */
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Database {
 
@@ -77,11 +79,7 @@ public class Database {
         try {
             String sql = "SELECT * FROM users WHERE username = '" + username + "'";
             rs = st.executeQuery(sql);
-            System.out.println("Checking username");
             while (rs.next()) {
-                String user = rs.getString("username");
-                String userId = rs.getString("ID");
-                System.out.println(user + ":" + userId);
                 return true;
             }
 
@@ -89,7 +87,74 @@ public class Database {
             System.out.println("Error is found :" + ex);
             return false;
         }
-        
         return false;
     }
+    
+    public boolean userHasAtom (int userId, String atomSymbol){
+        try {
+            String sql = "SELECT * FROM UserAtoms ";
+            String whereClause = "WHERE UserId = '" + String.valueOf(userId) + "'";
+            whereClause += " AND symbol = '" + atomSymbol + "'";
+            sql += whereClause;
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+            return false;
+        }
+        return false;
+    }
+    
+    public int getUserAtomQuantity(int userId, String atomSymbol) {
+        try {
+            String sql = "SELECT * FROM UserAtoms ";
+            String whereClause = "WHERE UserId = '" + String.valueOf(userId) + "'";
+            whereClause += " AND symbol = '" + atomSymbol + "'";
+            sql += whereClause;
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                String quantity = rs.getString("quantity");
+                return Integer.parseInt(quantity);
+            }
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+            return 0;
+        }
+        return 0;
+    }
+
+    public Map<String, Integer> getUserAtomsMap (int userId){
+        Map<String, Integer> map = new HashMap<>();
+        try {
+            String sql = "SELECT * FROM UserAtoms ";
+            String whereClause = "WHERE UserId = '" + String.valueOf(userId) + "'";
+            sql += whereClause;
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                String symbol = rs.getString("symbol");
+                String quantity = rs.getString("quantity");
+                map.put(symbol, Integer.parseInt(quantity));
+            }
+            return map;
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+            return null;
+        }  
+
+    }
+    
+    public void updateUserAtomQuantity(int userId, String symbol, int newQuantity){
+        try {
+            String sql = "UPDATE UserAtoms";
+            sql += "SET quantity = '" + String.valueOf(newQuantity) + "' ";
+            sql += "WHERE UserId = '" + String.valueOf(userId) + "' ";
+            sql += "AND symbol = '" + symbol + "'";
+            st.executeUpdate(sql);            
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+        }
+    }
+    
 }

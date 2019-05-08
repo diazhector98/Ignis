@@ -66,7 +66,7 @@ public class Game implements Runnable {
      * @param width to set the width of the window
      * @param height to set the height of the window
      */
-    public Game(String title, int width, int height) {
+    public Game(String title, int width, int height, User user) {
         this.title = title;
         this.width = width;
         this.height = height;

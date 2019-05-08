@@ -13,13 +13,16 @@ public class User {
     
     int ID;
     String USERNAME;
-    
     Database database;
     
     public User(int ID, String username){
      this.ID = ID;
      this.USERNAME = username;
      this.database = new Database();
+    }
+    
+    public void addAtomToUser(String symbol){
+        
     }
     
     

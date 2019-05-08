@@ -28,7 +28,8 @@ public class Ignis {
         database.getData();
         getCredentials();
         
-        Game g = new Game("Atomos", 1200, 800);
+        User testUser = new User(1, "Hector");
+        Game g = new Game("Atomos", 1200, 800, testUser);
         g.start();
         
         
