@@ -33,12 +33,17 @@ public class NonMetalWorld extends World {
     public NonMetalWorld(Game g, Player p) {
         super(g, p, 8);
         player.setX(400);
-        player.setY(4700);
+        player.setY(4500);
         NonMetalWorldAssets.init();
         atomQuantities = new HashMap<>();
         //Poner cantidades minimas de los atomos que se necesitan
-        atomQuantities.put("Al", 2);
-        atomQuantities.put("O", 1);
+
+        atomQuantities.put("C", 3);
+        atomQuantities.put("O", 4);
+        atomQuantities.put("H", 3);
+        atomQuantities.put("I", 3);
+        atomQuantities.put("F", 2);
+        
         
     }
     
@@ -124,7 +129,7 @@ public class NonMetalWorld extends World {
     @Override
     public void render(Graphics g) {
         if (!paused) {
-            g.drawImage(Assets.blueSquare, 0, 0, game.getWidth(), game.getHeight(), null);
+            g.drawImage(Assets.bg8, 0, 0, game.getWidth(), game.getHeight(), null);
             g.translate(-(player.getX() - 1200 / 2), -(player.getY() - 800 / 2));
             renderPlayerLives(g);
             renderAtoms(g);
