@@ -35,8 +35,8 @@ public class NobleGasWorld extends World {
         player.setY(4700);
         atomQuantities = new HashMap<>();
         atomQuantities.put("Xe", 3);
-        atomQuantities.put("F", 1);
-     
+        atomQuantities.put("Kr", 2);
+        atomQuantities.put("Ne", 3);
        
     }
     

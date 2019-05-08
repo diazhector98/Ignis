@@ -38,11 +38,12 @@ public class NonMetalWorld extends World {
         atomQuantities = new HashMap<>();
         //Poner cantidades minimas de los atomos que se necesitan
 
+        atomQuantities.put("Cl", 3);
         atomQuantities.put("C", 3);
-        atomQuantities.put("O", 4);
+        atomQuantities.put("O", 10);
         atomQuantities.put("H", 3);
-        atomQuantities.put("I", 3);
-        atomQuantities.put("F", 2);
+        atomQuantities.put("I", 5);
+        atomQuantities.put("F", 13);
         
         
     }

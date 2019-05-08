@@ -38,8 +38,10 @@ public class MetalloidWorld extends World {
 
         atomQuantities = new HashMap<>();
         //Poner cantidades minimas de los atomos que se necesitan
-        atomQuantities.put("H", 2);
-        atomQuantities.put("O", 1);
+        atomQuantities.put("As", 5);
+        atomQuantities.put("Sb", 3);
+        atomQuantities.put("Ge", 2);
+
     }
 
     public String getColor(int red, int green, int blue) {

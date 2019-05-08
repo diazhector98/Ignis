@@ -38,8 +38,11 @@ public class ActinoidWorld extends World {
         
         atomQuantities = new HashMap<>();
         //Poner cantidades minimas de los atomos que se necesitan
-        atomQuantities.put("H", 2);
-        atomQuantities.put("O", 1);
+        atomQuantities.put("Es", 3);
+        atomQuantities.put("Fm", 2);
+        atomQuantities.put("Am", 1);
+        atomQuantities.put("Bk", 2);
+
     }
     
     public String getColor(int red, int green, int blue) {

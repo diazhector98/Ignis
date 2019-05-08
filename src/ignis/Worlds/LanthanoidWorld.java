@@ -37,7 +37,10 @@ private Map<String, Integer> atomQuantities;
         player.setY(4700);
         atomQuantities = new HashMap<>();
         atomQuantities.put("Lu", 2);
-        atomQuantities.put("O", 3);
+        atomQuantities.put("La", 2);
+        atomQuantities.put("Tb", 2);
+        atomQuantities.put("Eu", 2);
+
     }
     
         public String getColor(int red, int green, int blue){

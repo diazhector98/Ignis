@@ -38,8 +38,11 @@ public class AlkaliWorld extends World {
         player.setX(500);
         atomQuantities = new HashMap<>();
         //Poner cantidades minimas de los atomos que se necesitan
-        atomQuantities.put("H", 2);
-        atomQuantities.put("O", 1);
+        atomQuantities.put("Na", 2);
+        atomQuantities.put("K", 3);
+        atomQuantities.put("Li", 4);
+        atomQuantities.put("Cs", 2);
+
     }
     
         public String getColor(int red, int green, int blue){
