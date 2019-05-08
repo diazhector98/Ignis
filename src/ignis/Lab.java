@@ -57,12 +57,20 @@ public class Lab extends Building {
             }
             if(posInButton(mouseX, mouseY, doorsButton)){
                 System.out.println("Doors clicked");
+                onDoors = true;
             }
         }
     }
     
     public void tickDoors() {
-    
+        if (mouseManager.isIzquierdo() && buttonTimer == 0) {
+            buttonTimer = 25;
+            int mouseX = mouseManager.getX();
+            int mouseY = mouseManager.getY();
+            if (posInButton(mouseX, mouseY, backButton)) {
+                onDoors = false;
+            }
+        }
     }
     
     public void render(){
@@ -82,7 +90,8 @@ public class Lab extends Building {
     }
     
     public void renderDoors() {
-        
+        showBackButton();
+        showDoors();
     }
     
     public void showBackground() {
@@ -104,6 +113,10 @@ public class Lab extends Building {
     
     public void showDoorsButton() {
         doorsButton.render(game.getG());
+    }
+    
+    public void showDoors() {
+        game.getG().drawImage(BuildingAssets.doors,190,190,950,575,null);
     }
     
     public void tick() {
