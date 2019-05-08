@@ -11,8 +11,8 @@ package ignis;
  */
 public class Ghost extends Enemy{
     
-    /**
-     *
+    /**Ghost
+     * Builds the ghost enemy
      * @param p
      */
     public Ghost(Platform p) {

@@ -17,12 +17,12 @@ import java.awt.image.BufferedImage;
  */
 public class Door extends Item {
     
-    private int direction;
-    private int width;
-    private int height;
-    private BufferedImage image;
-    private Game game;
-    private int index;
+    private int direction; /// direction of the door
+    private int width; // width of the door
+    private int height; /// height of the door
+    private BufferedImage image; // image of the door
+    private Game game; // game
+    private int index; // identifier of the specific dooor 
 
     /**
      *
@@ -42,41 +42,41 @@ public class Door extends Item {
         this.index = index;
     }
     
-    /**
-     *
-     * @return
+    /**getWidth
+     *Get the width of the door
+     * @return <int>width of the the door
      */
     public int getWidth(){
         return width;
     }
     
-    /**
-     *
-     * @return
+    /**getHeight
+     *Get the height of the door
+     * @return<int> height of the door
      */
     public int getHeight(){
         return height;
     }
 
-    /**
-     *
-     * @return
+    /**getIndex
+     *Get the index of the door
+     * @return<int> identifier of the door
      */
     public int getIndex() {
         return index;
     }
 
-    /**
-     *
+    /**setIndex
+     * Set the Index
      * @param index
      */
     public void setIndex(int index) {
         this.index = index;
     }
     
-    /**
-     *
-     * @return
+    /**getPerimetro
+     *Get the perimetro 
+     * @return Rectangle
      */
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
@@ -85,7 +85,10 @@ public class Door extends Item {
     @Override
     public void tick() {
     }
-
+    /**render
+     * Render the door
+     * @param g 
+     */
     @Override
     public void render(Graphics g) {
         g.drawImage(this.image, getX(), getY(), getWidth(), getHeight(), null);
