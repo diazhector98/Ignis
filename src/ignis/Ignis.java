@@ -82,6 +82,7 @@ public class Ignis {
                 if(database.usernameInDatabase(username)){
                     messageLabel.setText("That username is already in use");
                 } else {
+                    database.registerUser(username);
                     messageLabel.setText("Created user with username " + username);
                 }
                 
