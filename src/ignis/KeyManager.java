@@ -58,6 +58,7 @@ public class KeyManager implements KeyListener {
      *
      */
     public boolean D;
+    public boolean I;
 
     private boolean keys[];  // to store all the flags for every key
     
@@ -97,5 +98,6 @@ public class KeyManager implements KeyListener {
         D = keys[KeyEvent.VK_D];
         Q = keys[KeyEvent.VK_Q];
         A = keys[KeyEvent.VK_A];
+        I =keys[KeyEvent.VK_K];
     }
 }
