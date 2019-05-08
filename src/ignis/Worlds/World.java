@@ -94,6 +94,13 @@ public abstract class World {
 
     public void tickPlayer() {
         player.tick();
+        if (player.getLives() == 0) {
+            game.getUser().clearAllAtomsFromDatabase();
+            player.setLives(5);
+            game.getUser().updateUserLives(5);
+            player.getAtoms().clear();
+            returnToMenu();
+        }
         for (int i = 0; i < platforms.size(); i++) {
             player.handlePlatformIntersection(platforms.get(i));
         }

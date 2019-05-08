@@ -189,6 +189,7 @@ public class Game implements Runnable {
         player = new Player(getWidth() / 2, getHeight() - 100, 1, 50, 80, this);
         
         player.setAtoms(user.getAtomQuantities());
+        player.setLives(user.getUserLives());
         
         System.out.println("Player unique atoms: " + String.valueOf(player.getAtoms().size()));
 

@@ -66,7 +66,7 @@ public class Database {
     public void registerUser(String username){
         try {
             String sql = "INSERT INTO users VALUES ";
-            sql += "(NULL, '" + username + "')";
+            sql += "(NULL, '" + username + "', '5')";
             
             int result = st.executeUpdate(sql);            
 
@@ -231,6 +231,33 @@ public class Database {
             return null;
         }
         return null;
+    }
+    
+    public int getUserLives(int userId){
+        try {
+            String sql = "SELECT * FROM users WHERE id = '" + userId + "'";
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+                int id = Integer.parseInt(rs.getString("id"));
+                int lives = Integer.parseInt(rs.getString("lives"));
+                return lives;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+            return 5;
+        }
+        return 5;
+    }
+    
+    public void updateUserLives(int userId, int lives){
+        try {
+            String sql = "UPDATE users ";
+            sql += "SET lives = '" + String.valueOf(lives) + "' ";
+            sql += "WHERE id = '" + String.valueOf(userId) + "' ";
+            st.executeUpdate(sql);            
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+        }
     }
     
 }

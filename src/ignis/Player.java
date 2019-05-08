@@ -373,7 +373,13 @@ public class Player extends PhysicsObject {
     }
     
     public void loseALife(){
-        this.lives -= 1;
+        if(lives > 0){
+            this.lives -= 1;
+        }
+        
+        if(lives == 0){
+            game.getUser().clearAllAtomsFromDatabase();
+        }
     }
     
     public boolean isInvincible(){

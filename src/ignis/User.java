@@ -53,6 +53,14 @@ public class User {
         return database.userHasObject(ID, so);
     }
     
+    public int getUserLives(){
+        return database.getUserLives(ID);
+    }
+    
+    public void updateUserLives(int newLives){
+        database.updateUserLives(ID, newLives);
+    }
+    
     
     
     

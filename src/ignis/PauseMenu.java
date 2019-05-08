@@ -56,12 +56,15 @@ public class PauseMenu {
                 System.out.println("Go to Menu Pressed");
                 world.returnToMenu();
                 game.getUser().updateAtomQuantities(player.getAtoms());
+                game.getUser().updateUserLives(player.getLives());
             } else if (posInButton(mouseX, mouseY, saveButton)) {
                 SoundAssets.click.play();
                 System.out.println("Save button Pressed");
                 game.getUser().updateAtomQuantities(player.getAtoms());
+                game.getUser().updateUserLives(player.getLives());
             }
         }
+
     }
     
     private boolean posInButton(int x, int y, Button b) {
