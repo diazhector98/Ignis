@@ -60,4 +60,20 @@ public class Database {
         System.out.println("INSERT INTO elements VALUES " + values);
         return "INSERT INTO elements VALUES " + values;
     }
+    
+    public int registerUser(String username){
+        try {
+            String sql = "INSERT INTO users VALUES ";
+            sql += "(NULL, '" + username + "')";
+            
+            int result = st.executeUpdate(sql);            
+
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+            return -1;
+        }
+        
+        return 1;
+        
+    }
 }

@@ -76,6 +76,9 @@ public class Ignis {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 messageLabel.setText("Name has been submitted.");
+                String username = usernameTextField.getText();
+                Database database = new Database();
+                database.registerUser(username);
                 Game g = new Game("Atomos", 1200, 800);
                 g.start();
             }
