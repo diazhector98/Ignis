@@ -19,27 +19,50 @@ public class MouseManager  implements MouseListener, MouseMotionListener {
     private int x;                      // to get x position of the mouse
     private int y;                      // to get y position of the mouse
     
+    /**
+     *
+     */
     public MouseManager() {
         izquierdo = false;
         derecho = false;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isIzquierdo() {
         return izquierdo;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isDerecho() {
         return derecho;
     }
 
+    /**
+     *
+     * @param izquierdo
+     */
     public void setIzquierdo(boolean izquierdo) {
         this.izquierdo = izquierdo;
     }

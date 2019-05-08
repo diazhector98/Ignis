@@ -26,6 +26,16 @@ public class Platform extends Item{
     private boolean movingLeft;
     private BufferedImage blockImage;
     private boolean intersected;
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param type
+     * @param b
+     */
     public Platform(int x, int y, int width, int height, String type, BufferedImage b ) {
         super(x, y);
         this.initialX = x;
@@ -38,52 +48,106 @@ public class Platform extends Item{
         this.intersected = false;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     *
+     * @param width
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     *
+     * @param height
+     */
     public void setHeight(int height) {
         this.height = height;
     }
     
+    /**
+     *
+     * @return
+     */
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
     
+    /**
+     *
+     * @return
+     */
     public Rectangle getPerimetroLeft() {
         return new Rectangle(getX()-10 , getY(), 100, 100);
     }
     
+    /**
+     *
+     * @return
+     */
     public Rectangle getPerimetroRight() {
         return new Rectangle(getX()+10, getY(), 100, 100);
     }
+
+    /**
+     *
+     * @return
+     */
     public Rectangle getPerimetroUp() {
         return new Rectangle(getX(), getY()-20, getWidth(), getHeight()+10);
     }
+
+    /**
+     *
+     * @return
+     */
     public Rectangle getPerimetroDown() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight()+10);
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isIntersected() {
         return intersected;
     }
 
+    /**
+     *
+     * @param intersected
+     */
     public void setIntersected(boolean intersected) {
         this.intersected = intersected;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     *
+     * @param type
+     */
     public void setType(String type) {
         this.type = type;
     }

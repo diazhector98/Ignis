@@ -11,6 +11,10 @@ package ignis;
  */
 public class Tree extends Enemy{
     
+    /**
+     *
+     * @param p
+     */
     public Tree(Platform p) {
         super(3, 5, p, 2);
     }

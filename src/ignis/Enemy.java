@@ -27,6 +27,13 @@ public class Enemy extends Item{
     private int initialX;
     private int initialY;
     
+    /**
+     *
+     * @param l
+     * @param s
+     * @param p
+     * @param i
+     */
     public Enemy(int l, int s, Platform p, int i){
         super(p.getX(), p.getY() - 50);
         
@@ -43,54 +50,106 @@ public class Enemy extends Item{
         this.height = 70;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getLives() {
         return lives;
     }
 
+    /**
+     *
+     * @param lives
+     */
     public void setLives(int lives) {
         this.lives = lives;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getSpeed() {
         return speed;
     }
 
+    /**
+     *
+     * @param speed
+     */
     public void setSpeed(int speed) {
         this.speed = speed;
     }
 
+    /**
+     *
+     * @return
+     */
     public Platform getPlatform() {
         return platform;
     }
 
+    /**
+     *
+     * @param platform
+     */
     public void setPlatform(Platform platform) {
         this.platform = platform;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIndex() {
         return index;
     }
 
+    /**
+     *
+     * @param index
+     */
     public void setIndex(int index) {
         this.index = index;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     *
+     * @param width
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     *
+     * @param height
+     */
     public void setHeight(int height) {
         this.height = height;
     }
     
+    /**
+     *
+     * @return
+     */
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }

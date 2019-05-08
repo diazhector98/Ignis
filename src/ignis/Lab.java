@@ -24,8 +24,14 @@ public class Lab extends Building {
     private boolean onDoors;
     private int buttonTimer;
     
-
-    
+    /**
+     *
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param g
+     */
     public Lab(int x, int y, int width, int height, Game g) {
         super(x, y, width, height, BuildingAssets.lab, g);
         this.backButton = new Button(50, 50, 150, 150, "BACK", g);
@@ -45,6 +51,9 @@ public class Lab extends Building {
 
     }
     
+    /**
+     *
+     */
     public void tickLab() {
         if (mouseManager.isIzquierdo() && buttonTimer == 0) {
             buttonTimer = 25;
@@ -62,6 +71,9 @@ public class Lab extends Building {
         }
     }
     
+    /**
+     *
+     */
     public void tickDoors() {
         if (mouseManager.isIzquierdo() && buttonTimer == 0) {
             buttonTimer = 25;
@@ -73,6 +85,9 @@ public class Lab extends Building {
         }
     }
     
+    /**
+     *
+     */
     public void render(){
         showBackground();
         if(!onDoors){
@@ -82,6 +97,9 @@ public class Lab extends Building {
         }
     }
     
+    /**
+     *
+     */
     public void renderLab() {
         showPeriodicTableTitle();
         showPeriodicTable();
@@ -89,36 +107,60 @@ public class Lab extends Building {
         showDoorsButton();
     }
     
+    /**
+     *
+     */
     public void renderDoors() {
         showBackButton();
         showDoors();
     }
     
+    /**
+     *
+     */
     public void showBackground() {
         BufferedImage background = BuildingAssets.labBackground;
         game.getG().drawImage(background, 0, 0, game.getWidth(), game.getWidth(), null);
     }
     
+    /**
+     *
+     */
     public void showPeriodicTableTitle() {
         game.getG().drawImage(BuildingAssets.periodicTableTitle,350,75,530,50,null);
     }
     
+    /**
+     *
+     */
     public void showPeriodicTable() {
         game.getG().drawImage(BuildingAssets.periodicTable,150,175,950,575,null);
     }
     
+    /**
+     *
+     */
     public void showBackButton() {
         backButton.render(game.getG());
     }
     
+    /**
+     *
+     */
     public void showDoorsButton() {
         doorsButton.render(game.getG());
     }
     
+    /**
+     *
+     */
     public void showDoors() {
         game.getG().drawImage(BuildingAssets.doors,190,190,950,575,null);
     }
     
+    /**
+     *
+     */
     public void tick() {
         buttonTimer = buttonTimer > 0 ? buttonTimer - 1 : 0;
         if (onDoors) {

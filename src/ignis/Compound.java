@@ -17,6 +17,11 @@ public class Compound {
     private String name;
     private ArrayList<Pair> atoms;
     
+    /**
+     *
+     * @param s
+     * @param name
+     */
     public Compound(String s, String name){
         
         atoms = new ArrayList<>();
@@ -24,6 +29,10 @@ public class Compound {
         this.name = name;
     }
 
+    /**
+     *
+     * @param s
+     */
     public void addAtomsFromString(String s) {
         int n = s.length();
         int i = 0;
@@ -54,10 +63,18 @@ public class Compound {
 
     }
     
+    /**
+     *
+     * @param s
+     * @param qty
+     */
     public void addAtomToCompound(String s, int qty){
         atoms.add(new Pair(s, qty));
     }
     
+    /**
+     *
+     */
     public void printCompound(){
         
         for(Pair p : atoms){
@@ -67,10 +84,18 @@ public class Compound {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Pair> getAtoms() {
         return atoms;
     }
 
+    /**
+     *
+     * @param atoms
+     */
     public void setAtoms(ArrayList<Pair> atoms) {
         this.atoms = atoms;
     }

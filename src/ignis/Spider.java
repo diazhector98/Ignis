@@ -11,6 +11,10 @@ package ignis;
  */
 public class Spider extends Enemy{
     
+    /**
+     *
+     * @param p
+     */
     public Spider(Platform p) {
         super(3, 5, p, 1);
     }

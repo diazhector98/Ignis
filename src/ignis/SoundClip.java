@@ -72,8 +72,8 @@ public class SoundClip {
     }
 
     /** 
-     * Metodo modificador usado para definir el numero de repeticiones.
-     * @param _repeat es un <code>entero</code> que es el numero de repeticiones. 
+     * Metodo modificador usado para definir el numero de repeticiones. 
+     * @param repeat
      */
     public void setRepeat(int repeat) {
         this.repeat = repeat;
@@ -89,7 +89,7 @@ public class SoundClip {
 
     /**
      * Metodo modificador que asigna un nombre al archivo.
-     * @param _filename es un <code>String</code> con el nombre del archivo. 
+     * @param filename 
      */
     public void setFilename(String filename) { 
         this.filename = filename; 
@@ -129,6 +129,7 @@ public class SoundClip {
     /** 
      * Metodo que carga el archivo de sonido.
      * @param audiofile es un <code>String</code> con el nombre del archivo de sonido.
+     * @return 
      */
     public boolean load(String audiofile) {
         try {

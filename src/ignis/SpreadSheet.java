@@ -13,6 +13,11 @@ import java.awt.image.BufferedImage;
  */
 public class SpreadSheet {
     private BufferedImage sheet;
+
+    /**
+     *
+     * @param sheet
+     */
     public SpreadSheet(BufferedImage sheet)
     {
         this.sheet=sheet;

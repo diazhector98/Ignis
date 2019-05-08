@@ -14,18 +14,56 @@ import java.awt.event.KeyListener;
  */
 public class KeyManager implements KeyListener {
     
+    /**
+     *
+     */
     public boolean up;      // flag to move up the player
+
+    /**
+     *
+     */
     public boolean down;    // flag to move down the player
+
+    /**
+     *
+     */
     public boolean left;    // flag to move left the player
+
+    /**
+     *
+     */
     public boolean right;   // flag to move right the player
+
+    /**
+     *
+     */
     public boolean space;
+
+    /**
+     *
+     */
     public boolean E;
+
+    /**
+     *
+     */
     public boolean Q;
+
+    /**
+     *
+     */
     public boolean A;
+
+    /**
+     *
+     */
     public boolean D;
 
     private boolean keys[];  // to store all the flags for every key
     
+    /**
+     *
+     */
     public KeyManager() {
         keys = new boolean[256];
     }

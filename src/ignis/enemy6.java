@@ -11,7 +11,12 @@ package ignis;
  * @author Jorge
  */
 public class enemy6 extends Enemy{
-     public enemy6(Platform p) {
+
+    /**
+     *
+     * @param p
+     */
+    public enemy6(Platform p) {
         super(3, 5, p, 1);
         
     }

@@ -42,7 +42,15 @@ public class Player extends PhysicsObject {
     
     private Map<String, Integer> atoms;
 
-
+    /**
+     *
+     * @param x
+     * @param y
+     * @param direction
+     * @param width
+     * @param height
+     * @param game
+     */
     public Player(int x, int y, int direction, int width, int height, Game game) {
         super(x, y, game.getHeight());
         this.direction = direction;
@@ -141,18 +149,34 @@ public class Player extends PhysicsObject {
         return direction;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getLives() {
         return lives;
     }
 
+    /**
+     *
+     * @param lives
+     */
     public void setLives(int lives) {
         this.lives = lives;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<String, Integer> getAtoms() {
         return atoms;
     }
 
+    /**
+     *
+     * @param atoms
+     */
     public void setAtoms(Map<String, Integer> atoms) {
         this.atoms = atoms;
     }
@@ -174,32 +198,57 @@ public class Player extends PhysicsObject {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isJumping() {
         return jumping;
     }
 
+    /**
+     *
+     * @param jumping
+     */
     public void setJumping(boolean jumping) {
         this.jumping = jumping;
     }
     
-    
-
+    /**
+     *
+     * @param obj
+     * @return
+     */
     public boolean intersectsDoor(Object obj) {
 
         Rectangle perimetro = getPerimetro();
         return obj instanceof Door && getPerimetro().intersects(((Door) obj).getPerimetro());     
     }
     
+    /**
+     *
+     * @param obj
+     * @return
+     */
     public boolean intersectsAtom(Object obj){
         return obj instanceof Atom && getPerimetro().intersects(((Atom) obj).getPerimetro());
     }
     
+    /**
+     *
+     * @param obj
+     * @return
+     */
     public boolean intersectsPlatform(Object obj) {
 
         Rectangle perimetro = getPerimetro();
         return obj instanceof Platform && getPerimetro().intersects(((Platform) obj).getPerimetro());     
     }
     
+    /**
+     *
+     * @param obj
+     */
     public void handlePlatformIntersection(Object obj) {
         Platform p = (Platform) obj;
         if (isOnTopOfPlatform(obj)) {
@@ -213,6 +262,11 @@ public class Player extends PhysicsObject {
         }
     }
     
+    /**
+     *
+     * @param obj
+     * @return
+     */
     public boolean isOnTopOfPlatform(Object obj) {
         boolean correctX = false;
         Platform p = (Platform) obj;
@@ -246,39 +300,78 @@ public class Player extends PhysicsObject {
         return correctX;// && correctY;
     }
     
+    /**
+     *
+     * @param obj
+     * @return
+     */
     public boolean intersectsFire(Object obj){
         return obj instanceof Fire && getPerimetro().intersects(((Fire) obj).getPerimetro());
                 
     }
     
+    /**
+     *
+     * @param obj
+     * @return
+     */
     public boolean intersectsEnemy(Object obj){
         return obj instanceof Enemy && getPerimetro().intersects(((Enemy) obj).getPerimetro());
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isOnFloor() {
         return onFloor;
     }
 
+    /**
+     *
+     * @param onFloor
+     */
     public void setOnFloor(boolean onFloor) {
         this.onFloor = onFloor;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isOnPlatformRight() {
         return right;
     }
 
+    /**
+     *
+     * @param onPlatformRight
+     */
     public void setOnPlatformRight(boolean onPlatformRight) {
         this.right = onPlatformRight;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isOnPlatformLeft() {
         return left;
     }
 
+    /**
+     *
+     * @param onPlatformLeft
+     */
     public void setOnPlatformLeft(boolean onPlatformLeft) {
         this.left = onPlatformLeft;
     }
     
+    /**
+     *
+     * @param building
+     * @return
+     */
     public boolean intersectsBuildingFromLeft(Building building){
         if(getPerimetro().intersects(building.getPerimeter())){
             if(getX() + getWidth() <= building.getX() + 10){
@@ -288,6 +381,11 @@ public class Player extends PhysicsObject {
         return false;
     }
     
+    /**
+     *
+     * @param building
+     * @return
+     */
     public boolean intersectsBuildingFromRight(Building building){
         if(getPerimetro().intersects(building.getPerimeter())){
             if(getX() >= building.getX() + building.getWidth()-10){
@@ -297,6 +395,11 @@ public class Player extends PhysicsObject {
         return false;
     }
     
+    /**
+     *
+     * @param building
+     * @return
+     */
     public boolean intersectsBuildingFromTop(Building building){
         if(getPerimetro().intersects(building.getPerimeter())){
             if(getY() + getHeight() >= building.getY() && getY() < building.getY()){
@@ -310,6 +413,11 @@ public class Player extends PhysicsObject {
         return false;
     }
  
+    /**
+     *
+     * @param building
+     * @return
+     */
     public boolean intersectsBuildingFromBottom(Building building) {
         if (getPerimetro().intersects(building.getPerimeter())) {
             if (getY()  > building.getY() + building.getHeight()-30) {
@@ -323,7 +431,11 @@ public class Player extends PhysicsObject {
         return false;
     }
 
-    
+    /**
+     *
+     * @param building
+     * @return
+     */
     public boolean handleBuildingIntersection(Building building) {
         if (intersectsBuildingFromLeft(building)) {
             setX(getX()-10);
@@ -343,7 +455,9 @@ public class Player extends PhysicsObject {
         return false;
     }
     
-    
+    /**
+     *
+     */
     public void turnBack(){
         this.facingBack = true;
         this.facingFront = false;
@@ -351,6 +465,9 @@ public class Player extends PhysicsObject {
         this.facingRight = false;
     }
     
+    /**
+     *
+     */
     public void turnFront(){
         this.facingBack = false;
         this.facingFront = true;
@@ -358,6 +475,9 @@ public class Player extends PhysicsObject {
         this.facingRight = false;
     }
     
+    /**
+     *
+     */
     public void turnRight(){
         this.facingBack = false;
         this.facingFront = false;
@@ -365,6 +485,9 @@ public class Player extends PhysicsObject {
         this.facingRight = true;
     }
     
+    /**
+     *
+     */
     public void turnLeft(){
         this.facingBack = false;
         this.facingFront = false;
@@ -372,6 +495,9 @@ public class Player extends PhysicsObject {
         this.facingRight = false;
     }
     
+    /**
+     *
+     */
     public void loseALife(){
         if(lives > 0){
             this.lives -= 1;
@@ -382,18 +508,34 @@ public class Player extends PhysicsObject {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isInvincible(){
         return invincibilityTimer > 0;
     }
     
+    /**
+     *
+     * @param n
+     */
     public void setInvincibilityTimer(int n){
         this.invincibilityTimer = n;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getInvincibilityTimer(){
         return this.invincibilityTimer;
     }
     
+    /**
+     *
+     * @param element
+     */
     public void addAtom(String element){
         if(atoms.containsKey(element)){
             int qty = atoms.get(element);
@@ -454,6 +596,9 @@ public class Player extends PhysicsObject {
         left=false;
     }
     
+    /**
+     *
+     */
     public void printCollectedAtoms(){
         
         Set<String> keys = atoms.keySet();
@@ -466,14 +611,23 @@ public class Player extends PhysicsObject {
         
     }
     
+    /**
+     *
+     */
     public void moveRight(){
         move(speed, 0);
     }
     
+    /**
+     *
+     */
     public void moveLeft(){
         move(-1 * speed, 0);
     }
     
+    /**
+     *
+     */
     public void jump(){
         if(!isJumping()){
             setJumping(true);
@@ -482,6 +636,11 @@ public class Player extends PhysicsObject {
         }
     }
     
+    /**
+     *
+     * @param so
+     * @return
+     */
     public boolean canBuy(StoreObject so){
         
         Map<String,Integer> playerAtoms = atoms;
@@ -501,6 +660,10 @@ public class Player extends PhysicsObject {
         return true;
     }
     
+    /**
+     *
+     * @param so
+     */
     public void discountAtomsFromStoreObject(StoreObject so) {
         Map<String, Integer> playerAtoms = atoms;
         ArrayList<Pair> objectAtoms = so.getCompound().getAtoms();

@@ -27,6 +27,14 @@ public class Store extends Building{
     private StoreItemScreen itemScreen;
     private int buttonTimer;
     
+    /**
+     *
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param g
+     */
     public Store(int x, int y, int width, int height, Game g) {
         super(x, y, width, height, BuildingAssets.store, g);
         this.backButton = new Button(50,50,150,150,"BACK",g);
@@ -45,7 +53,9 @@ public class Store extends Building{
         this.onPreview = false;
     }
     
-    
+    /**
+     *
+     */
     public void addItems(){
         ArrayList<Pair> itemsData = new ArrayList<>();
         itemsData.add(new Pair("water","H2O"));
@@ -69,6 +79,9 @@ public class Store extends Building{
     
     }
     
+    /**
+     *
+     */
     public void renderStore() {
 
         if (!onPreview) {
@@ -82,20 +95,32 @@ public class Store extends Building{
 
     }
     
+    /**
+     *
+     */
     public void showStoreTitle(){
         game.getG().drawImage(BuildingAssets.storeTitle,250,75,700,150,null);
         
     }
     
+    /**
+     *
+     */
     public void showBackButton() {
         backButton.render(game.getG());
     }
     
+    /**
+     *
+     */
     public void showBackground() {
         BufferedImage background = BuildingAssets.storeBackground;
         game.getG().drawImage(background, 0, 0, game.getWidth(), game.getWidth(), null);
     }
 
+    /**
+     *
+     */
     public void showItems() {
         int columns = 5;
         int rows = 2;
@@ -115,6 +140,9 @@ public class Store extends Building{
         }   
     }
     
+    /**
+     *
+     */
     public void tick() {
         buttonTimer = buttonTimer > 0 ? buttonTimer - 1: 0;
         if(onPreview){
@@ -124,7 +152,9 @@ public class Store extends Building{
         }
     }
     
-    
+    /**
+     *
+     */
     public void tickStore() {
         if(mouseManager.isIzquierdo() && buttonTimer == 0){
             buttonTimer = 25;
@@ -150,6 +180,9 @@ public class Store extends Building{
         }
     }
     
+    /**
+     *
+     */
     public void tickPreview() {
         if (mouseManager.isIzquierdo() && buttonTimer == 0) {
             buttonTimer = 25;
@@ -178,6 +211,9 @@ public class Store extends Building{
         }
     }
     
+    /**
+     *
+     */
     public void showItemPreview(){
         game.getG().drawImage(itemScreen.getBackground(), 0, 0, game.getWidth(), game.getHeight(), null);
         itemScreen.getBackButton().render(game.getG());

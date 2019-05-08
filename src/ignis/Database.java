@@ -13,12 +13,19 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ * @author hectordiazaceves
+ */
 public class Database {
 
     private Connection con;
     private Statement st;
     private ResultSet rs;
 
+    /**
+     *
+     */
     public Database() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -30,6 +37,9 @@ public class Database {
         }
     }
 
+    /**
+     *
+     */
     public void getData() {
         try {
             String sql = "select * from elements";
@@ -46,6 +56,12 @@ public class Database {
         }
     }
     
+    /**
+     *
+     * @param symbol
+     * @param name
+     * @param atomicNumber
+     */
     public void insertToElement(String symbol, String name, int atomicNumber){
         try {
             String sql = getInsertToElementsTableQuery(symbol,name,atomicNumber);
@@ -56,6 +72,13 @@ public class Database {
         }
     }
     
+    /**
+     *
+     * @param symbol
+     * @param name
+     * @param atomicNumber
+     * @return
+     */
     public String getInsertToElementsTableQuery(String symbol, String name, int atomicNumber){
         String elements =  "(ID, Symbol, Name, AtomicNumber)";
         String values = "(" + String.valueOf(atomicNumber) + ",'" + symbol + "','" + name + "'," + String.valueOf(atomicNumber) + ")";
@@ -63,6 +86,10 @@ public class Database {
         return "INSERT INTO elements VALUES " + values;
     }
     
+    /**
+     *
+     * @param username
+     */
     public void registerUser(String username){
         try {
             String sql = "INSERT INTO users VALUES ";
@@ -75,6 +102,11 @@ public class Database {
         }
     }
     
+    /**
+     *
+     * @param username
+     * @return
+     */
     public boolean usernameInDatabase(String username){
         try {
             String sql = "SELECT * FROM users WHERE username = '" + username + "'";
@@ -90,6 +122,12 @@ public class Database {
         return false;
     }
     
+    /**
+     *
+     * @param userId
+     * @param atomSymbol
+     * @return
+     */
     public boolean userHasAtom (int userId, String atomSymbol){
         try {
             String sql = "SELECT * FROM UserAtoms ";
@@ -107,6 +145,12 @@ public class Database {
         return false;
     }
     
+    /**
+     *
+     * @param userId
+     * @param atomSymbol
+     * @return
+     */
     public int getUserAtomQuantity(int userId, String atomSymbol) {
         try {
             String sql = "SELECT * FROM UserAtoms ";
@@ -125,6 +169,11 @@ public class Database {
         return 0;
     }
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     public Map<String, Integer> getUserAtomsMap (int userId){
         Map<String, Integer> map = new HashMap<>();
         try {
@@ -145,6 +194,12 @@ public class Database {
 
     }
     
+    /**
+     *
+     * @param userId
+     * @param symbol
+     * @param newQuantity
+     */
     public void updateUserAtomQuantity(int userId, String symbol, int newQuantity){
         try {
             String sql = "UPDATE UserAtoms";
@@ -157,6 +212,12 @@ public class Database {
         }
     }
     
+    /**
+     *
+     * @param userId
+     * @param symbol
+     * @param quantity
+     */
     public void insertUserAtomQuantity(int userId, String symbol, int quantity){
         try {
             String sql = "INSERT INTO UserAtoms (UserId, symbol, quantity) ";
@@ -167,6 +228,10 @@ public class Database {
         }
     }
     
+    /**
+     *
+     * @param userId
+     */
     public void deleteAllUserAtoms(int userId){
         try {
             String sql = "DELETE FROM UserAtoms";
@@ -178,6 +243,10 @@ public class Database {
         }
     }
     
+    /**
+     *
+     * @param storeObject
+     */
     public void addStoreObject(StoreObject storeObject){
         try {
             String sql = "INSERT INTO objects VALUES ";
@@ -189,6 +258,11 @@ public class Database {
         }
     }
     
+    /**
+     *
+     * @param storeObject
+     * @param userId
+     */
     public void addObjectToUser(StoreObject storeObject, int userId){
         try {
             String sql = "INSERT INTO UserObjects VALUES ";
@@ -200,6 +274,12 @@ public class Database {
         }
     }
 
+    /**
+     *
+     * @param userId
+     * @param so
+     * @return
+     */
     public boolean userHasObject(int userId, StoreObject so) {
         try {
             String sql = "SELECT * FROM UserObjects ";
@@ -218,6 +298,11 @@ public class Database {
         return false;
     }
     
+    /**
+     *
+     * @param username
+     * @return
+     */
     public User getUserWithUsername(String username){
         try {
             String sql = "SELECT * FROM users WHERE username = '" + username + "'";
@@ -233,6 +318,11 @@ public class Database {
         return null;
     }
     
+    /**
+     *
+     * @param userId
+     * @return
+     */
     public int getUserLives(int userId){
         try {
             String sql = "SELECT * FROM users WHERE id = '" + userId + "'";
@@ -249,6 +339,11 @@ public class Database {
         return 5;
     }
     
+    /**
+     *
+     * @param userId
+     * @param lives
+     */
     public void updateUserLives(int userId, int lives){
         try {
             String sql = "UPDATE users ";

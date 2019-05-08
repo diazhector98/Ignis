@@ -11,6 +11,11 @@ package ignis;
  */
 public class Cloud extends Enemy{
     int step=0;
+
+    /**
+     *
+     * @param p
+     */
     public Cloud(Platform p) {
         super(3, 5, p, 1);
         

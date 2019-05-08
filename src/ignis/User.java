@@ -17,24 +17,44 @@ public class User {
     String USERNAME;
     Database database;
     
+    /**
+     *
+     * @param ID
+     * @param username
+     */
     public User(int ID, String username){
      this.ID = ID;
      this.USERNAME = username;
      this.database = new Database();
     }
     
+    /**
+     *
+     * @param symbol
+     */
     public void addAtom(String symbol){
         
     }
     
+    /**
+     *
+     * @return
+     */
     public Map<String, Integer> getAtomQuantities(){
         return database.getUserAtomsMap(ID);
     }
     
+    /**
+     *
+     */
     public void clearAllAtomsFromDatabase() {
         database.deleteAllUserAtoms(ID);
     }
     
+    /**
+     *
+     * @param userAtoms
+     */
     public void updateAtomQuantities(Map<String,Integer> userAtoms){
         clearAllAtomsFromDatabase();
         Object[] atomSymbols = userAtoms.keySet().toArray();
@@ -45,18 +65,35 @@ public class User {
         }
     }
     
+    /**
+     *
+     * @param so
+     */
     public void addObject(StoreObject so){
         database.addObjectToUser(so, ID);
     }
     
+    /**
+     *
+     * @param so
+     * @return
+     */
     public boolean hasObject(StoreObject so){
         return database.userHasObject(ID, so);
     }
     
+    /**
+     *
+     * @return
+     */
     public int getUserLives(){
         return database.getUserLives(ID);
     }
     
+    /**
+     *
+     * @param newLives
+     */
     public void updateUserLives(int newLives){
         database.updateUserLives(ID, newLives);
     }

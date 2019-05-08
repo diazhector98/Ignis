@@ -31,6 +31,9 @@ public class Ignis {
         
     }
 
+    /**
+     *
+     */
     public static void getCredentials() {
         JFrame f = new JFrame("Authentication Panel");
         f.setSize(500, 300);

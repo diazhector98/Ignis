@@ -23,6 +23,15 @@ public class Button {
     private int width;
     private int height;
     
+    /**
+     *
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param s
+     * @param g
+     */
     public Button(int x, int y, int width, int height, String s, Game g){
         this.text = s;
         this.game = g;
@@ -33,42 +42,81 @@ public class Button {
         this.height = height;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     *
+     * @param x
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     *
+     * @param y
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     *
+     * @param width
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     *
+     * @param height
+     */
     public void setHeight(int height) {
         this.height = height;
     }
     
+    /**
+     *
+     */
     public void tick() {
     
     }
     
+    /**
+     *
+     * @param g
+     */
     public void render(Graphics g){
         g.drawImage(image, getX(), getY(), getWidth(), getHeight(), null);
     }

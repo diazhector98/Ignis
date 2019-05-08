@@ -24,6 +24,15 @@ public class Door extends Item {
     private Game game;
     private int index;
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param game
+     * @param index
+     */
     public Door(int x, int y, int width, int height, Game game, int index) {
         super(x, y);
         this.width = width;
@@ -33,24 +42,42 @@ public class Door extends Item {
         this.index = index;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getWidth(){
         return width;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getHeight(){
         return height;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIndex() {
         return index;
     }
 
+    /**
+     *
+     * @param index
+     */
     public void setIndex(int index) {
         this.index = index;
     }
     
-    
-    
+    /**
+     *
+     * @return
+     */
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }

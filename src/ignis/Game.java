@@ -68,6 +68,7 @@ public class Game implements Runnable {
      * @param title to set the title of the window
      * @param width to set the width of the window
      * @param height to set the height of the window
+     * @param user
      */
     public Game(String title, int width, int height, User user) {
         this.title = title;
@@ -86,20 +87,34 @@ public class Game implements Runnable {
         
     }
 
+    /**
+     *
+     * @return
+     */
     public Database getDatabase() {
         return database;
     }
 
+    /**
+     *
+     * @param database
+     */
     public void setDatabase(Database database) {
         this.database = database;
     }
     
-    
-
+    /**
+     *
+     * @return
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     *
+     * @param user
+     */
     public void setUser(User user) {
         this.user = user;
     }
@@ -122,54 +137,106 @@ public class Game implements Runnable {
         return height;
     }
 
+    /**
+     *
+     * @return
+     */
     public World getWorld() {
         return world;
     }
 
+    /**
+     *
+     * @param world
+     */
     public void setWorld(World world) {
         this.world = world;
     }
     
+    /**
+     *
+     * @param val
+     */
     public void setWin(Boolean val){
         this.win = val;
     }
 
+    /**
+     *
+     * @return
+     */
     public BufferStrategy getBs() {
         return bs;
     }
 
+    /**
+     *
+     * @param bs
+     */
     public void setBs(BufferStrategy bs) {
         this.bs = bs;
     }
 
+    /**
+     *
+     * @return
+     */
     public Graphics getG() {
         return g;
     }
 
+    /**
+     *
+     * @param g
+     */
     public void setG(Graphics g) {
         this.g = g;
     }
 
+    /**
+     *
+     * @return
+     */
     public Display getDisplay() {
         return display;
     }
 
+    /**
+     *
+     * @param display
+     */
     public void setDisplay(Display display) {
         this.display = display;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isOnStore() {
         return onStore;
     }
 
+    /**
+     *
+     * @param onStore
+     */
     public void setOnStore(boolean onStore) {
         this.onStore = onStore;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isOnLab() {
         return onLab;
     }
 
+    /**
+     *
+     * @param onLab
+     */
     public void setOnLab(boolean onLab) {
         this.onLab = onLab;
     }
@@ -252,10 +319,17 @@ public class Game implements Runnable {
         stop();
     }
 
+    /**
+     *
+     * @return
+     */
     public KeyManager getKeyManager() {
         return keyManager;
     }
     
+    /**
+     *
+     */
     public void setInitialState() {
         world = null;
         player.setX(getWidth() / 2);
@@ -282,6 +356,9 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     *
+     */
     public void doorsTick() {
         for (int i = 0; i < doors.size(); i++) {
             Door d = doors.get(i);
@@ -293,7 +370,9 @@ public class Game implements Runnable {
         }
     }
 
-    
+    /**
+     *
+     */
     public void buildingsTick() {
         if(player.handleBuildingIntersection(store)){
             onStore = true;
@@ -304,6 +383,10 @@ public class Game implements Runnable {
         
     }
     
+    /**
+     *
+     * @param d
+     */
     public void goToWorld(Door d) {
         int index = d.getIndex();
         switch(index){
@@ -338,10 +421,18 @@ public class Game implements Runnable {
         world.generateWorld();
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     *
+     * @param player
+     */
     public void setPlayer(Player player) {
         this.player = player;
     }
@@ -373,6 +464,9 @@ public class Game implements Runnable {
         }
     }
     
+    /**
+     *
+     */
     public void renderWorldMenu(){
         renderWorldMenuBackground();
         renderDoors();
@@ -385,13 +479,24 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     *
+     * @param w
+     */
     public void renderWorld(World w) {
         w.render(g);   
     }
 
+    /**
+     *
+     */
     public void renderWorldMenuBackground(){
         g.drawImage(MenuAssets.BACKGROUND, 0, 0, width, height, null); 
     }
+
+    /**
+     *
+     */
     public void renderDoors() {
         for (int i = 0; i < doors.size(); i++) {
             Door d = doors.get(i);
@@ -399,11 +504,17 @@ public class Game implements Runnable {
         }
     }
     
+    /**
+     *
+     */
     public void renderBuildings() {
         store.render(g);
         lab.render(g);
     }
     
+    /**
+     *
+     */
     public void renderPlayer() {
         player.render(g);
     }

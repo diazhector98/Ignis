@@ -17,7 +17,15 @@ import java.awt.Graphics;
  * @author antoniomejorado
  */
 public abstract class Item {
+
+    /**
+     *
+     */
     protected int x;        // to store x position
+
+    /**
+     *
+     */
     protected int y;        // to store y position
     
     /**

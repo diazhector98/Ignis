@@ -15,8 +15,8 @@ import java.awt.image.BufferedImage;
  *
  * @author hectordiazaceves
  */
-public class Atom extends PhysicsObject{
-    
+public class Atom extends PhysicsObject {
+
     private int width;
     private int height;
     private String element;
@@ -24,8 +24,14 @@ public class Atom extends PhysicsObject{
     private boolean airborne;
     private int jumpingForce;
     private BufferedImage image;
-    
-    public Atom(Game g, Platform p,String e) {
+
+    /**
+     *
+     * @param g
+     * @param p
+     * @param e
+     */
+    public Atom(Game g, Platform p, String e) {
         super(p.getX(), p.getY() - 60, g.getHeight());
         this.width = 50;
         this.height = 50;
@@ -35,48 +41,81 @@ public class Atom extends PhysicsObject{
         this.image = AtomAssets.getAtomImage(e);
     }
 
+    /**
+     *
+     * @return
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     *
+     * @param width
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     *
+     * @param height
+     */
     public void setHeight(int height) {
         this.height = height;
     }
 
+    /**
+     *
+     * @return
+     */
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public boolean intersectsPlatform() {
-        return getPerimetro().intersects((platform.getPerimetro())); 
+        return getPerimetro().intersects((platform.getPerimetro()));
     }
 
+    /**
+     *
+     * @return String con el elemento
+     */
     public String getElement() {
         return element;
     }
 
+    /**
+     *
+     * @param element
+     */
     public void setElement(String element) {
         this.element = element;
     }
-    
-    
-    
+
     @Override
     public void tick() {
         update();
-        if(intersectsPlatform()){
+        if (intersectsPlatform()) {
             jump();
         }
     }
 
+    /**
+     *
+     */
     public void jump() {
         setY(getY() - 5);
         accelerate(0, -1 * jumpingForce);
@@ -84,9 +123,7 @@ public class Atom extends PhysicsObject{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(this.image , getX(), getY(), getWidth(), getHeight(), null);
+        g.drawImage(this.image, getX(), getY(), getWidth(), getHeight(), null);
     }
-    
-    
-    
+
 }

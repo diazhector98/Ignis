@@ -23,6 +23,12 @@ public class PauseMenu {
     private MouseManager mouseManager;
     private World world;
     
+    /**
+     *
+     * @param g
+     * @param p
+     * @param w
+     */
     public PauseMenu(Game g, Player p, World w){
         this.game = g;
         this.player = p;
@@ -41,7 +47,9 @@ public class PauseMenu {
         SoundAssets.init();
     }
     
-    
+    /**
+     *
+     */
     public void tick() {
 
         if (mouseManager.isIzquierdo()) {
@@ -84,7 +92,10 @@ public class PauseMenu {
         return true;
     }
     
-    
+    /**
+     *
+     * @param g
+     */
     public void render(Graphics g){
         this.keepGoingButton.render(g);
         this.goToMenuButton.render(g);

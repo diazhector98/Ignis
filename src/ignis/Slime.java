@@ -11,6 +11,10 @@ package ignis;
  */
 public class Slime extends Enemy {
     
+    /**
+     *
+     * @param p
+     */
     public Slime(Platform p) {
         super(3, 5, p, 2);
     }

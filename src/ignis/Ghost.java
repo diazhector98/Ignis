@@ -11,6 +11,10 @@ package ignis;
  */
 public class Ghost extends Enemy{
     
+    /**
+     *
+     * @param p
+     */
     public Ghost(Platform p) {
         super(3, 5, p, 3);
     }
