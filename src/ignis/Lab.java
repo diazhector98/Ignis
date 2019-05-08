@@ -6,6 +6,7 @@
 package ignis;
 
 import ignis.Assets.BuildingAssets;
+import ignis.Assets.SoundAssets;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -44,8 +45,20 @@ public class Lab extends Building {
 
     }
     
-    public void tickLab(){
-    
+    public void tickLab() {
+        if (mouseManager.isIzquierdo() && buttonTimer == 0) {
+            buttonTimer = 25;
+            int mouseX = mouseManager.getX();
+            int mouseY = mouseManager.getY();
+            if (posInButton(mouseX, mouseY, backButton)) {
+                System.out.println("Back to menu");
+                SoundAssets.click.play();
+                game.setOnLab(false);
+            }
+            if(posInButton(mouseX, mouseY, doorsButton)){
+                System.out.println("Doors clicked");
+            }
+        }
     }
     
     public void tickDoors() {
@@ -100,6 +113,23 @@ public class Lab extends Building {
         } else {
             tickLab();
         }
+    }
+   
+    private boolean posInButton(int x, int y, Button button) {
+        int buttonX, buttonWidth, buttonY, buttonHeight;
+
+        buttonX = button.getX();
+        buttonWidth = button.getWidth();
+        buttonY = button.getY();
+        buttonHeight = button.getHeight();
+
+        if (x < buttonX || x > buttonX + buttonWidth) {
+            return false;
+        }
+        if (y < buttonY || y > buttonY + buttonHeight) {
+            return false;
+        }
+        return true;
     }
     
     

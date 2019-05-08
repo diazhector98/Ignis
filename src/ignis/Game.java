@@ -165,6 +165,14 @@ public class Game implements Runnable {
     public void setOnStore(boolean onStore) {
         this.onStore = onStore;
     }
+
+    public boolean isOnLab() {
+        return onLab;
+    }
+
+    public void setOnLab(boolean onLab) {
+        this.onLab = onLab;
+    }
     
     
     
