@@ -40,9 +40,10 @@ public class PostTransitionWorld extends World {
         player.setX(500);
         atomQuantities = new HashMap<>();
         //Poner cantidades minimas de los atomos que se necesitan
-        atomQuantities.put("Al", 1);
-        atomQuantities.put("O", 2);
-        atomQuantities.put("Na", 1);
+        atomQuantities.put("Al", 2);
+        atomQuantities.put("Ga", 2);
+        atomQuantities.put("Sn", 2);
+        atomQuantities.put("Bi", 1);
     }
 
         public String getColor(int red, int green, int blue){

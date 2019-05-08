@@ -27,6 +27,7 @@ public class Assets {
     public static BufferedImage heart;
     public static BufferedImage fire;
     public static BufferedImage gameOver;
+    public static BufferedImage bg8;
 
 
     /**
@@ -46,6 +47,7 @@ public class Assets {
         heart = ImageLoader.loadImage("/images/heart.png");
         fire = ImageLoader.loadImage("/images/fire.png");
         gameOver = ImageLoader.loadImage("/images/gg.png");
+        bg8 = ImageLoader.loadImage("/images/bg8.png");
     }
     
 }
