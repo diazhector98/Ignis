@@ -6,6 +6,7 @@
 package ignis;
 
 import ignis.Assets.BuildingAssets;
+import ignis.Assets.MenuAssets;
 import ignis.Game;
 import java.awt.Graphics;
 import ignis.Assets.SoundAssets;
@@ -102,6 +103,7 @@ public class InventoryMenu {
 
     public void render() {
         game.getG().drawImage(background, 0, 0, game.getWidth(), game.getHeight(), null);
+        game.getG().drawImage(MenuAssets.INVENTORY_TOGGLE, game.getWidth() / 2 - 100, game.getHeight() - 130, 200, 100, null);
         for(InventoryItem item : items){
             item.render(game);
         }

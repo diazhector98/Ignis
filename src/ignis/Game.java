@@ -62,6 +62,7 @@ public class Game implements Runnable {
     private Database database;
     private boolean onInventory;
     private InventoryMenu inventoryMenu;
+    private int buttonTimer;
    
     
 
@@ -86,7 +87,8 @@ public class Game implements Runnable {
         onLab = false;
         SoundAssets.init();
         this.user = user;
-        this.database = new Database();        
+        this.database = new Database();
+        this.buttonTimer = 0;
     }
 
     /**
@@ -345,11 +347,20 @@ public class Game implements Runnable {
     }
 
     private void tick() {
+        
+        if(this.buttonTimer > 0){
+            this.buttonTimer--;
+        }
         keyManager.tick();
         
-        if(keyManager.I){
+        if(keyManager.I && this.buttonTimer == 0){
             System.out.println("Pressed I");
-            onInventory = true;
+            this.buttonTimer = 30;
+            if(onInventory){
+                onInventory = false;
+            } else {
+                onInventory = true;
+            }
         }
         if(world == null){
             doorsTick();
