@@ -45,6 +45,10 @@ public class User {
         }
     }
     
+    public void addObject(StoreObject so){
+        database.addObjectToUser(so, ID);
+    }
+    
     
     
     

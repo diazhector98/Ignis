@@ -58,6 +58,7 @@ public class Game implements Runnable {
     private Lab lab;
     private boolean onStore;
     private User user;
+    private Database database;
     
 
     /**
@@ -79,8 +80,19 @@ public class Game implements Runnable {
         onStore = false;
         SoundAssets.init();
         this.user = user;
+        this.database = new Database();
         
     }
+
+    public Database getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(Database database) {
+        this.database = database;
+    }
+    
+    
 
     public User getUser() {
         return user;

@@ -178,4 +178,26 @@ public class Database {
         }
     }
     
+    public void addStoreObject(StoreObject storeObject){
+        try {
+            String sql = "INSERT INTO objects VALUES ";
+            sql += "('" + storeObject.getId() + "', '" + storeObject.getName() + "')";
+            st.executeUpdate(sql);            
+
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+        }
+    }
+    
+    public void addObjectToUser(StoreObject storeObject, int userId){
+        try {
+            String sql = "INSERT INTO UserObjects VALUES ";
+            sql += "('" + String.valueOf(userId) + "', '" + String.valueOf(storeObject.getId()) + "')";
+            st.executeUpdate(sql);            
+
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+        }
+    }
+    
 }
