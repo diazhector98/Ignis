@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/*
 package ignis;
 import ignis.Game;
 import java.awt.Graphics;
@@ -12,6 +13,8 @@ import ignis.Worlds.World;
  *
  * @author Jorge
  */
+
+/*
 public class InventoryMenu {
     private Game game;
     private Player player;
@@ -78,3 +81,4 @@ public class InventoryMenu {
         
     }
     }
+*/

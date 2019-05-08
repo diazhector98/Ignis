@@ -22,6 +22,7 @@ public class PauseMenu {
     private int MARGIN = 30;
     private MouseManager mouseManager;
     private World world;
+    private Info info;
     
     /**
      *
@@ -35,6 +36,7 @@ public class PauseMenu {
         this.world = w;
         this.keepGoingButton = new Button(200 + MARGIN, 200 + MARGIN, 200, 100, "KEEPGOING", g);
         this.goToMenuButton = new Button(200 + MARGIN, 300 + MARGIN * 2, 200, 100, "GOTOMENU", g);
+        this.info= new Info (400+MARGIN, 200 +MARGIN, 400,400,g);
         this.saveButton = new Button(200 + MARGIN, 400 + MARGIN * 3, 200, 100, "SAVE", g);
         this.mouseManager = new MouseManager();
                 
@@ -97,8 +99,11 @@ public class PauseMenu {
      * @param g
      */
     public void render(Graphics g){
+        this.info.render (g);
         this.keepGoingButton.render(g);
         this.goToMenuButton.render(g);
         this.saveButton.render(g);
+        
+        
     }
 }
