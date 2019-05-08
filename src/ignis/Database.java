@@ -61,7 +61,7 @@ public class Database {
         return "INSERT INTO elements VALUES " + values;
     }
     
-    public int registerUser(String username){
+    public void registerUser(String username){
         try {
             String sql = "INSERT INTO users VALUES ";
             sql += "(NULL, '" + username + "')";
@@ -70,10 +70,26 @@ public class Database {
 
         } catch (Exception ex) {
             System.out.println("Error is found :" + ex);
-            return -1;
+        }
+    }
+    
+    public boolean usernameInDatabase(String username){
+        try {
+            String sql = "SELECT * FROM users WHERE username = '" + username + "'";
+            rs = st.executeQuery(sql);
+            System.out.println("Checking username");
+            while (rs.next()) {
+                String user = rs.getString("username");
+                String userId = rs.getString("ID");
+                System.out.println(user + ":" + userId);
+                return true;
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Error is found :" + ex);
+            return false;
         }
         
-        return 1;
-        
+        return false;
     }
 }

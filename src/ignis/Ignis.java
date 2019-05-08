@@ -28,6 +28,9 @@ public class Ignis {
         database.getData();
         getCredentials();
         
+        Game g = new Game("Atomos", 1200, 800);
+        g.start();
+        
         
     }
 
@@ -52,7 +55,7 @@ public class Ignis {
         
         //Label which shows if a username already has that or if registered successfully or login failed
         JLabel messageLabel = new JLabel();
-        messageLabel.setBounds(10, 110, 200, 100);
+        messageLabel.setBounds(10, 110, 400, 100);
         
 
         //Textfield to enter username
@@ -78,11 +81,24 @@ public class Ignis {
                 messageLabel.setText("Name has been submitted.");
                 String username = usernameTextField.getText();
                 Database database = new Database();
-                database.registerUser(username);
-                Game g = new Game("Atomos", 1200, 800);
-                g.start();
+                
+                if(database.usernameInDatabase(username)){
+                    messageLabel.setText("That username is already in use");
+                } else {
+                    messageLabel.setText("Created user with username " + username);
+                }
+                
             }
 
+        });
+
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                String username = usernameTextField.getText();
+                Database database = new Database();
+                database.usernameInDatabase(username);
+            }
         });
     }
 
