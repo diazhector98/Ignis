@@ -62,7 +62,7 @@ public class Display {
         jframe.pack();
     }
 
-    /**
+    /**getJframa
      * to get the jframe of the game
      * @return jframe
      */
@@ -70,7 +70,7 @@ public class Display {
         return jframe;
     }
     
-    /**
+    /** getCanvas
      * to get the canvas of the game
      * @return the canvas
      */
