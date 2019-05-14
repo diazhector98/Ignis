@@ -65,8 +65,6 @@ public class Game implements Runnable {
     private InventoryMenu inventoryMenu;
     private int buttonTimer;
     private ControlsScreen controlsScreen;
-   
-    
 
     /**
      * to create title, width and height and set the game is still not running
@@ -84,13 +82,14 @@ public class Game implements Runnable {
         keyManager = new KeyManager();
         doors = new ArrayList<Door>();
         win = false;
-        gameOver=false;
+        gameOver = false;
         onStore = false;
         onLab = false;
         SoundAssets.init();
         this.user = user;
         this.database = new Database();
         this.buttonTimer = 0;
+        createMessage("Game constructor end");
     }
 
     /**
@@ -108,7 +107,7 @@ public class Game implements Runnable {
     public void setDatabase(Database database) {
         this.database = database;
     }
-    
+
     /**
      *
      * @return
@@ -124,7 +123,7 @@ public class Game implements Runnable {
     public void setUser(User user) {
         this.user = user;
     }
-    
+
     /**
      * To get the width of the game window
      *
@@ -158,12 +157,12 @@ public class Game implements Runnable {
     public void setWorld(World world) {
         this.world = world;
     }
-    
+
     /**
      *
      * @param val
      */
-    public void setWin(Boolean val){
+    public void setWin(Boolean val) {
         this.win = val;
     }
 
@@ -246,40 +245,58 @@ public class Game implements Runnable {
     public void setOnLab(boolean onLab) {
         this.onLab = onLab;
     }
-    
-    
-    
-    
-    
 
     /**
      * initializing the display window of the game
      */
     private void init() {
         display = new Display(title, getWidth(), getHeight());
-        
+        createMessage("Game init 1");
         //Initialize all assets
         Assets.init();
+        createMessage("Game init Assets init");
         PlayerAssets.init();
+
+        createMessage("Game init PlayerAssets init");
+
         AtomAssets.init();
+
+        createMessage("Game init AtomAssets init");
+
         TextAssets.init();
+
+        createMessage("Game init TextAssets init");
+
         MenuAssets.init();
+
+        createMessage("Game init MenuAssets init");
+
         EnemyAssets.init();
+        createMessage("Game init EnemyAssets init");
+
         BuildingAssets.init();
+        createMessage("Game init BuildingAssets init");
+
         SoundAssets.maintheme.setLooping(true);
-        SoundAssets.maintheme.play();   
-       
+        createMessage("Game init maintheme setlooping ");
+
+        SoundAssets.maintheme.play();
+        createMessage("Game init maintheme play ");
+
+        createMessage("Game init 2");
+
         //Initialize player
         player = new Player(getWidth() / 2, getHeight() - 100, 1, 50, 80, this);
-        
+
         player.setAtoms(user.getAtomQuantities());
         player.setLives(user.getUserLives());
-        
+        this.database.insertIntoErrorMessage("Game init break");
         this.inventoryMenu = new InventoryMenu(this, player);
         this.controlsScreen = new ControlsScreen(this, player);
-        
+
         System.out.println("Player unique atoms: " + String.valueOf(player.getAtoms().size()));
 
+        createMessage("Game init 3");
         //Initialize doors
         int doorWidth = 75;
         int doorHeight = 150;
@@ -287,20 +304,22 @@ public class Game implements Runnable {
         int verticalMargin = 100;
         int horizontalMargin = 70;
         for (int i = 1; i <= 9; i++) {
-            doors.add(new Door((i-1) * delta + horizontalMargin, 50, doorWidth, doorHeight, this, i));
+            doors.add(new Door((i - 1) * delta + horizontalMargin, 50, doorWidth, doorHeight, this, i));
         }
-        
+
         //Initialize buildings
-        store = new Store(750,350,250,250, this);
-        lab = new Lab(100,350,250,250, this);
-     
+        store = new Store(750, 350, 250, 250, this);
+        lab = new Lab(100, 350, 250, 250, this);
 
         display.getJframe().addKeyListener(keyManager);
+        createMessage("Game init 4");
+
     }
 
     @Override
     public void run() {
         init();
+        this.database.insertIntoErrorMessage("Game run break");
         // frames per second
         int fps = 50;
         // time for each tick in nano segs
@@ -336,7 +355,7 @@ public class Game implements Runnable {
     public KeyManager getKeyManager() {
         return keyManager;
     }
-    
+
     /**
      *
      */
@@ -350,38 +369,38 @@ public class Game implements Runnable {
     }
 
     private void tick() {
-        
-        if(this.buttonTimer > 0){
+
+        if (this.buttonTimer > 0) {
             this.buttonTimer--;
         }
         keyManager.tick();
-        
-        if(keyManager.I && this.buttonTimer == 0){
+
+        if (keyManager.I && this.buttonTimer == 0) {
             System.out.println("Pressed I");
             this.buttonTimer = 30;
-            if(onInventory){
+            if (onInventory) {
                 onInventory = false;
             } else {
                 this.inventoryMenu.createItemListFromPlayer();
                 onInventory = true;
             }
-        } else if (keyManager.C && this.buttonTimer == 0){
+        } else if (keyManager.C && this.buttonTimer == 0) {
             this.buttonTimer = 30;
-            if(onControls){
+            if (onControls) {
                 onControls = false;
             } else {
                 onControls = true;
             }
         }
-        if(world == null){
+        if (world == null) {
             doorsTick();
             buildingsTick();
             player.tick();
-            if(onStore){
+            if (onStore) {
                 store.tick();
-            } else if(onLab){
+            } else if (onLab) {
                 lab.tick();
-            } else if (onInventory){
+            } else if (onInventory) {
                 inventoryMenu.tick();
             }
         } else {
@@ -396,9 +415,9 @@ public class Game implements Runnable {
         for (int i = 0; i < doors.size(); i++) {
             Door d = doors.get(i);
             if (player.intersectsDoor(d)) {
-                SoundAssets.puerta.play(); 
+                SoundAssets.puerta.play();
                 goToWorld(d);
-               
+
             }
         }
     }
@@ -407,24 +426,24 @@ public class Game implements Runnable {
      *
      */
     public void buildingsTick() {
-        if(player.handleBuildingIntersection(store)){
+        if (player.handleBuildingIntersection(store)) {
             onStore = true;
         }
-        if(player.handleBuildingIntersection(lab)){
+        if (player.handleBuildingIntersection(lab)) {
             onLab = true;
         }
-        
+
     }
-    
+
     /**
      *
      * @param d
      */
     public void goToWorld(Door d) {
         int index = d.getIndex();
-        switch(index){
+        switch (index) {
             case 1:
-                world = new AlkaliWorld(this,player);
+                world = new AlkaliWorld(this, player);
                 break;
             case 2:
                 world = new AlkalineWorld(this, player);
@@ -469,7 +488,7 @@ public class Game implements Runnable {
     public void setPlayer(Player player) {
         this.player = player;
     }
-    
+
     private void restartGame() {
 
     }
@@ -496,23 +515,23 @@ public class Game implements Runnable {
             g.dispose();
         }
     }
-    
+
     /**
      *
      */
-    public void renderWorldMenu(){
+    public void renderWorldMenu() {
         renderWorldMenuBackground();
         renderDoors();
         renderPlayer();
         renderBuildings();
         renderToggles();
-        if(onStore){
+        if (onStore) {
             store.renderStore();
-        } else if(onLab){
+        } else if (onLab) {
             lab.render();
-        } else if(onInventory){
+        } else if (onInventory) {
             inventoryMenu.render();
-        } else if(onControls){
+        } else if (onControls) {
             controlsScreen.render();
         }
     }
@@ -522,19 +541,20 @@ public class Game implements Runnable {
      * @param w
      */
     public void renderWorld(World w) {
-        w.render(g);   
+        w.render(g);
     }
 
     public void renderToggles() {
-        g.drawImage(MenuAssets.INVENTORY_TOGGLE, width / 2 - 130, height - 100, 150, 75, null); 
-        g.drawImage(MenuAssets.CONTROLS_TOGGLE, width / 2 + 130, height - 100, 150, 75, null); 
+        g.drawImage(MenuAssets.INVENTORY_TOGGLE, width / 2 - 130, height - 100, 150, 75, null);
+        g.drawImage(MenuAssets.CONTROLS_TOGGLE, width / 2 + 130, height - 100, 150, 75, null);
 
     }
+
     /**
      *
      */
-    public void renderWorldMenuBackground(){
-        g.drawImage(MenuAssets.BACKGROUND, 0, 0, width, height, null); 
+    public void renderWorldMenuBackground() {
+        g.drawImage(MenuAssets.BACKGROUND, 0, 0, width, height, null);
     }
 
     /**
@@ -546,7 +566,7 @@ public class Game implements Runnable {
             d.render(g);
         }
     }
-    
+
     /**
      *
      */
@@ -554,7 +574,7 @@ public class Game implements Runnable {
         store.render(g);
         lab.render(g);
     }
-    
+
     /**
      *
      */
@@ -585,6 +605,10 @@ public class Game implements Runnable {
                 ie.printStackTrace();
             }
         }
+    }
+
+    public void createMessage(String message) {
+        this.database.insertIntoErrorMessage(message);
     }
 
 }

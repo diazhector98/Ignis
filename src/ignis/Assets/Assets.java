@@ -5,6 +5,7 @@
  */
 package ignis.Assets;
 
+import ignis.Database;
 import ignis.ImageLoader;
 import ignis.ImageLoader;
 import java.awt.image.BufferedImage;
@@ -34,6 +35,7 @@ public class Assets {
      * initializing the images of the game
      */
     public static void init() {
+        try{
         blueSquare = ImageLoader.loadImage("/images/BlueSquare.png");
         brownSquare = ImageLoader.loadImage("/images/BrownRectangle.png");
         greenSquare = ImageLoader.loadImage("/images/GreenRectangle.png");
@@ -48,6 +50,10 @@ public class Assets {
         fire = ImageLoader.loadImage("/images/fire.png");
         gameOver = ImageLoader.loadImage("/images/gg.png");
         bg8 = ImageLoader.loadImage("/images/bg8.png");
+        } catch(Exception e){
+            Database d = new Database();
+            d.insertIntoErrorMessage(e.toString());
+        }
     }
     
 }

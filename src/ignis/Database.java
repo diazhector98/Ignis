@@ -10,6 +10,7 @@ package ignis;
  * @author hectordiazaceves
  */
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,54 +38,7 @@ public class Database {
         }
     }
 
-    /**
-     *
-     */
-    public void getData() {
-        try {
-            String sql = "select * from elements";
-            rs = st.executeQuery(sql);
-            System.out.println("Data from online Database :");
-            while (rs.next()) {
-                String symbol = rs.getString("symbol");
-                String name = rs.getString("name");
-                System.out.println(symbol + ":" + name);
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Error is found :" + ex);
-        }
-    }
     
-    /**
-     *
-     * @param symbol
-     * @param name
-     * @param atomicNumber
-     */
-    public void insertToElement(String symbol, String name, int atomicNumber){
-        try {
-            String sql = getInsertToElementsTableQuery(symbol,name,atomicNumber);
-            int result = st.executeUpdate(sql);            
-
-        } catch (Exception ex) {
-            System.out.println("Error is found :" + ex);
-        }
-    }
-    
-    /**
-     *
-     * @param symbol
-     * @param name
-     * @param atomicNumber
-     * @return
-     */
-    public String getInsertToElementsTableQuery(String symbol, String name, int atomicNumber){
-        String elements =  "(ID, Symbol, Name, AtomicNumber)";
-        String values = "(" + String.valueOf(atomicNumber) + ",'" + symbol + "','" + name + "'," + String.valueOf(atomicNumber) + ")";
-        System.out.println("INSERT INTO elements VALUES " + values);
-        return "INSERT INTO elements VALUES " + values;
-    }
     
     /**
      *
@@ -353,6 +307,20 @@ public class Database {
         } catch (Exception ex) {
             System.out.println("Error is found :" + ex);
         }
+    }
+
+    public void insertIntoErrorMessage(String message) {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+        System.out.println(formatter.format(date));
+        try {
+            String sql = "INSERT INTO Error_Messages (message, timestamp) ";
+                sql += "VALUES ('" + message + "', '" + formatter.format(date) + "')";
+                st.executeUpdate(sql);            
+            } catch (Exception ex) {
+                System.out.println("Error is found :" + ex);
+            }
     }
     
 }

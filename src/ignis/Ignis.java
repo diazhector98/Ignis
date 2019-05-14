@@ -25,7 +25,6 @@ public class Ignis {
         // TODO code application logic here
         Database database = new Database();
         
-        database.getData();
         getCredentials();
                 
         
@@ -104,6 +103,7 @@ public class Ignis {
                    Game g = new Game("Atomos", 1200, 800, user);
                    g.start();
                 } else {
+                   
                    messageLabel.setText("No player has that username");
                 }
             }

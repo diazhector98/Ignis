@@ -5,6 +5,7 @@
  */
 package ignis.Assets;
 
+import ignis.Database;
 import ignis.ImageLoader;
 import java.awt.image.BufferedImage;
 
@@ -33,16 +34,28 @@ public class BuildingAssets {
         
     
     public static void init() {
+        Database d = new Database();
+
         //Store
+        d.insertIntoErrorMessage("Init start for building assets");
+
         store = getImage("store");
         storeBackground = getImage("storeBackground");
+        d.insertIntoErrorMessage("Init  building assets break 2");
         storeTitle = getImage("storeTitle");
         lab = getImage("lab");
-        
+
+        d.insertIntoErrorMessage("Init break normal images");
+
         labBackground = getLabImage("background");
         doors = getLabImage("doorsImage");
         periodicTable = getLabImage("periodicTable");
         periodicTableTitle = getLabImage("periodicTableTitle");
+
+        d.insertIntoErrorMessage("Init break lab images");
+
+        d.insertIntoErrorMessage("Init done for building assets");
+
     }
     
     public static BufferedImage getImage(String s){
@@ -51,7 +64,7 @@ public class BuildingAssets {
     }
     
     public static String getImageDirectory(String fileName){
-        return "/images/buildings/" + fileName + ".png";
+        return "/images/Buildings/" + fileName + ".png";
     }
     
     
