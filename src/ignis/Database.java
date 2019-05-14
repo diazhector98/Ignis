@@ -29,7 +29,7 @@ public class Database {
     public Database() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://sql9.freemysqlhosting.net:3306/sql9290852", "sql9290852", "VgkPCchXtu");
+            con = DriverManager.getConnection("jdbc:mysql://sql9.freemysqlhosting.net:3306/sql9291783", "sql9291783", "nuR1GyHkBW");
             st = con.createStatement();
 
         } catch (Exception ex) {
